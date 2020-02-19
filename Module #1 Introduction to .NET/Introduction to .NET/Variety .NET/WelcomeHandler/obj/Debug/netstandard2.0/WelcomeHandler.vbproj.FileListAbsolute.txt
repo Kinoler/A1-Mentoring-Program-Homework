@@ -1,0 +1,7 @@
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\bin\Debug\netstandard2.0\WelcomeHandler.deps.json
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\bin\Debug\netstandard2.0\WelcomeHandler.dll
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\bin\Debug\netstandard2.0\WelcomeHandler.pdb
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\obj\Debug\netstandard2.0\WelcomeHandler.AssemblyInfoInputs.cache
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\obj\Debug\netstandard2.0\WelcomeHandler.AssemblyInfo.vb
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\obj\Debug\netstandard2.0\WelcomeHandler.dll
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcomeHandler\obj\Debug\netstandard2.0\WelcomeHandler.pdb

@@ -1,0 +1,15 @@
+﻿<Window x:Class="FrameworkForms.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrameworkForms"
+        mc:Ignorable="d"
+        Title="Welcom form" Height="117.878" Width="245.889" ResizeMode="NoResize">
+    <Grid>
+        <Button Content="Enter" HorizontalAlignment="Left" Margin="135,36,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="Button_Click"/>
+        <TextBox Name="UserNameTextBox"  HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Write your name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
