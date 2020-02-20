@@ -1,4 +1,5 @@
 ﻿using System;
+using WelcоmeHandler;
 
 namespace CoreConsole
 {
@@ -6,17 +7,21 @@ namespace CoreConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Write your name");
-
-            string userName;
-            while (string.IsNullOrWhiteSpace(userName = Console.ReadLine()))
+            if (args.Length == 0)
             {
-                Console.WriteLine("Error! Please, write existing name.");
+                Console.WriteLine("Error! Please, write your name.");
+                return;
             }
 
-            var welcomeHandler = new WelcomeHandler.WelcomeHandler();
+            string userName = args[0];
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                Console.WriteLine("Error! Please, write existing name.");
+                return;
+            }
+
+            var welcomeHandler = new WelcomeHandler();
             Console.WriteLine(welcomeHandler.WelcomeWrapper(userName));
-            Console.Read();
         }
     }
 }

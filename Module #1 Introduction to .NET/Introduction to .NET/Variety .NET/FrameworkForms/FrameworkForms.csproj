@@ -95,9 +95,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WelcomeHandler\WelcomeHandler.vbproj">
-      <Project>{d31d20c2-2d17-443b-b0a3-db4b90a8bd14}</Project>
-      <Name>WelcomeHandler</Name>
+    <ProjectReference Include="..\WelcоmeHandler\WelcоmeHandler.csproj">
+      <Project>{476247db-c492-4474-a3ee-dbe626e3c425}</Project>
+      <Name>WelcоmeHandler</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

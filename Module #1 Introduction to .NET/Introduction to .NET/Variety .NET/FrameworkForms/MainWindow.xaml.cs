@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WelcоmeHandler;
 
 namespace FrameworkForms
 {
@@ -35,7 +36,7 @@ namespace FrameworkForms
                 return;
             }
 
-            var welcomeHandler = new WelcomeHandler.WelcomeHandler();
+            var welcomeHandler = new WelcomeHandler();
             MessageBox.Show(welcomeHandler.WelcomeWrapper(userName), "Welcome");
         }
     }

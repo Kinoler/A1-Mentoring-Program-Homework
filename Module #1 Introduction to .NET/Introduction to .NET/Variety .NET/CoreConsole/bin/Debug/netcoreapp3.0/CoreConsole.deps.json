@@ -8,15 +8,15 @@
     ".NETCoreApp,Version=v3.0": {
       "CoreConsole/1.0.0": {
         "dependencies": {
-          "WelcomeHandler": "1.0.0"
+          "WelcоmeHandler": "1.0.0"
         },
         "runtime": {
           "CoreConsole.dll": {}
         }
       },
-      "WelcomeHandler/1.0.0": {
+      "WelcоmeHandler/1.0.0": {
         "runtime": {
-          "WelcomeHandler.dll": {}
+          "WelcоmeHandler.dll": {}
         }
       }
     }
@@ -27,7 +27,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "WelcomeHandler/1.0.0": {
+    "WelcоmeHandler/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

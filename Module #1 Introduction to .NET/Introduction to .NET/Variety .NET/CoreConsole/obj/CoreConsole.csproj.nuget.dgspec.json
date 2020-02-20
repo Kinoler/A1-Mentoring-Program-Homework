@@ -31,8 +31,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcomeHandler\\WelcomeHandler.vbproj": {
-                "projectPath": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcomeHandler\\WelcomeHandler.vbproj"
+              "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcоmeHandler\\WelcоmeHandler.csproj": {
+                "projectPath": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcоmeHandler\\WelcоmeHandler.csproj"
               }
             }
           }
@@ -74,14 +74,14 @@
         }
       }
     },
-    "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcomeHandler\\WelcomeHandler.vbproj": {
+    "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcоmeHandler\\WelcоmeHandler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcomeHandler\\WelcomeHandler.vbproj",
-        "projectName": "WelcomeHandler",
-        "projectPath": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcomeHandler\\WelcomeHandler.vbproj",
+        "projectUniqueName": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcоmeHandler\\WelcоmeHandler.csproj",
+        "projectName": "WelcоmeHandler",
+        "projectPath": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcоmeHandler\\WelcоmeHandler.csproj",
         "packagesPath": "C:\\Users\\Raman_Bortnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcomeHandler\\obj\\",
+        "outputPath": "C:\\Projects\\A1-Mentoring-Program-Homework\\Module #1 Introduction to .NET\\Introduction to .NET\\Variety .NET\\WelcоmeHandler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

@@ -1,0 +1,17 @@
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\bin\Debug\netstandard2.0\XamarinForms.deps.json
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\bin\Debug\netstandard2.0\XamarinForms.dll
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\bin\Debug\netstandard2.0\ref\XamarinForms.dll
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\bin\Debug\netstandard2.0\XamarinForms.pdb
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\Views\AboutPage.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\Views\ItemDetailPage.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\Views\ItemsPage.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\Views\MenuPage.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\Views\NewItemPage.xaml.g.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\XamarinForms.AssemblyInfoInputs.cache
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\XamarinForms.AssemblyInfo.cs
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\XamarinForms.dll
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\ref\XamarinForms.dll
+C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\XamarinForms\XamarinForms\obj\Debug\netstandard2.0\XamarinForms.pdb

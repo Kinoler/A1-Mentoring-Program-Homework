@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WelcomeHandler\WelcomeHandler.vbproj" />
+    <ProjectReference Include="..\WelcоmeHandler\WelcоmeHandler.csproj" />
   </ItemGroup>
 
 </Project>
