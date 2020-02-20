@@ -6,7 +6,7 @@ namespace WelcоmeHandler
     {
         public string WelcomeWrapper(string name)
         {
-            return $"Hello, {name}!";
+            return $"{DateTime.Now} Hello, {name}!";
         }
     }
 }

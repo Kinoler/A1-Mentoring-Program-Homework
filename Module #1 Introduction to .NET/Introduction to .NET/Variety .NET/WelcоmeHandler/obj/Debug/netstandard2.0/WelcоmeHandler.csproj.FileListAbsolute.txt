@@ -1,7 +1,0 @@
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\bin\Debug\netstandard2.0\WelcоmeHandler.deps.json
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\bin\Debug\netstandard2.0\WelcоmeHandler.dll
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\bin\Debug\netstandard2.0\WelcоmeHandler.pdb
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\obj\Debug\netstandard2.0\WelcоmeHandler.AssemblyInfoInputs.cache
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\obj\Debug\netstandard2.0\WelcоmeHandler.AssemblyInfo.cs
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\obj\Debug\netstandard2.0\WelcоmeHandler.dll
-C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Introduction to .NET\Variety .NET\WelcоmeHandler\obj\Debug\netstandard2.0\WelcоmeHandler.pdb
