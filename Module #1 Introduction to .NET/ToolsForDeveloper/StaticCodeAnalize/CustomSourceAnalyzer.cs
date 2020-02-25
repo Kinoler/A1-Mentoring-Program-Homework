@@ -14,14 +14,11 @@ namespace StaticCodeAnalize
         public override void AnalyzeDocument(CodeDocument document)
         {
             var csharpDocument = document as CsDocument;
-            if (csharpDocument != null)
-            {
-                csharpDocument.WalkDocument(
-                    new CodeWalkerElementVisitor<CustomSourceAnalyzer>(this.VisitElement),
-                    new CodeWalkerStatementVisitor<CustomSourceAnalyzer>(this.VisitStatement),
-                    new CodeWalkerExpressionVisitor<CustomSourceAnalyzer>(this.VisitExpression),
-                    this);
-            }
+            csharpDocument?.WalkDocument(
+                new CodeWalkerElementVisitor<CustomSourceAnalyzer>(this.VisitElement),
+                new CodeWalkerStatementVisitor<CustomSourceAnalyzer>(this.VisitStatement),
+                new CodeWalkerExpressionVisitor<CustomSourceAnalyzer>(this.VisitExpression),
+                this);
         }
 
 

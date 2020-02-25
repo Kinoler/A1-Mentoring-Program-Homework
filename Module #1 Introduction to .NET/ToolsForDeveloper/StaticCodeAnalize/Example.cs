@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StaticCodeAnalize
 {
-    class Example : System.Web.Controller
+    class ExampleController : System.Web.Controller
     {
 
     }

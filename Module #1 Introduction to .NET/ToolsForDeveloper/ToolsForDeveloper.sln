@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticCodeAnalize", "StaticCodeAnalize\StaticCodeAnalize.csproj", "{CFCBFD22-16EE-4308-A116-AF74522A3761}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetGeneral", "NugetGeneral\NugetGeneral.csproj", "{866270CC-621A-494C-A038-74419642FC46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetFeed", "NugetFeed\NugetFeed.csproj", "{E22EB1FC-4964-4725-BF0C-961192689A72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{CFCBFD22-16EE-4308-A116-AF74522A3761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFCBFD22-16EE-4308-A116-AF74522A3761}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFCBFD22-16EE-4308-A116-AF74522A3761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{866270CC-621A-494C-A038-74419642FC46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{866270CC-621A-494C-A038-74419642FC46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{866270CC-621A-494C-A038-74419642FC46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{866270CC-621A-494C-A038-74419642FC46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E22EB1FC-4964-4725-BF0C-961192689A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E22EB1FC-4964-4725-BF0C-961192689A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E22EB1FC-4964-4725-BF0C-961192689A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E22EB1FC-4964-4725-BF0C-961192689A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
