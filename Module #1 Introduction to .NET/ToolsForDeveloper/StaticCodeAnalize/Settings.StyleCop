@@ -1,0 +1,8 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="DictionaryFolders">
+      <Value>C:\Projects\A1-Mentoring-Program-Homework</Value>
+      <Value>C:\Projects\A1-Mentoring-Program-Homework\Module #1 Introduction to .NET\Tools for developer\ToolsForDeveloper\StaticCodeAnalize\bin\Debug</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+</StyleCopSettings>
