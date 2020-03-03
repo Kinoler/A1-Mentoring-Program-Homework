@@ -12,7 +12,7 @@ namespace Visitor
 {
     public class FileSystemVisitor
     {
-        private readonly Predicate<string> _filter;
+        private readonly Predicate<ElementFound> _filter;
         private readonly IFileSystem _fileSystem;
         private readonly ElementFound _elementFound;
 
@@ -26,8 +26,8 @@ namespace Visitor
 
         public FileSystemVisitor() : this(new FileSystem(), null) { }
         public FileSystemVisitor(IFileSystem fileSystem) : this(fileSystem, null) { }
-        public FileSystemVisitor(Predicate<string> filter) : this(new FileSystem(), filter) { }
-        public FileSystemVisitor(IFileSystem fileSystem, Predicate<string> filter)
+        public FileSystemVisitor(Predicate<ElementFound> filter) : this(new FileSystem(), filter) { }
+        public FileSystemVisitor(IFileSystem fileSystem, Predicate<ElementFound> filter)
         {
             _fileSystem = fileSystem ?? new FileSystem();
             _filter = filter ?? (st => true);
@@ -53,25 +53,42 @@ namespace Visitor
 
         private IEnumerable<string> TraverseFolder(string path)
         {
-            yield return path;
 
-            foreach (var directory in TraverseForSpecificElement(_fileSystem.Directory.GetDirectories(path), DirectoryFound, FilteredDirectoryFound))
+            foreach (var directory in TraverseForSpecificElement(_fileSystem.Directory.GetDirectories(path), DirectoryFound, FilteredDirectoryFound, ElementType.Directory))
             {
                 yield return directory;
 
-                foreach (var element in TraverseFolder(directory))
+                var elementsEnumerator = TraverseFolder(directory).GetEnumerator();
+                while (true)
                 {
+                    string element = null;
+                    try
+                    {
+                        if (!elementsEnumerator.MoveNext())
+                        {
+                            break;
+                        }
+                        element = elementsEnumerator.Current;
+                    }
+                    catch
+                    {
+                        elementsEnumerator.Dispose();
+                        break;
+                    }
+
                     yield return element;
                 }
+
+                elementsEnumerator.Dispose();
             }
 
-            foreach (var file in TraverseForSpecificElement(_fileSystem.Directory.GetFiles(path), FileFound, FilteredFileFound))
+            foreach (var file in TraverseForSpecificElement(_fileSystem.Directory.GetFiles(path), FileFound, FilteredFileFound, ElementType.File))
             {
                 yield return file;
             }
         }
 
-        private IEnumerable<string> TraverseForSpecificElement(IEnumerable<string> elements, EventHandler<ElementFound> fileFound, EventHandler<ElementFound> filteredFileFound)
+        private IEnumerable<string> TraverseForSpecificElement(IEnumerable<string> elements, EventHandler<ElementFound> fileFound, EventHandler<ElementFound> filteredFileFound, ElementType elementType)
         {
             foreach (var element in elements)
             {
@@ -89,7 +106,8 @@ namespace Visitor
                     yield break;
                 }
 
-                if (!_filter.Invoke(element))
+                _elementFound.ElementType = elementType;
+                if (!_filter.Invoke(_elementFound))
                 {
                     continue;
                 }
@@ -107,6 +125,8 @@ namespace Visitor
                 {
                     yield break;
                 }
+
+                yield return element;
             }
         }
     }

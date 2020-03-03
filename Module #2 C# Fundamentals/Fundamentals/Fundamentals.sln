@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visitor", "Visitor\Visitor.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visitor_Test", "Visitor_Test\Visitor_Test.csproj", "{A6840FEF-9078-46D5-8758-D3AEF544A3C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleVisitor", "ConsoleVisitor\ConsoleVisitor.csproj", "{73263031-29CB-47E0-8BAE-E29AD4C6E647}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A6840FEF-9078-46D5-8758-D3AEF544A3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6840FEF-9078-46D5-8758-D3AEF544A3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6840FEF-9078-46D5-8758-D3AEF544A3C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73263031-29CB-47E0-8BAE-E29AD4C6E647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73263031-29CB-47E0-8BAE-E29AD4C6E647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73263031-29CB-47E0-8BAE-E29AD4C6E647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73263031-29CB-47E0-8BAE-E29AD4C6E647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

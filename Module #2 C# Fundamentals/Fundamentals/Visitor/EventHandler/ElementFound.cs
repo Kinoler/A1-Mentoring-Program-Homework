@@ -8,5 +8,7 @@ namespace Visitor.EventHandler
         public string Path { get; set; }
 
         public SearchSettings Flag { get; set; }
+
+        public ElementType ElementType { get; internal set; }
     }
 }
