@@ -12,26 +12,26 @@ namespace Visitor
 {
     public class FileSystemVisitor
     {
-        private readonly Predicate<ElementFound> _filter;
+        private readonly Predicate<ElementFoundEventArgs> _filter;
         private readonly IFileSystem _fileSystem;
-        private readonly ElementFound _elementFound;
+        private readonly ElementFoundEventArgs _elementFoundEventArgs;
 
         public event EventHandler<string> StartSearch;
         public event EventHandler<string> FinishSearch;
 
-        public event EventHandler<ElementFound> FileFound;
-        public event EventHandler<ElementFound> DirectoryFound;
-        public event EventHandler<ElementFound> FilteredFileFound;
-        public event EventHandler<ElementFound> FilteredDirectoryFound;
+        public event EventHandler<ElementFoundEventArgs> FileFound;
+        public event EventHandler<ElementFoundEventArgs> DirectoryFound;
+        public event EventHandler<ElementFoundEventArgs> FilteredFileFound;
+        public event EventHandler<ElementFoundEventArgs> FilteredDirectoryFound;
 
         public FileSystemVisitor() : this(new FileSystem(), null) { }
         public FileSystemVisitor(IFileSystem fileSystem) : this(fileSystem, null) { }
-        public FileSystemVisitor(Predicate<ElementFound> filter) : this(new FileSystem(), filter) { }
-        public FileSystemVisitor(IFileSystem fileSystem, Predicate<ElementFound> filter)
+        public FileSystemVisitor(Predicate<ElementFoundEventArgs> filter) : this(new FileSystem(), filter) { }
+        public FileSystemVisitor(IFileSystem fileSystem, Predicate<ElementFoundEventArgs> filter)
         {
             _fileSystem = fileSystem ?? new FileSystem();
             _filter = filter ?? (st => true);
-            _elementFound = new ElementFound();
+            _elementFoundEventArgs = new ElementFoundEventArgs();
         }
 
         public IEnumerable<string> ElementsByPath(string path)
@@ -88,40 +88,40 @@ namespace Visitor
             }
         }
 
-        private IEnumerable<string> TraverseForSpecificElement(IEnumerable<string> elements, EventHandler<ElementFound> fileFound, EventHandler<ElementFound> filteredFileFound, ElementType elementType)
+        private IEnumerable<string> TraverseForSpecificElement(IEnumerable<string> elements, EventHandler<ElementFoundEventArgs> fileFound, EventHandler<ElementFoundEventArgs> filteredFileFound, ElementType elementType)
         {
             foreach (var element in elements)
             {
-                _elementFound.Path = element;
-                fileFound?.Invoke(this, _elementFound);
+                _elementFoundEventArgs.Path = element;
+                fileFound?.Invoke(this, _elementFoundEventArgs);
 
-                if ((_elementFound.Flag & SearchSettings.ExcludeCurrentElement) != 0)
+                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.ExcludeCurrentElement) != 0)
                 {
-                    _elementFound.Flag ^= SearchSettings.ExcludeCurrentElement;
+                    _elementFoundEventArgs.SearchSettings ^= SearchSettings.ExcludeCurrentElement;
                     continue;
                 }
 
-                if ((_elementFound.Flag & SearchSettings.StopSearch) != 0)
+                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.StopSearch) != 0)
                 {
                     yield break;
                 }
 
-                _elementFound.ElementType = elementType;
-                if (!_filter.Invoke(_elementFound))
+                _elementFoundEventArgs.ElementType = elementType;
+                if (!_filter.Invoke(_elementFoundEventArgs))
                 {
                     continue;
                 }
 
-                _elementFound.Path = element;
-                filteredFileFound?.Invoke(this, _elementFound);
+                _elementFoundEventArgs.Path = element;
+                filteredFileFound?.Invoke(this, _elementFoundEventArgs);
 
-                if ((_elementFound.Flag & SearchSettings.ExcludeCurrentElement) != 0)
+                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.ExcludeCurrentElement) != 0)
                 {
-                    _elementFound.Flag ^= SearchSettings.ExcludeCurrentElement;
+                    _elementFoundEventArgs.SearchSettings ^= SearchSettings.ExcludeCurrentElement;
                     continue;
                 }
 
-                if ((_elementFound.Flag & SearchSettings.StopSearch) != 0)
+                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.StopSearch) != 0)
                 {
                     yield break;
                 }

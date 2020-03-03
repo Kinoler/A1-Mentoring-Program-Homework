@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Enums\ElementType.cs" />
     <Compile Include="Enums\SearchSettings.cs" />
-    <Compile Include="EventHandler\ElementFound.cs" />
+    <Compile Include="EventHandler\ElementFoundEventArgs.cs" />
     <Compile Include="FileSystemVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
