@@ -8,31 +8,35 @@ using Visitor;
 
 namespace ConsoleVisitor
 {
-    class Program
+    internal class Program
     {
-        private static readonly string _separate = "   ";
-        private static string _spaces = "";
+        private static readonly char _separate = ' ';
+        private static readonly int _countSeparate = 3;
+        private static string spaces = " ";
         private static string path = @"C:\Projects\A1-Mentoring-Program-Homework";
 
-        static void Main(string[] args)
+        private static void Main()
         {
-            var systemVisitor = new FileSystemVisitor(found => !(found.Path.Contains(".git") || found.Path.Contains(".vs") || found.Path.Contains("packages") || found.Path.Contains("Variety .NET")));
+            var systemVisitor = new FileSystemVisitor(found => 
+                !(found.Path.Contains(".git") || 
+                  found.Path.Contains(".vs") || 
+                  found.Path.Contains("packages") || 
+                  found.Path.Contains("Variety .NET")));
 
-            systemVisitor.FilteredDirectoryFound += (sender, el) => _spaces = Enumerable.Repeat(_separate, CalculateSpaces(el.Path)).Aggregate((seed, pathName) => seed + pathName);
-            systemVisitor.FilteredFileFound += (sender, el) => _spaces = Enumerable.Repeat(_separate, CalculateSpaces(el.Path)).Aggregate((seed, pathName) => seed + pathName);
+            systemVisitor.FilteredDirectoryFound += (sender, el) => spaces = new string(_separate, CalculateSpaces(el.Path) * _countSeparate);
+            systemVisitor.FilteredFileFound += (sender, el) => spaces = new string(_separate, CalculateSpaces(el.Path) * _countSeparate);
 
-            _spaces = " ";
             foreach (var item in systemVisitor.ElementsByPath(path))
             {
-                Console.WriteLine(_spaces + item.Substring(item.LastIndexOf('\\') + 1));
+                Console.WriteLine(spaces + item.Substring(item.LastIndexOf('\\') + 1));
             }
 
             Console.Read();
         }
 
-        static int CalculateSpaces(string pathFound)
+        private static int CalculateSpaces(string pathFound)
         {
-            return pathFound.Split('\\').Length - path.Split('\\').Length;
+            return pathFound.Count(ch => ch == '\\') - path.Count(ch => ch == '\\');
         }
 
     }

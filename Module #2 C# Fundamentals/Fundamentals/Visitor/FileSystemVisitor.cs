@@ -25,8 +25,11 @@ namespace Visitor
         public event EventHandler<ElementFoundEventArgs> FilteredDirectoryFound;
 
         public FileSystemVisitor() : this(new FileSystem(), null) { }
+
         public FileSystemVisitor(IFileSystem fileSystem) : this(fileSystem, null) { }
+
         public FileSystemVisitor(Predicate<ElementFoundEventArgs> filter) : this(new FileSystem(), filter) { }
+
         public FileSystemVisitor(IFileSystem fileSystem, Predicate<ElementFoundEventArgs> filter)
         {
             _fileSystem = fileSystem ?? new FileSystem();
@@ -58,28 +61,10 @@ namespace Visitor
             {
                 yield return directory;
 
-                var elementsEnumerator = TraverseFolder(directory).GetEnumerator();
-                while (true)
+                foreach (var element in TraverseFolder(directory))
                 {
-                    string element = null;
-                    try
-                    {
-                        if (!elementsEnumerator.MoveNext())
-                        {
-                            break;
-                        }
-                        element = elementsEnumerator.Current;
-                    }
-                    catch
-                    {
-                        elementsEnumerator.Dispose();
-                        break;
-                    }
-
                     yield return element;
                 }
-
-                elementsEnumerator.Dispose();
             }
 
             foreach (var file in TraverseForSpecificElement(_fileSystem.Directory.GetFiles(path), FileFound, FilteredFileFound, ElementType.File))
@@ -88,46 +73,42 @@ namespace Visitor
             }
         }
 
-        private IEnumerable<string> TraverseForSpecificElement(IEnumerable<string> elements, EventHandler<ElementFoundEventArgs> fileFound, EventHandler<ElementFoundEventArgs> filteredFileFound, ElementType elementType)
+        private IEnumerable<string> TraverseForSpecificElement(
+            IEnumerable<string> elements,
+            EventHandler<ElementFoundEventArgs> fileFound,
+            EventHandler<ElementFoundEventArgs> filteredFileFound,
+            ElementType elementType)
         {
             foreach (var element in elements)
             {
+                _elementFoundEventArgs.SearchSettings = SearchSettings.None;
                 _elementFoundEventArgs.Path = element;
+
                 fileFound?.Invoke(this, _elementFoundEventArgs);
 
-                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.ExcludeCurrentElement) != 0)
-                {
-                    _elementFoundEventArgs.SearchSettings ^= SearchSettings.ExcludeCurrentElement;
-                    continue;
-                }
-
-                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.StopSearch) != 0)
-                {
+                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.StopSearch))
                     yield break;
-                }
+                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.ExcludeCurrentElement))
+                    continue;
 
                 _elementFoundEventArgs.ElementType = elementType;
                 if (!_filter.Invoke(_elementFoundEventArgs))
-                {
                     continue;
-                }
 
-                _elementFoundEventArgs.Path = element;
                 filteredFileFound?.Invoke(this, _elementFoundEventArgs);
 
-                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.ExcludeCurrentElement) != 0)
-                {
-                    _elementFoundEventArgs.SearchSettings ^= SearchSettings.ExcludeCurrentElement;
-                    continue;
-                }
-
-                if ((_elementFoundEventArgs.SearchSettings & SearchSettings.StopSearch) != 0)
-                {
+                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.StopSearch))
                     yield break;
-                }
+                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.ExcludeCurrentElement))
+                    continue;
 
                 yield return element;
             }
+        }
+
+        private bool FlagEnabled(SearchSettings value, SearchSettings constant)
+        {
+            return (value & constant) != 0;
         }
     }
 

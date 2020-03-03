@@ -96,5 +96,74 @@ namespace Visitor_Test
             Assert.AreEqual(expectedDirectoryFound, actualDirectoryFound);
             Assert.AreEqual(expectedFilteredDirectoryFound, actualFilteredDirectoryFound);
         }
+
+        [Test]
+        public void ElementsByPath_ShouldBreakWhenSetTheFlag()
+        {
+            var systemVisitor = new FileSystemVisitor(fileSystem);
+
+            int i = 0;
+
+            systemVisitor.FileFound += (sender, el) =>
+            {
+                if (i < 2)
+                {
+                    i++;
+                }
+                else
+                {
+                    el.SearchSettings = SearchSettings.StopSearch;
+                }
+            };
+
+            var actual = systemVisitor.ElementsByPath("c:\\").ToList();
+
+            var expected = new List<string>()
+            {
+                @"c:\demo\jQuery.js",
+                @"c:\demo\image.gif",
+                @"c:\demo"
+            };
+
+            expected.Sort();
+            actual.Sort();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ElementsByPath_ShouldExcludeWhenSetTheFlag()
+        {
+            var systemVisitor = new FileSystemVisitor(fileSystem);
+
+            int i = 0;
+
+            systemVisitor.FileFound += (sender, el) =>
+            {
+                if (i != 1)
+                {
+                    i++;
+                }
+                else
+                {
+                    el.SearchSettings = SearchSettings.ExcludeCurrentElement;
+                    i++;
+                }
+            };
+
+            var actual = systemVisitor.ElementsByPath("c:\\").ToList();
+
+            var expected = new List<string>()
+            {
+                @"c:\myfile.txt",
+                @"c:\demo\jQuery.js",
+                @"c:\demo"
+            };
+
+            expected.Sort();
+            actual.Sort();
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
