@@ -44,20 +44,44 @@ namespace Visitor
                 throw new ArgumentException($"The folder path {path} does not exist");
             }
 
-            StartSearch?.Invoke(this, path);
+            OnStartSearch(path);
 
             foreach (var element in TraverseFolder(path))
             {
                 yield return element;
             }
 
+            OnFinishSearch(path);
+        }
+
+        protected virtual void OnStartSearch(string path)
+        {
+            StartSearch?.Invoke(this, path);
+        }
+
+        protected virtual void OnFinishSearch(string path)
+        {
             FinishSearch?.Invoke(this, path);
+        }
+
+        protected virtual void OnElementFound(EventHandler<ElementFoundEventArgs> elementFound)
+        {
+            elementFound?.Invoke(this, _elementFoundEventArgs);
+        }
+
+        protected virtual void OnFilteredElementFound(EventHandler<ElementFoundEventArgs> filteredElementFound)
+        {
+            filteredElementFound?.Invoke(this, _elementFoundEventArgs);
         }
 
         private IEnumerable<string> TraverseFolder(string path)
         {
 
-            foreach (var directory in TraverseForSpecificElement(_fileSystem.Directory.GetDirectories(path), DirectoryFound, FilteredDirectoryFound, ElementType.Directory))
+            foreach (var directory in TraverseForSpecificElement(
+                _fileSystem.Directory.GetDirectories(path), 
+                DirectoryFound, 
+                FilteredDirectoryFound, 
+                ElementType.Directory))
             {
                 yield return directory;
 
@@ -67,7 +91,11 @@ namespace Visitor
                 }
             }
 
-            foreach (var file in TraverseForSpecificElement(_fileSystem.Directory.GetFiles(path), FileFound, FilteredFileFound, ElementType.File))
+            foreach (var file in TraverseForSpecificElement(
+                _fileSystem.Directory.GetFiles(path), 
+                FileFound, 
+                FilteredFileFound, 
+                ElementType.File))
             {
                 yield return file;
             }
@@ -75,40 +103,35 @@ namespace Visitor
 
         private IEnumerable<string> TraverseForSpecificElement(
             IEnumerable<string> elements,
-            EventHandler<ElementFoundEventArgs> fileFound,
-            EventHandler<ElementFoundEventArgs> filteredFileFound,
+            EventHandler<ElementFoundEventArgs> elementFound,
+            EventHandler<ElementFoundEventArgs> filteredElementFound,
             ElementType elementType)
         {
             foreach (var element in elements)
             {
-                _elementFoundEventArgs.SearchSettings = SearchSettings.None;
                 _elementFoundEventArgs.Path = element;
+                _elementFoundEventArgs.ElementType = elementType;
+                _elementFoundEventArgs.SearchSettings = SearchSettings.None;
 
-                fileFound?.Invoke(this, _elementFoundEventArgs);
+                OnElementFound(elementFound);
 
-                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.StopSearch))
+                if (_elementFoundEventArgs.SearchSettings.HasFlag(SearchSettings.StopSearch))
                     yield break;
-                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.ExcludeCurrentElement))
+                if (_elementFoundEventArgs.SearchSettings.HasFlag(SearchSettings.ExcludeCurrentElement))
                     continue;
 
-                _elementFoundEventArgs.ElementType = elementType;
                 if (!_filter.Invoke(_elementFoundEventArgs))
                     continue;
 
-                filteredFileFound?.Invoke(this, _elementFoundEventArgs);
+                OnFilteredElementFound(filteredElementFound);
 
-                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.StopSearch))
+                if (_elementFoundEventArgs.SearchSettings.HasFlag(SearchSettings.StopSearch))
                     yield break;
-                if (FlagEnabled(_elementFoundEventArgs.SearchSettings, SearchSettings.ExcludeCurrentElement))
+                if (_elementFoundEventArgs.SearchSettings.HasFlag(SearchSettings.ExcludeCurrentElement))
                     continue;
 
                 yield return element;
             }
-        }
-
-        private bool FlagEnabled(SearchSettings value, SearchSettings constant)
-        {
-            return (value & constant) != 0;
         }
     }
 
