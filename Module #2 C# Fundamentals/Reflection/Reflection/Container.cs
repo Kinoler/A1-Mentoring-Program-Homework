@@ -7,19 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Reflection.Attributes;
 using Reflection.Models;
+using static Reflection.EmitHelper;
 
 namespace Reflection
 {
     public class Container
     {
-        private readonly List<Type> _importClasses;
-        private readonly List<Type> _exportClasses;
+        private readonly Dictionary<Type, CreateImportObjectDelegate> _importClasses;
+        private readonly Dictionary<Type, SetImportPropertyDelegate> _importPropClasses;
+        private readonly Dictionary<Type, CreateExportObjectDelegate> _exportClasses;
         private readonly Dictionary<Type, Type> _exportInterfaces;
+
 
         public Container()
         {
-            _importClasses = new List<Type>();
-            _exportClasses = new List<Type>();
+            _importClasses = new Dictionary<Type, CreateImportObjectDelegate>();
+            _importPropClasses = new Dictionary<Type, SetImportPropertyDelegate>();
+            _exportClasses = new Dictionary<Type, CreateExportObjectDelegate>();
             _exportInterfaces = new Dictionary<Type, Type>();
         }
 
@@ -53,6 +57,7 @@ namespace Reflection
                 throw new ArgumentException("This interface type is already exist.");
 
             _exportInterfaces.Add(interfaceType, classType);
+            AddType(classType);
         }
 
         public void AddType(Type type)
@@ -65,20 +70,29 @@ namespace Reflection
             bool hasAnyAttr = false;
             if (createdObject.IsExport)
             {
-                if (_exportClasses.Contains(type))
+                if (_exportClasses.ContainsKey(type))
                     throw new ArgumentException("This type is already exist.");
 
-                _exportClasses.Add(type);
+                _exportClasses.Add(type, null);
                 hasAnyAttr = true;
             }
 
             if (createdObject.IsConstructorImport ^
                 createdObject.IsPropertyImport)
             {
-                if (_importClasses.Contains(type))
+                if (_importClasses.ContainsKey(type))
                     throw new ArgumentException("This type is already exist.");
 
-                _importClasses.Add(type);
+                _importClasses.Add(type, null);
+                hasAnyAttr = true;
+            }
+
+            if (createdObject.IsPropertyImport)
+            {
+                if (_importPropClasses.ContainsKey(type))
+                    throw new ArgumentException("This type is already exist.");
+
+                _importPropClasses.Add(type, null);
                 hasAnyAttr = true;
             }
 
@@ -93,36 +107,29 @@ namespace Reflection
 
         public object CreateInstance(Type type)
         {
-            if (!_importClasses.Contains(type))
+            if (!_importClasses.ContainsKey(type))
             {
                 throw new ArgumentException("This type does not exist in container.");
             }
 
             var createdObject = new CreatedObjectModel(type);
 
-            createdObject.Instance = CreateInstanceFromConstructor(createdObject);
+            createdObject.Instance = CreateInstanceFromImportClass(createdObject);
 
             if (createdObject.IsConstructorImport)
-            {
                 return createdObject.Instance;
-            }
 
             if (createdObject.IsPropertyImport)
-            {
                 SetInstanceForProrerty(createdObject);
-            }
 
             return createdObject.Instance;
         }
 
         public void SetInstanceForProrerty(CreatedObjectModel createdObject)
         {
-            var importedProperties = createdObject.Type
-                .GetProperties()
-                .Where(prop => prop.GetCustomAttributes()
-                    .Any(attr => attr.GetType() == typeof(ImportAttribute)));
+            var propValues = new List<object>();
 
-            foreach (var importedProperty in importedProperties)
+            foreach (var importedProperty in createdObject.ImportedProperties)
             {
                 CreatedObjectModel createdObjectProperty = new CreatedObjectModel(importedProperty.PropertyType);
 
@@ -134,13 +141,21 @@ namespace Reflection
                     createdObjectProperty = new CreatedObjectModel(_exportInterfaces[createdObjectProperty.Type]);
                 }
                 
-                createdObjectProperty.Instance = CreateInstanceFromConstructor(createdObjectProperty);
+                createdObjectProperty.Instance = CreateInstanceFromExportClass(createdObjectProperty);
 
-                importedProperty.SetValue(createdObject.Instance, createdObjectProperty.Instance);
+                propValues.Add(createdObjectProperty.Instance);
             }
+
+            if (!_importPropClasses.ContainsKey(createdObject.Type))
+                throw new ArgumentException($"The {createdObject.Type.FullName} type does not found");
+
+            if (_importPropClasses[createdObject.Type] == null)
+                _importPropClasses[createdObject.Type] = CreateMethodForSetImportProperty(createdObject);
+
+            _importPropClasses[createdObject.Type].Invoke(createdObject.Instance, propValues.ToArray());
         }
 
-        public object CreateInstanceFromConstructor(CreatedObjectModel createdObject)
+        public object CreateInstanceFromImportClass(CreatedObjectModel createdObject)
         {
             object[] objParameters = new object[createdObject.ConstructorParameters.Length];
 
@@ -150,27 +165,34 @@ namespace Reflection
                 if (parameter.ParameterType.IsInterface)
                 {
                     if (!_exportInterfaces.ContainsKey(parameter.ParameterType))
-                    {
                         throw new ArgumentException($"The {createdObject.Type.FullName} class should be have" +
                                                     $"implementation for {parameter.ParameterType.FullName} interface");
-                    }
 
                     var createdObjectPrameter = new CreatedObjectModel(_exportInterfaces[parameter.ParameterType]);
-                    objParameters[i] = CreateInstanceFromConstructor(createdObjectPrameter);
+                    objParameters[i] = CreateInstanceFromExportClass(createdObjectPrameter);
                 }
                 else
                 {
-                    if (!_exportClasses.Contains(parameter.ParameterType))
-                    {
-                        throw new ArgumentException($"The {createdObject.Type.FullName} type does not found");
-                    }
-
-                    objParameters[i] = CreateInstanceFromConstructor(new CreatedObjectModel(parameter.ParameterType));
+                    objParameters[i] = CreateInstanceFromExportClass(new CreatedObjectModel(parameter.ParameterType));
                 }
                 i++;
             }
 
-            return createdObject.Constructor.Invoke(objParameters);
+            if (_importClasses[createdObject.Type] == null)
+                _importClasses[createdObject.Type] = CreateMethodForConstructImportClass(createdObject);
+
+            return _importClasses[createdObject.Type].Invoke(objParameters);
+        }
+
+        public object CreateInstanceFromExportClass(CreatedObjectModel createdObject)
+        {
+            if (!_exportClasses.ContainsKey(createdObject.Type))
+                throw new ArgumentException($"The {createdObject.Type.FullName} type does not found");
+
+            if (_exportClasses[createdObject.Type] == null)
+                _exportClasses[createdObject.Type] = CreateMethodForConstructExportClass(createdObject);
+
+            return _exportClasses[createdObject.Type].Invoke();
         }
 
         public TInstanceType CreateInstance<TInstanceType>()

@@ -45,6 +45,7 @@
     <Compile Include="Attributes\ExportAttribute.cs" />
     <Compile Include="Attributes\ImportAttribute.cs" />
     <Compile Include="Attributes\ImportConstructorAttribute.cs" />
+    <Compile Include="EmitHelper.cs" />
     <Compile Include="Models\CreatedObjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
