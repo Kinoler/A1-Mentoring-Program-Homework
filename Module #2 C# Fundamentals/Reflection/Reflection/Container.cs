@@ -126,12 +126,12 @@ namespace Reflection
             {
                 CreatedObjectModel createdObjectProperty = new CreatedObjectModel(importedProperty.PropertyType);
 
-                if (importedProperty.PropertyType.IsInterface)
+                if (createdObjectProperty.Type.IsInterface)
                 {
-                    if (!_exportInterfaces.ContainsKey(importedProperty.PropertyType))
-                        throw new ArgumentException($"The {importedProperty.PropertyType.FullName} interface does not found.");
+                    if (!_exportInterfaces.ContainsKey(createdObjectProperty.Type))
+                        throw new ArgumentException($"The {createdObjectProperty.Type.FullName} interface does not found.");
 
-                    createdObjectProperty = new CreatedObjectModel(_exportInterfaces[importedProperty.PropertyType]);
+                    createdObjectProperty = new CreatedObjectModel(_exportInterfaces[createdObjectProperty.Type]);
                 }
                 
                 createdObjectProperty.Instance = CreateInstanceFromConstructor(createdObjectProperty);

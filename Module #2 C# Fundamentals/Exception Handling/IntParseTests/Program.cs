@@ -5,36 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReadLine
+namespace IntParseTests
 {
-    internal class ReadLineProgram
+    class Program
     {
-        public static void Main()
+        static void Main(string[] args)
         {
             while (true)
             {
                 var readLine = Console.ReadLine();
-
+                int i = 0;
                 try
                 {
-                    Valid(readLine);
+                    i = IntParse.Parse(readLine);
                 }
                 catch (Exception ex)
                 {
+                    var exText = ex.ToString();
+                    Console.WriteLine(exText.Substring(0, exText.IndexOf(':')));
                     Console.WriteLine(ex.Message);
                     continue;
                 }
 
-                var firstSymbol = readLine[0];
-                Console.WriteLine($"{firstSymbol}");
-            }
-        }
-
-        public static void Valid(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                throw new Exception("You wrote an empty string.");
+                Console.WriteLine($"Parse succsesfuly - {i}");
             }
         }
     }
