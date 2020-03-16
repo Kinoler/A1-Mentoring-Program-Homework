@@ -9,25 +9,28 @@ namespace IntParseTests
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             while (true)
             {
-                var readLine = Console.ReadLine();
-                int i = 0;
+                var writtenValue = Console.ReadLine();
+                int parsedValue;
                 try
                 {
-                    i = IntParse.Parse(readLine);
+                    parsedValue = IntParse.Parse(writtenValue);
                 }
-                catch (Exception ex)
+                catch (FormatException)
                 {
-                    var exText = ex.ToString();
-                    Console.WriteLine(exText.Substring(0, exText.IndexOf(':')));
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("String is not valid");
+                    continue;
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("Too much digits");
                     continue;
                 }
 
-                Console.WriteLine($"Parse succsesfuly - {i}");
+                Console.WriteLine($"Parse successfully - {parsedValue}");
             }
         }
     }
