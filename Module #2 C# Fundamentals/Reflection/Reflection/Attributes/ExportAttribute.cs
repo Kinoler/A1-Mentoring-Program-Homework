@@ -5,9 +5,9 @@ namespace Reflection.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class ExportAttribute : Attribute
     {
-        internal Type _interfaceType;
+        internal Type InterfaceType { get; }
 
-        public bool IsInterfaceInitializer => _interfaceType != null;
+        internal bool IsInterfaceInitializer => InterfaceType != null;
 
         public ExportAttribute()
         {
@@ -15,7 +15,7 @@ namespace Reflection.Attributes
 
         public ExportAttribute(Type interfaceType)
         {
-            _interfaceType = interfaceType;
+            InterfaceType = interfaceType;
         }
     }
 }

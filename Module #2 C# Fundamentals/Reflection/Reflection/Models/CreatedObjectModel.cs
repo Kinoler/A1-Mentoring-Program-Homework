@@ -5,7 +5,7 @@ using Reflection.Attributes;
 
 namespace Reflection.Models
 {
-    public class CreatedObjectModel
+    internal class ModelObjectCreated
     {
         public bool IsExport => 
             Type.GetCustomAttributes().Any(at => at.GetType() == typeof(ExportAttribute));
@@ -16,7 +16,7 @@ namespace Reflection.Models
 
         public object Instance { get; set; }
 
-        public Type Type { get; set; }
+        public Type Type { get; }
 
         public ConstructorInfo Constructor => Type.GetConstructors().ToList().FirstOrDefault();
 
@@ -27,7 +27,7 @@ namespace Reflection.Models
         public PropertyInfo[] ImportedProperties => Type.GetProperties()
             .Where(prop => prop.GetCustomAttributes().Any(attr => attr.GetType() == typeof(ImportAttribute))).ToArray();
 
-        public CreatedObjectModel(Type type)
+        public ModelObjectCreated(Type type)
         {
             Type = type;
         }
