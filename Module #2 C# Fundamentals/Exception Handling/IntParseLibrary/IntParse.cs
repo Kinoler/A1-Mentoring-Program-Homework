@@ -22,10 +22,11 @@ namespace IntParseLibrary
 
         private static bool ParseNumber(string str, out int number)
         {
+            const int offsetDigitInChar = 48;
+
             bool negative = str[0] == '-';
             int start = negative ? 1 : 0;
             int num = 0;
-            int offsetDigitInChar = 48;
 
             for (int i = start; i < str.Length; i++)
             {

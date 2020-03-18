@@ -29,11 +29,11 @@ namespace ReadLine
 
         private static char GetFirstSymbol(string str)
         {
-            Valid(str);
+            Validate(str);
             return str[0];
         }
 
-        public static void Valid(string str)
+        public static void Validate(string str)
         {
             if (string.IsNullOrEmpty(str))
             {
