@@ -13,24 +13,27 @@ namespace ReadLine
         {
             while (true)
             {
-                var readLine = Console.ReadLine();
+                var writtenValue = Console.ReadLine();
 
                 try
                 {
-                    Valid(readLine);
+                    var firstSymbol = GetFirstSymbol(writtenValue);
+                    Console.WriteLine($"{firstSymbol}");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Console.WriteLine(ex.Message);
-                    continue;
+                    Console.WriteLine("You wrote an empty string.");
                 }
-
-                var firstSymbol = readLine[0];
-                Console.WriteLine($"{firstSymbol}");
             }
         }
 
-        public static void Valid(string str)
+        private static char GetFirstSymbol(string str)
+        {
+            Validate(str);
+            return str[0];
+        }
+
+        public static void Validate(string str)
         {
             if (string.IsNullOrEmpty(str))
             {
