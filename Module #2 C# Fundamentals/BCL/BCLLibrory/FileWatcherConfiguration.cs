@@ -11,30 +11,27 @@ namespace BCLLibrory
 {
     public class FileWatcherConfiguration
     {
-        public List<Rule> SetOfRules { get; }
-        public List<string> WatcherFolders { get; }
+        private List<Rule> _setOfRules;
+        private List<string> _watcherFolders;
+
+        public List<Rule> SetOfRules => _setOfRules.ToList();
+        public List<string> WatcherFolders => _watcherFolders.ToList();
         public string DefaultFolder { get; }
-        public CultureInfo CultureInfo { get; }
 
-        public FileWatcherConfiguration(string defaultFolder) :
-            this(defaultFolder, CultureInfo.CurrentUICulture)
-        { }
-
-        public FileWatcherConfiguration(string defaultFolder, CultureInfo cultureInfo)
+        public FileWatcherConfiguration(string defaultFolder)
         {
             ValidateFolderPath(defaultFolder);
 
             DefaultFolder = defaultFolder;
-            CultureInfo = cultureInfo ?? throw new ArgumentNullException(nameof(cultureInfo));
-            SetOfRules = new List<Rule>();
-            WatcherFolders = new List<string>();
+            _setOfRules = new List<Rule>();
+            _watcherFolders = new List<string>();
         }
 
         public void AddWatcherFolder(string folder)
         {
             ValidateFolderPath(folder);
 
-            WatcherFolders.Add(folder);
+            _watcherFolders.Add(folder);
         }
 
         public void AddRule(Rule rule)
@@ -45,7 +42,7 @@ namespace BCLLibrory
             ValidateRegexExpression(rule.Expression);
             ValidateFolderPath(rule.Target);
 
-            SetOfRules.Add(rule);
+            _setOfRules.Add(rule);
         }
 
         private void ValidateRegexExpression(string expression)

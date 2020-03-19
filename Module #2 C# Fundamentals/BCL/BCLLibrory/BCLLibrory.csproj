@@ -45,9 +45,29 @@
     <Compile Include="FileWatcherConfiguration.cs" />
     <Compile Include="FileWatcherLogger.cs" />
     <Compile Include="FileWatcher.cs" />
-    <Compile Include="OutputNameConfiguration.cs" />
+    <Compile Include="Localization\LoggerMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoggerMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\LoggerMessages.Ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoggerMessages.Ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutputNameConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rule.cs" />
+    <Compile Include="Models\Rule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\LoggerMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoggerMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LoggerMessages.Ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoggerMessages.Ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,7 +34,7 @@ namespace BCL
             g.AddRule(new Rule(@"\b[M]\w+", "E:\\asdf\\target", OutputNameConfiguration.NoneModification));
 
             var fw = new FileWatcher(g);
-
+            fw.OnLog += (sender, e) => Console.WriteLine(e);
             fw.StartWatch();
 
             Console.ReadLine();

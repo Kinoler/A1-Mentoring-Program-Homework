@@ -2,7 +2,7 @@
 {
     public enum OutputNameConfiguration
     {
-        AddSerialNumber,
+        AddCreationTime,
         AddDateMovement,
         NoneModification
     }
