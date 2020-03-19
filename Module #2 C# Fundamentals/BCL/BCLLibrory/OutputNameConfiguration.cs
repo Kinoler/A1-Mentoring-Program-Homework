@@ -3,6 +3,7 @@
     public enum OutputNameConfiguration
     {
         AddSerialNumber,
-        AddDateMovement
+        AddDateMovement,
+        NoneModification
     }
 }

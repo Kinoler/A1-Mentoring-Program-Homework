@@ -54,6 +54,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BCLLibrory\BCLLibrory.csproj">
+      <Project>{3e369a53-6093-48e7-8a3f-4e9393c5f032}</Project>
+      <Name>BCLLibrory</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

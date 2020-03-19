@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BCL.Configuration.Elements;
 using BCL.Configuration.Sections;
+using BCLLibrory;
 
 namespace BCL
 {
@@ -25,6 +26,18 @@ namespace BCL
             {
                 Console.WriteLine("{0} - {1}", file.FileName, file.FileSize);
             }
+
+            var g = new FileWatcherConfiguration("E:\\asdf");
+
+            g.AddWatcherFolder("E:\\asdf\\watcher");
+
+            g.AddRule(new Rule(@"\b[M]\w+", "E:\\asdf\\target", OutputNameConfiguration.NoneModification));
+
+            var fw = new FileWatcher(g);
+
+            fw.StartWatch();
+
+            Console.ReadLine();
         }
     }
 }

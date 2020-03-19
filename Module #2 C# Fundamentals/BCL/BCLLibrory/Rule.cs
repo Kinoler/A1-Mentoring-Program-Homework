@@ -4,9 +4,9 @@ namespace BCLLibrory
 {
     public class Rule
     {
-        string Expression { get; }
-        string Target { get; }
-        OutputNameConfiguration OutputNameConfiguration { get; }
+        public string Expression { get; }
+        public string Target { get; }
+        public OutputNameConfiguration OutputNameConfiguration { get; }
 
         public Rule(string expression, string target, OutputNameConfiguration outputNameConfiguration)
         {
