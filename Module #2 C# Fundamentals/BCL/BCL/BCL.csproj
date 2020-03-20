@@ -44,10 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\Elements\WorkTimeElement.cs" />
-    <Compile Include="Configuration\Collections\FileElementCollection.cs" />
-    <Compile Include="Configuration\Sections\SimpleConfigurationSection.cs" />
-    <Compile Include="Configuration\Elements\FileElement.cs" />
+    <Compile Include="Configuration\Collections\RuleCollection.cs" />
+    <Compile Include="Configuration\Elements\RuleElement.cs" />
+    <Compile Include="Configuration\Collections\WatcherFolderCollection.cs" />
+    <Compile Include="Configuration\Sections\FileWatcherConfigurationSection.cs" />
+    <Compile Include="Configuration\Elements\WatcherFolderElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

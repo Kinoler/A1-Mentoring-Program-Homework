@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BCL.Configuration.Elements;
 using BCL.Configuration.Sections;
@@ -14,26 +16,26 @@ namespace BCL
     {
         static void Main(string[] args)
         {
-            var s = (SimpleConfigurationSection)
-                ConfigurationManager.GetSection("simpleSection");
+            var fileWatcherConfigurationSection = (FileWatcherConfigurationSection)
+                ConfigurationManager.GetSection("FileWatcherConfigurationSection");
 
-            Console.WriteLine("{0} {1} - {2}",
-                s.ApplicationName,
-                s.WorkTime.StartTime.ToLongTimeString(),
-                (s.WorkTime.StartTime + s.WorkTime.Duration).ToLongTimeString());
+            var cultureInfoFromConfiguration = CultureInfo.GetCultureInfo(fileWatcherConfigurationSection.Localization);
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfoFromConfiguration;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfoFromConfiguration;
 
-            foreach (FileElement file in s.Files)
+            var fileWatcherConfiguration = new FileWatcherConfiguration(fileWatcherConfigurationSection.DefaultFolder);
+
+            foreach (WatcherFolderElement folder in fileWatcherConfigurationSection.WatcherFolders)
             {
-                Console.WriteLine("{0} - {1}", file.FileName, file.FileSize);
+                fileWatcherConfiguration.AddWatcherFolder(folder.Path);
             }
 
-            var g = new FileWatcherConfiguration("E:\\asdf");
+            foreach (RuleElement rule in fileWatcherConfigurationSection.Rules)
+            {
+                fileWatcherConfiguration.AddRule(new Rule(rule.Expression, rule.Target, rule.NameConfiguration));
+            }
 
-            g.AddWatcherFolder("E:\\asdf\\watcher");
-
-            g.AddRule(new Rule(@"\b[M]\w+", "E:\\asdf\\target", OutputNameConfiguration.NoneModification));
-
-            var fw = new FileWatcher(g);
+            var fw = new FileWatcher(fileWatcherConfiguration);
             fw.OnLog += (sender, e) => Console.WriteLine(e);
             fw.StartWatch();
 
