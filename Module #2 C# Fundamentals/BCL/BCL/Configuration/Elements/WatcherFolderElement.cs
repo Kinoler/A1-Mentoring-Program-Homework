@@ -6,8 +6,8 @@ namespace BCL.Configuration.Elements
 {
     public class WatcherFolderElement : ConfigurationElement
     {
-        [ConfigurationProperty("Path", IsKey = true)]
-        public string Path => (string)base["Path"];
+        [ConfigurationProperty(nameof(Path), IsKey = true, IsRequired = true)]
+        public string Path => (string)base[nameof(Path)];
     }
 
 }

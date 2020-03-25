@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileWatcherConfiguration.cs" />
+    <Compile Include="FileWatcherSettings.cs" />
     <Compile Include="FileWatcherLogger.cs" />
     <Compile Include="FileWatcher.cs" />
     <Compile Include="Localization\LoggerMessages.Designer.cs">

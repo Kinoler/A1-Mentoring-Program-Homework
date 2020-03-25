@@ -119,14 +119,18 @@
   </resheader>
   <data name="FileAddedToWatcherFolder" xml:space="preserve">
     <value>The file {0} was add to the {1} directory. Creation date {2}</value>
+    <comment>{0} - The added file; {1} - The terget file directory;</comment>
   </data>
   <data name="FileMoved" xml:space="preserve">
     <value>File {0} has been moved along path {1}.</value>
+    <comment>{0} - The moved file; {1} - The target file directory;</comment>
   </data>
   <data name="RoleFound" xml:space="preserve">
     <value>The file {0} matched template {1}.</value>
+    <comment>{0} - The file; {1} - The regex;</comment>
   </data>
   <data name="RoleNotFound" xml:space="preserve">
     <value>No matching template was found for file {0}.</value>
+    <comment>{0} - The file;</comment>
   </data>
 </root>

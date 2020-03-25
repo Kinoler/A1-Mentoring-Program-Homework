@@ -30,13 +30,13 @@ namespace BCLLibrory
             ExecuteOnFileEvent(message);
         }
 
-        public void RoleFound(string sourceFileName, string expression)
+        public void RuleFound(string sourceFileName, string expression)
         {
             var message = String.Format(LoggerMessages.RoleFound, sourceFileName, expression);
             ExecuteOnFileEvent(message);
         }
 
-        public void RoleNotFound(string sourceFileName)
+        public void RuleNotFound(string sourceFileName)
         {
             var message = String.Format(LoggerMessages.RoleNotFound, sourceFileName);
             ExecuteOnFileEvent(message);

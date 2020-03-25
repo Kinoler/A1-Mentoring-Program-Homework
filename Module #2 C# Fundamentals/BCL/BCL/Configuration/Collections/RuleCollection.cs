@@ -7,7 +7,7 @@ namespace BCL.Configuration.Collections
     {
         protected override ConfigurationElement CreateNewElement() => new RuleElement();
 
-        protected override object GetElementKey(ConfigurationElement element) => $"{((RuleElement)element).Expression} - {((RuleElement)element).Target}";
+        protected override object GetElementKey(ConfigurationElement element) => ((RuleElement)element).Expression.GetHashCode() + ((RuleElement)element).Target.GetHashCode();
     }
 
 }

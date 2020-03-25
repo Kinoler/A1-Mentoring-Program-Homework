@@ -6,14 +6,36 @@ namespace BCL.Configuration.Elements
 {
     public class RuleElement : ConfigurationElement
     {
-        [ConfigurationProperty("Expression")]
-        public string Expression => (string)this["Expression"];
+        [ConfigurationProperty(nameof(Expression), IsRequired = true)]
+        public string Expression => (string)this[nameof(Expression)];
 
-        [ConfigurationProperty("Target")]
-        public string Target => (string)this["Target"];
+        [ConfigurationProperty(nameof(Target), IsRequired = true)]
+        public string Target => (string)this[nameof(Target)];
 
-        [ConfigurationProperty("NameConfiguration")]
-        public OutputNameConfiguration NameConfiguration => (OutputNameConfiguration)this["NameConfiguration"];
+        [ConfigurationProperty(nameof(AddCreationTime), DefaultValue = false)]
+        public bool AddCreationTime => (bool)this[nameof(AddCreationTime)];
+        
+        [ConfigurationProperty(nameof(AddSerialNumber), DefaultValue = false)]
+        public bool AddSerialNumber => (bool)this[nameof(AddSerialNumber)];
+
+        public OutputNameConfiguration NameConfiguration
+        {
+            get
+            {
+                OutputNameConfiguration outputName = OutputNameConfiguration.NoneModification;
+                if (AddCreationTime)
+                {
+                    outputName |= OutputNameConfiguration.AddCreationTime;
+                }
+
+                if (AddSerialNumber)
+                {
+                    outputName |= OutputNameConfiguration.AddCreationTime;
+                }
+
+                return outputName;
+            }
+        }
     }
 
 }

@@ -6,18 +6,17 @@ namespace BCL.Configuration.Sections
 {
     public class FileWatcherConfigurationSection : ConfigurationSection
     {
-        [ConfigurationProperty("Localization")]
-        public string Localization => (string)base["Localization"];
+        [ConfigurationProperty(nameof(Localization), DefaultValue = "En")]
+        public string Localization => (string)base[nameof(Localization)];
 
-        [ConfigurationProperty("DefaultFolder")]
-        public string DefaultFolder => (string)base["DefaultFolder"];
+        [ConfigurationProperty(nameof(DefaultFolder), IsRequired = true)]
+        public string DefaultFolder => (string)base[nameof(DefaultFolder)];
 
-        [ConfigurationProperty("WatcherFolders")]
-        public WatcherFolderCollection WatcherFolders => (WatcherFolderCollection)this["WatcherFolders"];
+        [ConfigurationProperty(nameof(WatcherFolders))]
+        public WatcherFolderCollection WatcherFolders => (WatcherFolderCollection)this[nameof(WatcherFolders)];
 
-        [ConfigurationProperty("Rules")]
-        public RuleCollection Rules => (RuleCollection)this["Rules"];
-
+        [ConfigurationProperty(nameof(Rules))]
+        public RuleCollection Rules => (RuleCollection)this[nameof(Rules)];
     }
 
 }

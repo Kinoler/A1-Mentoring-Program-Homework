@@ -7,7 +7,7 @@ namespace BCL.Configuration.Collections
     {
         protected override ConfigurationElement CreateNewElement() => new WatcherFolderElement();
 
-        protected override object GetElementKey(ConfigurationElement element) => ((WatcherFolderElement)element).Path;
+        protected override object GetElementKey(ConfigurationElement element) => ((WatcherFolderElement)element).Path.GetHashCode();
     }
 
 }

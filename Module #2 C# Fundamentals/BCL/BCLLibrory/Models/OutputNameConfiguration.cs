@@ -1,9 +1,12 @@
-﻿namespace BCLLibrory
+﻿using System;
+
+namespace BCLLibrory
 {
+    [Flags]
     public enum OutputNameConfiguration
     {
+        NoneModification,
         AddCreationTime,
-        AddDateMovement,
-        NoneModification
+        AddSerialNumber
     }
 }

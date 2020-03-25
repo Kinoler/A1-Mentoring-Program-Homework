@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace BCLLibrory
 {
-    public class FileWatcherConfiguration
+    public class FileWatcherSettings
     {
         private List<Rule> _setOfRules;
         private List<string> _watcherFolders;
@@ -18,7 +18,7 @@ namespace BCLLibrory
         public List<string> WatcherFolders => _watcherFolders.ToList();
         public string DefaultFolder { get; }
 
-        public FileWatcherConfiguration(string defaultFolder)
+        public FileWatcherSettings(string defaultFolder)
         {
             ValidateFolderPath(defaultFolder);
 
@@ -52,11 +52,11 @@ namespace BCLLibrory
 
             try
             {
-                Regex.Match("", expression);
+                Regex.Match(string.Empty, expression);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                throw new ArgumentException("Not valid", nameof(expression));
+                throw new ArgumentException("Not valid", nameof(expression), ex);
             }
         }
 
