@@ -103,8 +103,9 @@ namespace SampleQueries
                      "(принять за таковые месяц и год самого первого заказа)")]
         public void Linq4()
         {
-            var customers = dataSource.Customers.Select(cus => 
-                new KeyValuePair<Customer, DateTime>(cus, cus.Orders.Min(o => o.OrderDate)));
+            var customers = dataSource.Customers.Select(cus =>
+                    new KeyValuePair<Customer, DateTime>(cus,
+                        cus.Orders.Any() ? cus.Orders.Min(o => o.OrderDate) : DateTime.MinValue));
             
             foreach (var c in customers)
             {
@@ -120,7 +121,7 @@ namespace SampleQueries
         public void Linq5()
         {
             var customers = dataSource.Customers.Select(cus => 
-                new KeyValuePair<Customer, DateTime>(cus, cus.Orders.Min(o => o.OrderDate)))
+                new KeyValuePair<Customer, DateTime>(cus, cus.Orders.Any() ? cus.Orders.Min(o => o.OrderDate) : DateTime.MinValue))
                 .OrderBy(pair => pair.Value.Year)
                 .ThenBy(pair => pair.Value.Month)
                 .ThenByDescending(pair => pair.Key.Orders.Sum(el => el.Total))
@@ -128,7 +129,7 @@ namespace SampleQueries
 
             foreach (var c in customers)
             {
-                ObjectDumper.Write($"Day: {c.Value.Day} Year: {c.Value.Year} Name: {c.Key.CompanyName}");
+                ObjectDumper.Write($"Year: {c.Value.Year} Month: {c.Value.Month} Name: {c.Key.CompanyName}");
             }
         }		
 
