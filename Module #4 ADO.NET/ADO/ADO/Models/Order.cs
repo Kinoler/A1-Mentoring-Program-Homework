@@ -4,43 +4,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADO
+namespace ADO.Models
 {
     public class Order
     {
-        private string customerID;
-        private int? employeeID;
-        private DateTime? requiredDate;
-        private int? shipVia;
-        private decimal? freight;
-        private string shipName;
-        private string shipAddress;
-        private string shipCity;
-        private string shipRegion;
-        private string shipPostalCode;
-        private string shipCountry;
-
         public Order()
         {
         }
 
         public int OrderID { get; set; }
-        public string CustomerID { get => customerID; set { if (State() == OrderState.New) customerID = value; } }
-        public Nullable<int> EmployeeID { get => employeeID; set { if (State() == OrderState.New) employeeID = value; } }
-        public Nullable<System.DateTime> OrderDate { get; internal set; }
-        public Nullable<System.DateTime> RequiredDate { get => requiredDate; set { if (State() == OrderState.New) requiredDate = value; } }
-        public Nullable<System.DateTime> ShippedDate { get; internal set; }
-        public Nullable<int> ShipVia { get => shipVia; set { if (State() == OrderState.New) shipVia = value; } }
-        public Nullable<decimal> Freight { get => freight; set { if (State() == OrderState.New) freight = value; } }
-        public string ShipName { get => shipName; set { if (State() == OrderState.New) shipName = value; } }
-        public string ShipAddress { get => shipAddress; set { if (State() == OrderState.New) shipAddress = value; } }
-        public string ShipCity { get => shipCity; set { if (State() == OrderState.New) shipCity = value; } }
-        public string ShipRegion { get => shipRegion; set { if (State() == OrderState.New) shipRegion = value; } }
-        public string ShipPostalCode { get => shipPostalCode; set { if (State() == OrderState.New) shipPostalCode = value; } }
-        public string ShipCountry { get => shipCountry; set { if (State() == OrderState.New) shipCountry = value; } }
+        public string CustomerID { get; set; }
+        public int? EmployeeID { get; set; }
+        public DateTime? OrderDate { get; internal set; }
+        public DateTime? RequiredDate { get; set; }
+        public DateTime? ShippedDate { get; internal set; }
+        public int? ShipVia { get; set; }
+        public decimal? Freight { get; set; }
+        public string ShipName { get; set; }
+        public string ShipAddress { get; set; }
+        public string ShipCity { get; set; }
+        public string ShipRegion { get; set; }
+        public string ShipPostalCode { get; set; }
+        public string ShipCountry { get; set; }
 
         public OrderState State() =>
                     OrderDate == null ? OrderState.New :
                     ShippedDate == null ? OrderState.InProgress : OrderState.Complete;
+
+        private bool Equals(Order obj)
+        {
+            if (!CustomerID.Equals(obj.CustomerID)) return false;
+            if (!EmployeeID.Equals(obj.EmployeeID)) return false;
+            if (!Freight.Equals(obj.Freight)) return false;
+            if (!OrderDate.Equals(obj.OrderDate)) return false;
+            if (!RequiredDate.Equals(obj.RequiredDate)) return false;
+            if (!OrderID.Equals(obj.OrderID)) return false;
+            if (!ShipAddress.Equals(obj.ShipAddress)) return false;
+            if (!ShipCity.Equals(obj.ShipCity)) return false;
+            if (!ShipCountry.Equals(obj.ShipCountry)) return false;
+            if (!ShipName.Equals(obj.ShipName)) return false;
+            if (!ShippedDate.Equals(obj.ShippedDate)) return false;
+            if (!ShipPostalCode.Equals(obj.ShipPostalCode)) return false;
+            if (!ShipRegion.Equals(obj.ShipRegion)) return false;
+            if (!ShipVia.Equals(obj.ShipVia)) return false;
+
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!base.Equals(obj)) return false;
+            return Equals((Order)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (typeof(Order).GetHashCode() + OrderID).GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return OrderID.ToString();
+        }
     }
 }

@@ -46,15 +46,30 @@ namespace ADO
             return result;
         }
 
-        public static Dictionary<string, object> ToValueProperties(this object obj)
+        public static Dictionary<string, string> ToValueProperties(this object obj)
         {
-            var result = new Dictionary<string, object>();
+            var result = new Dictionary<string, string>();
             foreach (var property in obj.GetType().GetProperties())
             {
-                result.Add(property.Name, property.GetValue(obj));
+                result.Add(property.Name, property.GetValue(obj).ConvertToDb());
             }
 
             return result;
+        }
+
+        private static string ConvertToDb(this object obj)
+        {
+            if (obj == null)
+            {
+                return "NULL";
+            }
+
+            if (obj is DateTime || obj is string)
+            {
+                return $"'{obj}'";
+            }
+
+            return obj.ToString();
         }
 
         private static void SetProperty(object obj, string propertyName, object value)

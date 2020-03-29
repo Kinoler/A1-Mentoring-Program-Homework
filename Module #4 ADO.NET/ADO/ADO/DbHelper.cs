@@ -20,9 +20,9 @@ namespace ADO
             ProviderName = connectionStringSettings.ProviderName;
         }
 
-        public List<T> SelectData<T>() where T : new()
+        public List<T> SelectData<T>(string tableName) where T : new()
         {
-            string commandText = $"SELECT * FROM {nameof(T)}";
+            string commandText = $"SELECT * FROM {tableName}";
             var result = new List<T>();
             var dataTeble = GetDataTable(commandText);
 
@@ -34,38 +34,40 @@ namespace ADO
             return result;
         }
 
-        public void Update<T>(T data)
+        public void Update<T>(T data, string tableName)
         {
             var valueProperties = data.ToValueProperties().ToArray();
             var stringBuilder = new StringBuilder();
 
-            stringBuilder.Append($"UPDATE {nameof(T)}");
-            for (int i = 1; i < valueProperties.Length; i++)
-                stringBuilder.Append($"SET {valueProperties[i].Key} = {valueProperties[i].Value}");
-            stringBuilder.Append($"WHERE {valueProperties[0].Key} = {valueProperties[0].Value}");
+            stringBuilder.Append($"UPDATE {tableName}");
+            stringBuilder.Append($" SET ");
+            for (int i = 1; i < valueProperties.Length - 1; i++)
+                stringBuilder.Append($" {valueProperties[i].Key} = {valueProperties[i].Value},");
+            stringBuilder.Append($" {valueProperties[valueProperties.Length - 1].Key} = {valueProperties[valueProperties.Length - 1].Value}");
+            stringBuilder.Append($" WHERE {valueProperties[0].Key} = {valueProperties[0].Value}");
 
             ExecuteNonQuery(stringBuilder.ToString());
         }
 
-        public void Delete<T>(T data)
+        public void Delete<T>(T data, string tableName)
         {
             var valueProperties = data.ToValueProperties().ToArray();
             var stringBuilder = new StringBuilder();
 
-            stringBuilder.Append($"DELETE FROM {nameof(T)}");
-            stringBuilder.Append($"WHERE {valueProperties[0].Key} = {valueProperties[0].Value}");
+            stringBuilder.Append($" DELETE FROM {tableName}");
+            stringBuilder.Append($" WHERE {valueProperties[0].Key} = {valueProperties[0].Value}");
 
             ExecuteNonQuery(stringBuilder.ToString());
         }
 
-        public void Insert<T>(T data)
+        public void Insert<T>(T data, string tableName)
         {
             var valueProperties = data.ToValueProperties().ToArray();
             var stringBuilder = new StringBuilder();
 
-            stringBuilder.Append($"INSERT INTO {nameof(T)}");
-            stringBuilder.Append($"VALUES (");
-            for (int i = 0; i < valueProperties.Length - 1; i++)
+            stringBuilder.Append($" INSERT INTO {tableName}");
+            stringBuilder.Append($" VALUES (");
+            for (int i = 1; i < valueProperties.Length - 1; i++)
                 stringBuilder.Append($"{valueProperties[i].Value},");
             stringBuilder.Append($"{valueProperties[valueProperties.Length - 1].Value});");
 

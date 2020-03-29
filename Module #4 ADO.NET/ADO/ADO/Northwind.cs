@@ -17,44 +17,65 @@ namespace ADO
 			dbHelper = new DbHelper(connectionStringName);
 		}
 
-		public List<Order> Orders => dbHelper.SelectData<Order>();
+		public List<Order> Orders => dbHelper.SelectData<Order>(nameof(Orders));
 
-		public List<Product> Products => dbHelper.SelectData<Product>();
+		public List<Product> Products => dbHelper.SelectData<Product>(nameof(Products));
 
-		public List<Region> Regions => dbHelper.SelectData<Region>();
+		public List<Region> Region => dbHelper.SelectData<Region>(nameof(Region));
 
-		public List<OrderDetail> OrderDetails => dbHelper.SelectData<OrderDetail>(); 
+		public List<OrderDetail> OrderDetails => dbHelper.SelectData<OrderDetail>("[Northwind].[dbo].[Order Details]"); 
 
-		public List<Category> Category => dbHelper.SelectData<Category>();
+		public List<Category> Categories => dbHelper.SelectData<Category>(nameof(Categories));
 
-		public void CreateOrder(Order order)
+		public Order CreateOrder()
 		{
-			dbHelper.Insert(order);
+			var order = new Order();
+			dbHelper.Insert(order, nameof(Orders));
+			return order;
 		}
 
 		public void UpdateOrder(Order order)
 		{
-			dbHelper.Update(order);
+			if (order == null)
+				throw new ArgumentNullException(nameof(order));
+
+			if (order.State() != OrderState.New)
+				throw new ArgumentException($"The state of order should be {OrderState.New} to update", nameof(order));
+
+			dbHelper.Update(order, nameof(Orders));
 		}
 
 		public void DeleteOrder(Order order)
 		{
+			if (order == null)
+				throw new ArgumentNullException(nameof(order));
+
 			if (order.State() == OrderState.Complete)
 			{
 				throw new ArgumentException($"The order with status {OrderState.Complete}, can not be deleted", nameof(order));
 			}
 
-			dbHelper.Delete(order);
+			dbHelper.Delete(order, nameof(Orders));
 		}
 
 		public void SetOrderDate(Order order, DateTime orderDate)
 		{
+			if (order == null)
+				throw new ArgumentNullException(nameof(order));
+			if (orderDate == null)
+				throw new ArgumentNullException(nameof(orderDate));
+
 			order.OrderDate = orderDate;
 			UpdateOrder(order);
 		}
 
 		public void SetShippedDate(Order order, DateTime shippedDate)
 		{
+			if (order == null)
+				throw new ArgumentNullException(nameof(order));
+			if (shippedDate == null)
+				throw new ArgumentNullException(nameof(shippedDate));
+
 			order.ShippedDate = shippedDate;
 			UpdateOrder(order);
 		}
