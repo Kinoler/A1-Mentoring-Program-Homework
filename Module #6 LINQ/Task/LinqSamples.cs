@@ -7,6 +7,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -32,17 +33,18 @@ namespace SampleQueries
         public void Linq1()
         {
             var X = 100000;
-            var products = dataSource.Customers.Where(cus => cus.Orders.Sum(el => el.Total) > X);
-            foreach (var p in products)
+            var products = dataSource.Customers.Where(customer => customer.Orders.Sum(order => order.Total) > X);
+
+            foreach (var product in products)
             {
-                ObjectDumper.Write(p);
+                ObjectDumper.Write(product);
             }
 
             X = 10000;
             ObjectDumper.Write("X = 10000");
-            foreach (var p in products)
+            foreach (var product in products)
             {
-                ObjectDumper.Write(p);
+                ObjectDumper.Write(product);
             }
         }
 
@@ -53,31 +55,34 @@ namespace SampleQueries
                      "Сделайте задания с использованием группировки и без.")]
         public void Linq2()
         {
-            var customers = dataSource.Customers
+            ObjectDumper.Write("With group");
+            var customersWithSuppliersInTheSameCity = dataSource.Customers
                 .GroupJoin(
-                    dataSource.Suppliers, 
-                    outer => outer.Country + outer.City, 
-                    inner => inner.Country + inner.City, 
-                    (customer, suppliers) => 
-                        new KeyValuePair<Customer, IEnumerable<Supplier>>(customer, suppliers))
-                .ToDictionary(el => el.Key, el => el.Value);
-            
-            foreach (var c in customers)
+                    dataSource.Suppliers,
+                    customer => customer.Country + customer.City,
+                    supplier => supplier.Country + supplier.City,
+                    (customer, suppliers) =>
+                        new { Customer = customer, Suppliers = suppliers });
+
+            foreach (var customerWithSuppliersInTheSameCity in customersWithSuppliersInTheSameCity)
             {
-                ObjectDumper.Write(c.Key);
-                ObjectDumper.Write(c.Value);
+                ObjectDumper.Write(customerWithSuppliersInTheSameCity.Customer);
+                ObjectDumper.Write(customerWithSuppliersInTheSameCity.Suppliers);
             }
 
-            ObjectDumper.Write(" Without group");
-            customers = dataSource.Customers
-                .Select(cus => new KeyValuePair<Customer, IEnumerable<Supplier>>(
-                    cus, dataSource.Suppliers.Where(sup => sup.Country + sup.City == cus.Country + cus.City)))
-                .ToDictionary(el => el.Key, el => el.Value);
+            ObjectDumper.Write("Without group");
+            customersWithSuppliersInTheSameCity = dataSource.Customers
+                .Select(customer => 
+                    new { 
+                        Customer = customer, 
+                        Suppliers = dataSource.Suppliers.Where(supplier => 
+                            $"{supplier.Country} {supplier.City}" == $"{customer.Country} {customer.City}")
+                    });
 
-            foreach (var c in customers)
+            foreach (var customerWithSuppliersInTheSameCity in customersWithSuppliersInTheSameCity)
             {
-                ObjectDumper.Write(c.Key);
-                ObjectDumper.Write(c.Value);
+                ObjectDumper.Write(customerWithSuppliersInTheSameCity.Customer);
+                ObjectDumper.Write(customerWithSuppliersInTheSameCity.Suppliers);
             }
         }	
         
@@ -87,13 +92,12 @@ namespace SampleQueries
         public void Linq3()
         {
             var X = 100000;
-            var customers = dataSource.Customers.Where(cus => cus.Orders.Any(el => el.Total > X));
+            var customersWithOrderExpensiveThenX = dataSource.Customers.Where(customer => customer.Orders.Any(order => order.Total > X));
 
-            foreach (var c in customers)
+            foreach (var customerWithOrderExpensiveThenX in customersWithOrderExpensiveThenX)
             {
-                ObjectDumper.Write(c);
+                ObjectDumper.Write(customerWithOrderExpensiveThenX);
             }
-            
         }		
 
         [Category("LINQ Tasks")]
@@ -103,13 +107,18 @@ namespace SampleQueries
                      "(принять за таковые месяц и год самого первого заказа)")]
         public void Linq4()
         {
-            var customers = dataSource.Customers.Select(cus =>
-                    new KeyValuePair<Customer, DateTime>(cus,
-                        cus.Orders.Any() ? cus.Orders.Min(o => o.OrderDate) : DateTime.MinValue));
-            
-            foreach (var c in customers)
+            var customersWithMinOrderDate = dataSource.Customers
+                .Select(customer => 
+                    new {
+                        Customer = customer, 
+                        MinOrderDate = customer.Orders?.Min(order => order.OrderDate)
+                    });
+
+            foreach (var customerWithMinOrderDate in customersWithMinOrderDate)
             {
-                ObjectDumper.Write($"{c.Key.CustomerID} Day: {c.Value.Day} Year: {c.Value.Year}");
+                ObjectDumper.Write(customerWithMinOrderDate.MinOrderDate.HasValue
+                    ? $"{customerWithMinOrderDate.Customer.CustomerID} Day: {customerWithMinOrderDate.MinOrderDate?.Day} Year: {customerWithMinOrderDate.MinOrderDate?.Year}"
+                    : $"{customerWithMinOrderDate.Customer.CustomerID} Have no some order");
             }
         }	
         
@@ -120,16 +129,23 @@ namespace SampleQueries
                      "(от максимального к минимальному) и имени клиента")]
         public void Linq5()
         {
-            var customers = dataSource.Customers.Select(cus => 
-                new KeyValuePair<Customer, DateTime>(cus, cus.Orders.Any() ? cus.Orders.Min(o => o.OrderDate) : DateTime.MinValue))
-                .OrderBy(pair => pair.Value.Year)
-                .ThenBy(pair => pair.Value.Month)
-                .ThenByDescending(pair => pair.Key.Orders.Sum(el => el.Total))
-                .ThenBy(pair => pair.Key.CompanyName);
+            var customersWithMinOrderDateOrderedByYearMonthTurnoverAndCompanyName = dataSource.Customers                
+                .Select(customer => 
+                    new {
+                        Customer = customer, 
+                        MinOrderDate = customer.Orders?.Min(order => order.OrderDate)
+                    })
+                .OrderBy(customerWithMinOrderDate => customerWithMinOrderDate.MinOrderDate?.Year)
+                .ThenBy(customerWithMinOrderDateOrderedByYear => 
+                    customerWithMinOrderDateOrderedByYear.MinOrderDate?.Month)
+                .ThenByDescending(customerWithMinOrderDateOrderedByYearByMonth => 
+                    customerWithMinOrderDateOrderedByYearByMonth.Customer.Orders.Sum(order => order.Total))
+                .ThenBy(customerWithMinOrderDateOrderedByYearByMonthByTurnover => 
+                    customerWithMinOrderDateOrderedByYearByMonthByTurnover.Customer.CompanyName);
 
-            foreach (var c in customers)
+            foreach (var customerWithMinOrderDate in customersWithMinOrderDateOrderedByYearMonthTurnoverAndCompanyName)
             {
-                ObjectDumper.Write($"Year: {c.Value.Year} Month: {c.Value.Month} Name: {c.Key.CompanyName}");
+                ObjectDumper.Write($"Year: {customerWithMinOrderDate.MinOrderDate?.Year} Month: {customerWithMinOrderDate.MinOrderDate?.Month} Name: {customerWithMinOrderDate.Customer.CompanyName}");
             }
         }		
 
@@ -140,14 +156,14 @@ namespace SampleQueries
                      "оператора (для простоты считаем, что это равнозначно «нет круглых скобочек в начале»).")]
         public void Linq6()
         {
-            var customers = dataSource.Customers.Where(cus => 
-                int.TryParse(cus.PostalCode, out _) || 
-                string.IsNullOrEmpty(cus.Region) ||
-                (!string.IsNullOrEmpty(cus.Phone) && cus.Phone[0]=='('));
+            var customersWithSameInvalidData = dataSource.Customers.Where(customer => 
+                int.TryParse(customer.PostalCode, out _) || 
+                string.IsNullOrEmpty(customer.Region) ||
+                (!string.IsNullOrEmpty(customer.Phone) && customer.Phone[0]=='('));
 
-            foreach (var c in customers)
+            foreach (var customerWithSameInvalidData in customersWithSameInvalidData)
             {
-                ObjectDumper.Write(c);
+                ObjectDumper.Write(customerWithSameInvalidData);
             }
         }		
 
@@ -157,23 +173,36 @@ namespace SampleQueries
                      "внутри – по наличию на складе, внутри последней группы отсортируйте по стоимости")]
         public void Linq7()
         {
-            var products = dataSource.Products
-                .GroupBy(el => el.Category)
-                .ToDictionary(
-                    el => el.Key,
-                    el => el.Select(p => p)
-                        .GroupBy(p => p.UnitsInStock != 0)
-                        .ToDictionary(
-                            p => p.Key, 
-                            p => p.Select(ip => ip).OrderBy(ip => ip.UnitPrice)));
+            var productsGroupedByCategoryAndUnitsInStock = dataSource.Products
+                .GroupBy(product => product.Category)
+                .Select( 
+                    productGroupedByCategory => 
+                        new
+                        {
+                            Category = productGroupedByCategory.Key, 
+                            ProductsGroupedByUnitsInStock = productGroupedByCategory
+                                .Select(p => p)
+                                .GroupBy(p => p.UnitsInStock != 0)
+                                .Select(
+                                    productGroupedByUnitsInStock => 
+                                        new
+                                        {
+                                            UnitsInStock = productGroupedByUnitsInStock.Key,
+                                            Products = productGroupedByUnitsInStock
+                                                .Select(product => product)
+                                                .OrderBy(product => product.UnitPrice)
+                                        }
+                                    )
+                        }
+                    );
 
-            foreach (var p in products)
+            foreach (var productGroupedByCategoryAndUnitsInStock in productsGroupedByCategoryAndUnitsInStock)
             {
-                foreach (var vp in p.Value)
+                foreach (var productGroupedByUnitsInStock in productGroupedByCategoryAndUnitsInStock.ProductsGroupedByUnitsInStock)
                 {
-                    foreach (var vvp in vp.Value)
+                    foreach (var product in productGroupedByUnitsInStock.Products)
                     {
-                        ObjectDumper.Write($"Category: {p.Key} - ExistsInStore: {vp.Key} - Price: {vvp.UnitPrice}");
+                        ObjectDumper.Write($"Category: {product.Category} - ExistsInStore: {product.UnitsInStock} - Price: {product.UnitPrice}");
                     }
                 }
             }
@@ -185,22 +214,22 @@ namespace SampleQueries
                      "«средняя цена», «дорогие». Границы каждой группы задайте сами")]
         public void Linq8()
         {
-            var first = 400;
-            var second = 700;
+            const int cheapBorder = 400;
+            const int averagePriceBorder = 700;
 
-            var products = dataSource.Products.GroupBy(p => 
-                p.UnitPrice < first ? "Дешевые" : 
-                p.UnitPrice > second ? "Дорогие" : 
-                "Средняя цена");
+            var productsGroupedByPrice = dataSource.Products.GroupBy(product => 
+                product.UnitPrice < cheapBorder ? "Cheap" : 
+                product.UnitPrice > averagePriceBorder ? "Expensive" : 
+                "Average price");
 
-            foreach (var p in products)
+            foreach (var productGroupedByPrice in productsGroupedByPrice)
             {
-                foreach (var vp in p)
+                foreach (var product in productGroupedByPrice)
                 {
-                    ObjectDumper.Write($"Category: {p.Key} - Price: {vp.UnitPrice} - Name: {vp.ProductName}");
+                    ObjectDumper.Write($"Category: {productGroupedByPrice.Key} - Price: {product.UnitPrice} - Name: {product.ProductName}");
                 }
             }
-        }	
+        }
 
         [Category("LINQ Tasks")]
         [Title("Where - Task 9")]
@@ -210,30 +239,43 @@ namespace SampleQueries
                      "приходящееся на клиента из каждого города)")]
         public void Linq9()
         {
-            var profitability = dataSource.Customers
-                .GroupBy(cus => cus.City)
-                .ToDictionary(
-                    el => el.Key, 
-                    el => el
-                        .SelectMany(cus => cus.Orders, (customer, order) => order)
-                        .Average(o => o.Total));
+            var profitabilities = dataSource.Customers
+                .GroupBy(customer => customer.City)
+                .Select(
+                    customerGroupedByCity => 
+                        new
+                        {
+                            City = customerGroupedByCity.Key,
+                            AverageOrderPrice = customerGroupedByCity
+                                .SelectMany(customer => customer.Orders, (customer, order) => order)
+                                .Average(order => order.Total)
+                        } 
+                    );
             
-            foreach (var p in profitability)
+            foreach (var profitability in profitabilities)
             {
-                ObjectDumper.Write($"City: {p.Key} - Average price: {p.Value}");
+                ObjectDumper.Write($"City: {profitability.City} - Average price: {profitability.AverageOrderPrice}");
             }
 
-            var intensity = dataSource.Customers
-                .GroupBy(cus => cus.City)
-                .ToDictionary(
-                    el => el.Key, 
-                    el => 
-                        el.SelectMany(cus => cus.Orders, (customer, order) => order).Count() / 
-                        el.Count());
+            var intensities = dataSource.Customers
+                .GroupBy(customer => customer.City)
+                .Select(
+                    customerGroupedByCity => 
+                        new
+                        {
+                            City = customerGroupedByCity.Key,
+                            AverageOrderCount = 
+                                customerGroupedByCity
+                                    .SelectMany(customer => customer.Orders, (customer, order) => order)
+                                    .Count() 
+                                / 
+                                customerGroupedByCity.Count()
+                        } 
+                );
 
-            foreach (var i in intensity)
+            foreach (var intensity in intensities)
             {
-                ObjectDumper.Write($"City: {i.Key} - Average order: {i.Value}");
+                ObjectDumper.Write($"City: {intensity.City} - Average order: {intensity.AverageOrderCount}");
             }
         }
         
@@ -244,41 +286,59 @@ namespace SampleQueries
                      "по годам и месяцам (т.е. когда один месяц в разные годы имеет своё значение)")]
         public void Linq10()
         {
-            var customerActivity = dataSource.Customers
+            var activityCustomers = dataSource.Customers
                 .SelectMany(
-                    cus => cus.Orders,
-                    (customer, order) => new KeyValuePair<Customer, DateTime>(customer, order.OrderDate))
+                    customer => customer.Orders,
+                    (customer, order) => new { Customer = customer, OrderDate = order.OrderDate })
                 .ToList();
 
-            var byMonth = customerActivity
-                .GroupBy(el => el.Value.Month)
-                .ToDictionary(el => el.Key, el => el.Select(c => c.Key))
-                .OrderBy(el => el.Key);
-
-            var byYear = customerActivity
-                .GroupBy(el => el.Value.Year)
-                .ToDictionary(el => el.Key, el => el.Select(c => c.Key))
-                .OrderBy(el => el.Key);
-
-            var byYearMonth = customerActivity
-                .GroupBy(el => $"{el.Value.Year}:{el.Value.Month}")
-                .ToDictionary(el => el.Key, el => el.Select(c => c.Key))
-                .OrderBy(el => el.Key);
+            var activitiesByMonth = activityCustomers
+                .GroupBy(customerActivity => customerActivity.OrderDate.Month)
+                .Select(
+                    activityByMonth => 
+                        new
+                        {
+                            Month = activityByMonth.Key, 
+                            Customers = activityByMonth.Select(c => c.Customer)
+                        })
+                .OrderBy(el => el.Month);
+            
+            var activitiesByYear = activityCustomers
+                .GroupBy(customerActivity => customerActivity.OrderDate.Year)
+                .Select(
+                    activityByYear => 
+                        new
+                        {
+                            Year = activityByYear.Key, 
+                            Customers = activityByYear.Select(c => c.Customer)
+                        })
+                .OrderBy(el => el.Year);
+            
+            var activitiesByYearMonth = activityCustomers
+                .GroupBy(customerActivity => $"{customerActivity.OrderDate.Year}:{customerActivity.OrderDate.Month}")
+                .Select(
+                    activityByYearMonth => 
+                        new
+                        {
+                            YearMonth = activityByYearMonth.Key, 
+                            Customers = activityByYearMonth.Select(c => c.Customer)
+                        })
+                .OrderBy(el => el.YearMonth);
 
             
-            foreach (var i in byMonth)
+            foreach (var activity in activitiesByMonth)
             {
-                ObjectDumper.Write($"Month: {i.Key} - Count order: {i.Value.Count()}");
+                ObjectDumper.Write($"Month: {activity.Month} - Count order: {activity.Customers.Count()}");
             }
             
-            foreach (var i in byYear)
+            foreach (var activity in activitiesByYear)
             {
-                ObjectDumper.Write($"Year: {i.Key} - Count order: {i.Value.Count()}");
+                ObjectDumper.Write($"Year: {activity.Year} - Count order: {activity.Customers.Count()}");
             }
             
-            foreach (var i in byYearMonth)
+            foreach (var activity in activitiesByYearMonth)
             {
-                ObjectDumper.Write($"{i.Key} - Count order: {i.Value.Count()}");
+                ObjectDumper.Write($"{activity.YearMonth} - Count order: {activity.Customers.Count()}");
             }
         }
     }
