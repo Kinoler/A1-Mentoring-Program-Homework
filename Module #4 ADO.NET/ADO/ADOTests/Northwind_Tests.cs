@@ -19,15 +19,11 @@ namespace ADOTests
         [Test]
         public void TestMethod1()
         {
-            var Categories = Northwind.Categories;
-            var OrderDetails = Northwind.OrderDetails;
-            var Products = Northwind.Products; 
             var Orders = Northwind.Orders;
-            var Regions = Northwind.Region;
 
             var order = new Order();
 
-            Northwind.AddOrder(order);
+            Orders.Add(order);
         }
     }
 }

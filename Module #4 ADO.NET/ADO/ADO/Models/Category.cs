@@ -14,9 +14,11 @@ namespace ADO.Models
         {
         }
 
-        public int CategoryID { get; private set; }
+        public int CategoryID { get; internal set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
         public byte[] Picture { get => picture.Skip(78).ToArray(); set => picture = value; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }
