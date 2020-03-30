@@ -11,6 +11,8 @@ namespace BCLLibrory
 {
     public class FileWatcher
     {
+        private const char ReplecerInvalidSymbols = '-';
+
         private readonly List<Rule> _setOfRules;
         private readonly List<string> _watcherFolders;
         private readonly string _defaultFolder;
@@ -100,7 +102,19 @@ namespace BCLLibrory
                 modifiedFileName = $"{sourceFileName} ({i++})";
             }
 
-            File.Move(source, Path.Combine(targetLocation, modifiedFileName + fileInfo.Extension));
+            if (modifiedFileName.Intersect(Path.GetInvalidFileNameChars()).Any())
+            {
+                modifiedFileName = modifiedFileName
+                    .Intersect(Path.GetInvalidFileNameChars())
+                    .Aggregate(
+                        modifiedFileName, 
+                        (seed, invalidChar) => {
+                            return seed.Replace(invalidChar, ReplecerInvalidSymbols);
+                        });
+            }
+            
+            var path = Path.Combine(targetLocation, modifiedFileName + fileInfo.Extension);
+            File.Move(source, path);
 
             _fileWatcherLogger.FileMoved(modifiedFileName, targetLocation);
         }
