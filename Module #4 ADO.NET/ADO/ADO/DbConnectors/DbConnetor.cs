@@ -5,6 +5,7 @@ using System.Linq;
 using System.Data.Common;
 using System.Web.Configuration;
 using System.Text;
+using ADO.Interfaces;
 
 namespace ADO.DbConnectors
 {
@@ -20,12 +21,6 @@ namespace ADO.DbConnectors
             ProviderName = connectionStringSettings.ProviderName;
         }
 
-        public List<T> CallStoredProcedure<T>(string procedureName, params DbParameter[] parameters) where T : new()
-        {
-            return CallStoredProcedure(procedureName, parameters).ToObjects<T>();
-        }
-
-
         public void ExecuteNonQuery(string commandText)
         {
             var connection = DbProviderFactories.GetFactory(ProviderName).CreateConnection();
@@ -40,7 +35,7 @@ namespace ADO.DbConnectors
             command.ExecuteNonQuery();
         }
 
-        public DataSet GetDataSet(string commandText)
+        public DataTable GetDataTable(string commandText)
         {
             var connection = DbProviderFactories.GetFactory(ProviderName).CreateConnection();
             connection.ConnectionString = ConnectionString;
@@ -56,7 +51,7 @@ namespace ADO.DbConnectors
             dataAdaper.SelectCommand = command;
             dataAdaper.Fill(dataset);
 
-            return dataset;
+            return dataset.Tables[0];
         }
 
         public IDataParameter CreateParameter(string name, int size, object value, DbType dbType, ParameterDirection direction)
@@ -71,7 +66,7 @@ namespace ADO.DbConnectors
             return parameter;
         }
 
-        public IDataReader CallStoredProcedure(string procedureName, params IDataParameter[] parameters)
+        public DataTable CallStoredProcedure(string procedureName, params IDataParameter[] parameters)
         {
             using var connection = DbProviderFactories.GetFactory(ProviderName).CreateConnection();
             connection.ConnectionString = ConnectionString;
@@ -86,7 +81,9 @@ namespace ADO.DbConnectors
                 command.Parameters.Add(parameter);
             }
 
-            return command.ExecuteReader();
+            var table = new DataTable();
+            table.Load(command.ExecuteReader());
+            return table;
         }
     }
 }

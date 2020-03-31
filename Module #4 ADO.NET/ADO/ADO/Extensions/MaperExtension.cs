@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ADO
 {
-    internal static class MaperExtension
+    public static class MaperExtension
     {
         public static T ToObject<T>(this DataRow dataRow) where T : new()
         {
@@ -23,7 +23,7 @@ namespace ADO
 
             return item;
         }
-
+        /*
         public static List<T> ToObjects<T>(this IDataReader reader) where T : new()
         {
             var result = new List<T>();
@@ -42,7 +42,7 @@ namespace ADO
 
             return result;
         }
-        /*
+        
         public static Dictionary<string, string> ToValueProperties(this object obj)
         {
             var result = new Dictionary<string, string>();
@@ -54,7 +54,7 @@ namespace ADO
             return result;
         }
         */
-        public static string ConvertToDbParameter(this object obj)
+        internal static string ConvertToDbParameter(this object obj)
         {
             switch (obj)
             {

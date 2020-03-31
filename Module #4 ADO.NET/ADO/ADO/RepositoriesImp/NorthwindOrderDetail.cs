@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ADO.DbConnectors;
+using ADO.Interfaces;
 using ADO.Models;
 
 namespace ADO.RepositoriesImp
@@ -9,16 +10,14 @@ namespace ADO.RepositoriesImp
     public class NorthwindOrderDetail : INorthwindTable<OrderDetail>
     {
         private readonly IDbConnector _dbHelper;
-        private readonly INorthwindTable<Order> _northwindOrder;
         private readonly INorthwindTable<Product> _northwindProduct;
 
         internal const string SelectAllQuery =
             @"SELECT * FROM [Northwind].[dbo].[Order Details];";
 
-        public NorthwindOrderDetail(IDbConnector dbHelper, INorthwindTable<Order> northwindOrder = null, INorthwindTable<Product> northwindProduct = null)
+        public NorthwindOrderDetail(IDbConnector dbHelper, INorthwindTable<Product> northwindProduct = null)
         {
             _dbHelper = dbHelper ?? throw new ArgumentNullException(nameof(dbHelper));
-            _northwindOrder = northwindOrder ?? new NorthwindOrder(dbHelper);
             _northwindProduct = northwindProduct ?? new NorthwindProduct(dbHelper);
         }
 
@@ -27,7 +26,7 @@ namespace ADO.RepositoriesImp
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(OrderDetail item)
         {
             throw new NotImplementedException();
         }
@@ -40,7 +39,7 @@ namespace ADO.RepositoriesImp
         public IEnumerable<OrderDetail> GetElements()
         {
             return _dbHelper
-                .GetDataSet(SelectAllQuery).Tables[0].Select()
+                .GetDataTable(SelectAllQuery).Select()
                 .Select(dataRow => FillDependences(dataRow.ToObject<OrderDetail>()));
         }
 
@@ -51,9 +50,6 @@ namespace ADO.RepositoriesImp
 
         public OrderDetail FillDependences(OrderDetail order)
         {
-            order.Order = _northwindOrder
-                .GetElement(order.OrderID);
-
             order.Product = _northwindProduct
                 .GetElement(order.ProductID);
 

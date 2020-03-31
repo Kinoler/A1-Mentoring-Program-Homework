@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ADO.DbConnectors;
+using ADO.Interfaces;
 using ADO.Models;
 
 namespace ADO.RepositoriesImp
@@ -9,7 +10,6 @@ namespace ADO.RepositoriesImp
     public class NorthwindCategory : INorthwindTable<Category>
     {
         private readonly IDbConnector _dbHelper;
-        private readonly INorthwindTable<Product> _northwindProduct;
 
         internal const string SelectAllQuery =
             @"SELECT * FROM Categories;";
@@ -17,10 +17,9 @@ namespace ADO.RepositoriesImp
         internal const string SelectOneQuery =
             @"SELECT * FROM Categories WHERE CategoryID = {0};";
 
-        public NorthwindCategory(IDbConnector dbHelper, INorthwindTable<Product> northwindProduct = null)
+        public NorthwindCategory(IDbConnector dbHelper)
         {
             _dbHelper = dbHelper ?? throw new ArgumentNullException(nameof(dbHelper));
-            _northwindProduct = northwindProduct ?? new NorthwindProduct(dbHelper);
         }
 
         public void Add(Category item)
@@ -28,7 +27,7 @@ namespace ADO.RepositoriesImp
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(Category item)
         {
             throw new NotImplementedException();
         }
@@ -38,14 +37,14 @@ namespace ADO.RepositoriesImp
             var query = string.Format(SelectOneQuery, id);
             return FillDependences(
                 _dbHelper
-                    .GetDataSet(query).Tables[0].Select()
+                    .GetDataTable(query).Select()
                     .First().ToObject<Category>());
         }
 
         public IEnumerable<Category> GetElements()
         {
             return _dbHelper
-                .GetDataSet(SelectAllQuery).Tables[0].Select()
+                .GetDataTable(SelectAllQuery).Select()
                 .Select(dataRow => FillDependences(dataRow.ToObject<Category>()));
         }
 
@@ -56,10 +55,6 @@ namespace ADO.RepositoriesImp
 
         public Category FillDependences(Category category)
         {
-            category.Products = _northwindProduct
-                .GetElements()
-                .Where(product => product.CategoryID == category.CategoryID)
-                .ToList();
 
             return category;
         }

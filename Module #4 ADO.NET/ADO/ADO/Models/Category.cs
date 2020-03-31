@@ -19,6 +19,5 @@ namespace ADO.Models
         public string Description { get; set; }
         public byte[] Picture { get => picture.Skip(78).ToArray(); set => picture = value; }
 
-        public ICollection<Product> Products { get; set; }
     }
 }

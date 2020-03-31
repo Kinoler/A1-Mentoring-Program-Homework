@@ -24,6 +24,5 @@ namespace ADO.Models
         public bool Discontinued { get; set; }
 
         public Category Category { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

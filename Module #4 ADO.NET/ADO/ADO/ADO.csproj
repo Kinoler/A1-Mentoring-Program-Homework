@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbConnectors\IDbConnector.cs" />
-    <Compile Include="RepositoriesImp\INorthwindTable.cs" />
+    <Compile Include="Interfaces\IDbConnector.cs" />
+    <Compile Include="Interfaces\INorthwindTable.cs" />
     <Compile Include="Models\OrderState.cs" />
     <Compile Include="Northwind.cs" />
     <Compile Include="RepositoriesImp\NorthwindCategory.cs" />
