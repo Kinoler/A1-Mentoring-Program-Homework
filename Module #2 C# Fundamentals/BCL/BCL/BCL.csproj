@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8E78C1E-D7F8-4D40-87E5-1BB5E0E372C2}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reflection</RootNamespace>
-    <AssemblyName>Reflection</AssemblyName>
+    <ProjectGuid>{C457AF9A-314E-44BD-B483-B473BEE928D1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BCL</RootNamespace>
+    <AssemblyName>BCL</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,14 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Container.cs" />
-    <Compile Include="Attributes\ExportAttribute.cs" />
-    <Compile Include="Attributes\ImportAttribute.cs" />
-    <Compile Include="Attributes\ImportConstructorAttribute.cs" />
-    <Compile Include="EmitHelper.cs" />
-    <Compile Include="Models\ModelObjectCreated.cs" />
+    <Compile Include="Configuration\Collections\RuleCollection.cs" />
+    <Compile Include="Configuration\Elements\RuleElement.cs" />
+    <Compile Include="Configuration\Collections\WatcherFolderCollection.cs" />
+    <Compile Include="Configuration\Sections\FileWatcherConfigurationSection.cs" />
+    <Compile Include="Configuration\Elements\WatcherFolderElement.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BCLLibrory\BCLLibrory.csproj">
+      <Project>{3e369a53-6093-48e7-8a3f-4e9393c5f032}</Project>
+      <Name>BCLLibrory</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
