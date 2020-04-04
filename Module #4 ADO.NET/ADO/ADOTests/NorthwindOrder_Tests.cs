@@ -6,28 +6,30 @@ using ADO;
 using ADO.DbConnectors;
 using ADO.Interfaces;
 using ADO.Models;
+using ADO.Quaries;
 using ADO.RepositoriesImp;
 using NUnit.Framework;
 using Moq;
+using ADO.Extensions;
 
 namespace ADOTests
 {
     [TestFixture]
     public class NorthwindOrder_Tests
     {
-        private NorthwindOrder NorthwindOrder { get; set; }
+        private OrdersRepository NorthwindOrder { get; set; }
         private Mock<IDbConnector> MockDbConnector { get; set; }
-        private Mock<INorthwindTable<OrderDetail>> MockNorthwindOrderDetail { get; set; }
+        private DataSet DataSetOrder { get; set; }
         private DataTable DataTableOrder { get; set; }
+        private OrderSQL OrderSql { get; set; }
 
         [SetUp]
         public void SetUp()
         {
             MockDbConnector = new Mock<IDbConnector>();
-            MockNorthwindOrderDetail = new Mock<INorthwindTable<OrderDetail>>();
+            OrderSql = new OrderSQL();
 
-            NorthwindOrder = new NorthwindOrder(MockDbConnector.Object, MockNorthwindOrderDetail.Object);
-
+            NorthwindOrder = new OrdersRepository(MockDbConnector.Object, OrderSql);
             DataTableOrder = new DataTable();
             var dataColumn = DataTableOrder.Columns.Add("OrderID", typeof(int));
             dataColumn = DataTableOrder.Columns.Add("CustomerID", typeof(string)); dataColumn.AllowDBNull = true;
@@ -44,13 +46,15 @@ namespace ADOTests
             dataColumn = DataTableOrder.Columns.Add("ShipPostalCode", typeof(string)); dataColumn.AllowDBNull = true;
             dataColumn = DataTableOrder.Columns.Add("ShipCountry", typeof(string)); dataColumn.AllowDBNull = true;
 
+            DataSetOrder = new DataSet();
+            DataSetOrder.Tables.Add(DataTableOrder);
         }
         public DataRow NewRow(
-            int orderId, 
-            string customerId = null, 
+            int orderId,
+            string customerId = null,
             int? employeeId = null,
-            DateTime? orderDate = null, 
-            DateTime? requiredDate = null, 
+            DateTime? orderDate = null,
+            DateTime? requiredDate = null,
             DateTime? shippedDate = null,
             int? shipVia = null,
             decimal? freight = null,
@@ -82,89 +86,171 @@ namespace ADOTests
         }
 
         [Test]
-        public void NorthwindOrder_GetElements_ShouldCall_GetDataTable_WithCorrectQuery()
+        public void GetElements_CallMethodWithValidValue_ShouldCallGetDataTableWithCorrectQuery()
         {
-            var expected = NorthwindOrder.SelectAllQuery;
+            //Arrange
+            var expected = OrderSql.SelectAllQuery;
+            var windowCapacity = 0;
+            var windowNumber = 0;
 
-            NorthwindOrder.GetElements();
+            //Act
+            NorthwindOrder.GetOrders(windowCapacity, windowNumber);
 
-            MockDbConnector.Verify(dbConnector => dbConnector.GetDataTable(expected));
+            //Assert
+            MockDbConnector.Verify(dbConnector => dbConnector.GetDataSet(expected, null, null));
         }
 
         [Test]
-        public void NorthwindOrder_GetElements_ShouldReturn_AllOrders_WithCorrectFillValue()
+        public void GetElements_CallMethodWithValidValue_ShouldReturnAllOrdersWithCorrectFillValue()
         {
+            //Arrange
             var order = NewRow(0).ToObject<Order>();
-            var expected = new List<Order>() { order };
+            var expected = order ;
 
-            MockDbConnector.Setup(dbConnector => 
-                    dbConnector
-                    .GetDataTable(It.IsAny<string>()))
-                .Returns(DataTableOrder);
+            //Act
+            MockDbConnector.Setup(dbConnector =>
+                    dbConnector.GetDataSet(It.IsAny<string>(), null, null))
+                .Returns(DataSetOrder);
 
-            MockNorthwindOrderDetail.Setup(northwindOrderDetail => 
-                    northwindOrderDetail
-                    .GetElements())
-                .Returns<ICollection<OrderDetail>>(null);
+            var actual = NorthwindOrder.GetOrders(0,0).ToList().FirstOrDefault();
 
-            var actual = NorthwindOrder.GetElements().ToList();
-            CollectionAssert.AreEqual(expected, actual);
+            //Assert
+            //That is the place where was needed the implementation of equals
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.CustomerID, actual.CustomerID);
+            Assert.AreEqual(expected.EmployeeID, actual.EmployeeID);
+            Assert.AreEqual(expected.Freight, actual.Freight);
+            Assert.AreEqual(expected.OrderDate, actual.OrderDate);
+            Assert.AreEqual(expected.OrderID, actual.OrderID);
+            Assert.AreEqual(expected.RequiredDate, actual.RequiredDate);
+            Assert.AreEqual(expected.ShipAddress, actual.ShipAddress);
+            Assert.AreEqual(expected.ShipCity, actual.ShipCity);
+            Assert.AreEqual(expected.ShipCountry, actual.ShipCountry);
+            Assert.AreEqual(expected.ShipName, actual.ShipName);
+            Assert.AreEqual(expected.ShippedDate, actual.ShippedDate);
+            Assert.AreEqual(expected.ShipPostalCode, actual.ShipPostalCode);
+            Assert.AreEqual(expected.ShipRegion, actual.ShipRegion);
+            Assert.AreEqual(expected.ShipVia, actual.ShipVia);
         }
 
         [Test]
-        public void NorthwindOrder_Add_ShouldCall_ExecuteNonQuery_WithCorrectQuery()
+        public void Add_CallMethodWithValidValue_ShouldCallExecuteNonQueryWithCorrectQuery()
         {
+            //Arrange
             var order = new Order();
-            var expected = string.Format(NorthwindOrder.AddQuery, "NULL", 
-                "NULL", "NULL", "NULL", "NULL", "NULL", "NULL", 
-                "NULL", "NULL", "NULL", "NULL", "NULL", "NULL" );
+            var expected = OrderSql.AddQuery;
 
+            //Act
             NorthwindOrder.Add(order);
 
-            MockDbConnector.Verify(dbConnector => dbConnector.ExecuteNonQuery(expected));
+            //Assert
+            MockDbConnector.Verify(dbConnector => dbConnector.ExecuteNonQuery(expected, 
+                null, null, null, null, null, null,
+                null, null, null, null, null, null, null));
+        }
+
+    [Test]
+        public void Update_CallMethodWithOrderStateInProgress_ThrowInvalidOperationException()
+        {
+            //Arrange
+            var order = new Order {OrderDate = DateTime.MinValue};
+
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.Update(order));
         }
 
         [Test]
-        public void NorthwindOrder_Update_ShouldThrow_WhenTryToUpdete_OrderWithStatusInProgres()
+        public void Update_CallMethodWithOrderStateComplete_ThrowInvalidOperationException()
         {
-            var order = new Order();
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MinValue);
+            //Arrange
+            var order = new Order {OrderDate = DateTime.MinValue, ShippedDate = DateTime.MinValue};
 
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.Update(order));
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.Update(order));
         }
 
         [Test]
-        public void NorthwindOrder_Update_ShouldThrow_WhenTryToUpdete_OrderWithStatusComplete()
+        public void Delete_CallMethodWithOrderStateComplete_ThrowInvalidOperationException()
         {
-            var order = new Order();
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MinValue);
-            order.GetType().GetProperty("ShippedDate")?.SetValue(order, DateTime.MinValue);
+            //Arrange
+            var order = new Order { OrderDate = DateTime.MinValue, ShippedDate = DateTime.MinValue };
 
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.Update(order));
+            //Assert
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.Delete(order));
         }
 
         [Test]
-        public void NorthwindOrder_Delete_ShouldThrow_WhenTryToDelete_OrderWithStatusComplete()
+        public void SetOrderDate_TryToSetSomeValueToOrderDateProperty_ShouldSetOrderDate()
         {
+            //Arrange
             var order = new Order();
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MinValue);
-            order.GetType().GetProperty("ShippedDate")?.SetValue(order, DateTime.MinValue);
+            var expected = DateTime.MinValue;
 
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.Delete(order));
+            //Act
+            NorthwindOrder.SetOrderDate(order, expected);
+            var actual = order.OrderDate;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test] 
+        public void SetOrderDate_CallMethodWithOrderStateInProgress_ThrowInvalidOperationException()
+        {
+            //Arrange
+            var order = new Order {OrderDate = DateTime.MaxValue};
+            var expected = DateTime.MinValue;
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetOrderDate(order, expected));
         }
 
         [Test]
-        public void NorthwindOrder_Delete_ShouldCall_ExecuteNonQuery_WithCorrectQuery()
+        public void SetOrderDate_CallMethodWithOrderStateComplete_ThrowInvalidOperationException()
         {
-            const int orderId = 1;
+            //Arrange
+            var order = new Order { OrderDate = DateTime.MaxValue, ShippedDate = DateTime.MaxValue };
+            var expected = DateTime.MinValue;
+
+            //Assert
+            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetOrderDate(order, expected));
+        }
+
+        [Test]
+        public void SetShippedDate_TryToSetSomeValueToShippedDateProperty_ShouldSetShippedDate()
+        {
+            //Arrange
+            var order = new Order { OrderDate = DateTime.MaxValue };
+            var expected = DateTime.MinValue;
+
+            //Act
+            NorthwindOrder.SetShippedDate(order, expected);
+            var actual = order.ShippedDate;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void SetShippedDate_CallMethodWithOrderStateInProgress_ThrowInvalidOperationException()
+        {
+            //Arrange
             var order = new Order();
-            order.GetType().GetProperty("OrderID")?.SetValue(order, orderId);
+            var expected = DateTime.MinValue;
 
-            var expected = string.Format(NorthwindOrder.DeleteOneQuery, orderId);
+            //Assert
+            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetShippedDate(order, expected));
+        }
 
-            NorthwindOrder.Delete(order);
+        [Test]
+        public void SetShippedDate_CallMethodWithOrderStateComplete_ThrowInvalidOperationExceptionComplete()
+        {
+            //Arrange
+            var order = new Order { OrderDate = DateTime.MaxValue, ShippedDate = DateTime.MaxValue };
+            var expected = DateTime.MinValue;
 
-            MockDbConnector.Verify(dbConnector => dbConnector.ExecuteNonQuery(expected));
+            //Assert
+            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetShippedDate(order, expected));
         }
     }
 }

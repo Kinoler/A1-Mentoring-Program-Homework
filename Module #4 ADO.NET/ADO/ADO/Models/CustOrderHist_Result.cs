@@ -9,6 +9,7 @@ namespace ADO.Models
     public partial class CustOrderHist_Result
     {
         public string ProductName { get; set; }
-        public Nullable<int> Total { get; set; }
+
+        public int? Total { get; set; }
     }
 }

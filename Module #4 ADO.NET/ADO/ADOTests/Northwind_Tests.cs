@@ -18,96 +18,34 @@ namespace ADOTests
         public void SetUp()
         {
             MockDbConnector = new Mock<IDbConnector>();
+            MockDbConnector.Setup(connector => connector.ProviderName).Returns("System.Data.SqlClient");
             Northwind = new Northwind(MockDbConnector.Object);
         }
 
         [Test]
-        public void Northwind_SetOrderDate_ShouldSet_OrderDate()
+        public void CustOrderHis_CallTheCallStoredProcedureMethod_ShouldCallCallStoredProcedureWithCorrectParemeter()
         {
-            var order = new Order();
-            var expected = DateTime.MinValue;
-
-            Northwind.SetOrderDate(order, expected);
-
-            var actual = order.OrderDate;
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void Northwind_SetOrderDate_ShouldThrow_WhenTryToSet_OrdetWithStatusInProgress()
-        {
-            var order = new Order();
-            var expected = DateTime.MinValue;
-
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MaxValue);
-
-            Assert.Throws<ArgumentException>(() => Northwind.SetOrderDate(order, expected));
-        }
-
-        [Test]
-        public void Northwind_SetOrderDate_ShouldThrow_WhenTryToSet_OrdetWithStatusComplete()
-        {
-            var order = new Order();
-            var expected = DateTime.MinValue;
-
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MaxValue);
-            order.GetType().GetProperty("ShippedDate")?.SetValue(order, DateTime.MaxValue);
-
-            Assert.Throws<ArgumentException>(() => Northwind.SetOrderDate(order, expected));
-        }
-
-        [Test]
-        public void Northwind_SetShippedDate_ShouldSet_ShippedDate()
-        {
-            var order = new Order();
-            var expected = DateTime.MinValue;
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MaxValue);
-
-            Northwind.SetShippedDate(order, expected);
-
-            var actual = order.ShippedDate;
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void Northwind_SetShippedDate_ShouldThrow_WhenTryToSet_OrdetWithStatusInProgress()
-        {
-            var order = new Order();
-            var expected = DateTime.MinValue;
-
-            Assert.Throws<ArgumentException>(() => Northwind.SetShippedDate(order, expected));
-        }
-
-        [Test]
-        public void Northwind_SetShippedDate_ShouldThrow_WhenTryToSet_OrdetWithStatusComplete()
-        {
-            var order = new Order();
-            var expected = DateTime.MinValue;
-
-            order.GetType().GetProperty("OrderDate")?.SetValue(order, DateTime.MaxValue);
-            order.GetType().GetProperty("ShippedDate")?.SetValue(order, DateTime.MaxValue);
-
-            Assert.Throws<ArgumentException>(() => Northwind.SetShippedDate(order, expected));
-        }
-
-        [Test]
-        public void Northwind_CustOrderHis_ShouldCall_CallStoredProcedure_WithCorrectParemeter()
-        {
+            //Arrange
             var expected = "CustOrderHis";
+
+            //Act
             Northwind.CustOrderHis("");
 
+            //Assert
             MockDbConnector.Verify(dbConnector => 
                 dbConnector.CallStoredProcedure(expected, new System.Data.IDataParameter[]{ null }));
         }
 
-        [Test]
-        public void Northwind_CustOrdersDetail_ShouldCall_CallStoredProcedure_WithCorrectParemeter()
+        [Test] 
+        public void CustOrdersDetail_CallTheCallStoredProcedureMethod_ShouldCallCallStoredProcedureWithCorrectParemeter()
         {
+            //Arrange
             var expected = "CustOrdersDetail";
+
+            //Act
             Northwind.CustOrdersDetail(0);
 
+            //Assert
             MockDbConnector.Verify(dbConnector =>
                 dbConnector.CallStoredProcedure(expected, new System.Data.IDataParameter[] { null }));
         }

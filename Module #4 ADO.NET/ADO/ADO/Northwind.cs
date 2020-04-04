@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ADO.DbConnectors;
+using ADO.Extensions;
 using ADO.Interfaces;
 using ADO.Models;
+using ADO.Quaries;
 using ADO.RepositoriesImp;
 
 namespace ADO
@@ -18,64 +20,30 @@ namespace ADO
         {
         }
 
-        public Northwind(IDbConnector dbConnetor)
+        internal Northwind(IDbConnector dbConnetor)
         {
             _dbConnetor = dbConnetor ?? throw new ArgumentNullException(nameof(dbConnetor));
-            Orders = new NorthwindOrder(_dbConnetor);
+            Orders = new OrdersRepository(_dbConnetor);
         }
 
-        public INorthwindTable<Order> Orders { get; private set; }
+        public IOrdersRepository Orders { get; private set; }
 
-        public List<CustOrderHist_Result> CustOrderHis(string CustomerId)
+        public IEnumerable<CustOrderHist_Result> CustOrderHis(string CustomerId)
         {
-            var customerIdParam = _dbConnetor.CreateParameter(
-                $"@{nameof(CustomerId)}", 
-                0, 
-                CustomerId, 
-                System.Data.DbType.String, 
-                System.Data.ParameterDirection.Input);
+            var customerIdParam = _dbConnetor.CreateParameter($"@CustomerId", CustomerId);
 
             return _dbConnetor
                 .CallStoredProcedure("CustOrderHis", customerIdParam)?.Select()
-                .Select(dataRow => dataRow.ToObject<CustOrderHist_Result>())
-                .ToList();
+                .Select(dataRow => dataRow.ToObject<CustOrderHist_Result>());
         }
 
-        public List<CustOrdersDetail_Result> CustOrdersDetail(int OrderID)
+        public IEnumerable<CustOrdersDetail_Result> CustOrdersDetail(int orderID)
         {
-            var orderIdParam = _dbConnetor.CreateParameter(
-                $"@{nameof(OrderID)}", 
-                0, 
-                OrderID, 
-                System.Data.DbType.Int32,
-                System.Data.ParameterDirection.Input);
+            var orderIdParam = _dbConnetor.CreateParameter($"@OrderID", orderID);
 
             return _dbConnetor
                 .CallStoredProcedure("CustOrdersDetail", orderIdParam)?.Select()
-                .Select(dataRow => dataRow.ToObject<CustOrdersDetail_Result>())
-                .ToList();
-        }
-
-        public void SetOrderDate(Order order, DateTime orderDate)
-        {
-            if (order == null)
-                throw new ArgumentNullException(nameof(order));
-            if (order.Status != OrderState.New)
-                throw new ArgumentException($"The order should be {OrderState.New}", nameof(order));
-
-            order.OrderDate = orderDate;
-            (Orders as NorthwindOrder)?.InternalUpdate(order);
-        }
-
-        public void SetShippedDate(Order order, DateTime shippedDate)
-        {
-            if (order == null)
-                throw new ArgumentNullException(nameof(order));
-            if (order.Status != OrderState.InProgress)
-                throw new ArgumentException($"The order should be {OrderState.InProgress}", nameof(order));
-
-            order.ShippedDate = shippedDate;
-            (Orders as NorthwindOrder)?.InternalUpdate(order);
+                .Select(dataRow => dataRow.ToObject<CustOrdersDetail_Result>());
         }
     }
 }

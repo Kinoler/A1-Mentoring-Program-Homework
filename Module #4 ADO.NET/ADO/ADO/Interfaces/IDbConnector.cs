@@ -4,11 +4,22 @@ using System.Data.Common;
 
 namespace ADO.Interfaces
 {
-    public interface IDbConnector
+    internal interface IDbConnector
     {
         DataTable CallStoredProcedure(string procedureName, params IDataParameter[] parameters);
-        IDataParameter CreateParameter(string name, int size, object value, DbType dbType, ParameterDirection direction);
-        DataTable GetDataTable(string commandText);
-        void ExecuteNonQuery(string commandText);
+
+        IDataParameter CreateParameter(string name, object value, DbType dbType, bool isNullable, ParameterDirection direction);
+
+        IDataParameter CreateParameter(
+            string name,
+            object value,
+            bool isNullable = false,
+            ParameterDirection direction = ParameterDirection.Input);
+
+        DataSet GetDataSet(string commandText, params IDataParameter[] parameters);
+
+        void ExecuteNonQuery(string commandText, params IDataParameter[] parameters);
+
+        string ProviderName { get; }
     }
 }
