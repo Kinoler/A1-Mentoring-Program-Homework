@@ -4,7 +4,7 @@
 	запись с одной колонкой с названием колонки 'Totals'.
 */
 SELECT 
-	SUM((UnitPrice- Discount) * Quantity) as 'Totals'
+	SUM((UnitPrice - Discount) * Quantity) AS 'Totals'
 FROM dbo.[Order Details]
 GO
 
@@ -15,9 +15,12 @@ GO
 	Не использовать предложения WHERE и GROUP.
 */
 SELECT 
-	COUNT(*)
+	COUNT(
+		CASE
+			WHEN ShippedDate IS NULL THEN 1
+			ELSE NULL
+		END) AS CountNotArrived
 FROM dbo.Orders
-WHERE ShippedDate is null
 GO
 
 /*
@@ -26,6 +29,6 @@ GO
 	Использовать функцию COUNT и не использовать предложения WHERE и GROUP.
 */
 SELECT
-	COUNT(UnicCustomerIDs.CustomerID)
-FROM (SELECT DISTINCT CustomerID FROM dbo.Orders) as UnicCustomerIDs
+	COUNT(DISTINCT CustomerID)
+FROM dbo.Orders
 GO

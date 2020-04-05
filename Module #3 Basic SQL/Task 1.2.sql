@@ -8,7 +8,7 @@ SELECT
 	ContactName,
 	Country
 FROM dbo.Customers
-WHERE Country in('USA', 'Canada')
+WHERE Country IN('USA', 'Canada')
 ORDER BY ContactName, Country
 GO
 
@@ -22,7 +22,7 @@ SELECT
 	ContactName,
 	Country
 FROM dbo.Customers
-WHERE Country not in('USA', 'Canada')
+WHERE Country NOT IN('USA', 'Canada')
 ORDER BY ContactName
 GO
 

@@ -4,15 +4,15 @@
 	Написать проверочный запрос, который вычисляет количество всех заказов.
 */
 SELECT 
-	YEAR(o.OrderDate) as 'Year',
-	COUNT(*) as 'Total'
-FROM dbo.Orders as o
-GROUP BY YEAR(o.OrderDate)
+	YEAR(orders.OrderDate) AS 'Year',
+	COUNT(orders.OrderID) AS 'Total'
+FROM dbo.Orders AS orders
+GROUP BY YEAR(orders.OrderDate)
 GO
 
 SELECT 
-	COUNT(*) as 'Total'
-FROM dbo.Orders as o
+	COUNT(orders.OrderID) as 'Total'
+FROM dbo.Orders as orders
 GO
 
 /*
@@ -29,13 +29,13 @@ GO
 */
 SELECT 
 	(SELECT 
-		CONCAT(e.LastName, ' ',e.FirstName)
-		FROM dbo.Employees as e
-		WHERE e.EmployeeID = o.EmployeeID
-	) as 'Seller',
-	COUNT(*) as Amount
-FROM dbo.Orders as o
-GROUP BY o.EmployeeID
+		CONCAT(employee.LastName, ' ',employee.FirstName)
+		FROM dbo.Employees AS employee
+		WHERE employee.EmployeeID = orders.EmployeeID
+	) AS 'Seller',
+	COUNT(orders.OrderID) AS Amount
+FROM dbo.Orders AS orders
+GROUP BY orders.EmployeeID
 ORDER BY Amount
 GO
 
@@ -45,12 +45,12 @@ GO
 	Необходимо определить это только для заказов, сделанных в 1998 году.
 */
 SELECT 
-	o.EmployeeID,
-	o.CustomerID,
-	COUNT(*) as 'Total'
-FROM dbo.Orders as o
-WHERE YEAR(o.OrderDate) = '1998'
-GROUP BY o.EmployeeID, o.CustomerID
+	orders.EmployeeID,
+	orders.CustomerID,
+	COUNT(orders.OrderID) AS 'Total'
+FROM dbo.Orders AS orders
+WHERE YEAR(orders.OrderDate) = '1998'
+GROUP BY orders.EmployeeID, orders.CustomerID
 GO
 
 /*
@@ -61,12 +61,12 @@ GO
 	Не использовать конструкцию JOIN. 
 */
 SELECT 
-	o.EmployeeID,
-	o.CustomerID
-FROM dbo.Orders as o
+	orders.EmployeeID,
+	orders.CustomerID
+FROM dbo.Orders AS orders
 WHERE 
-	(SELECT c.City FROM dbo.Customers as c WHERE c.CustomerID = o.CustomerID) = 
-	(SELECT e.City FROM dbo.Employees as e WHERE e.EmployeeID = o.EmployeeID)
+	(SELECT customer.City FROM dbo.Customers AS customer WHERE customer.CustomerID = orders.CustomerID) = 
+	(SELECT employee.City FROM dbo.Employees AS employee WHERE employee.EmployeeID = orders.EmployeeID)
 GO
 
 /*	
@@ -74,40 +74,40 @@ GO
 */
 /* Первый вариант */
 SELECT 
-	c.City,
+	customer.City,
 	STUFF(
 		(SELECT ', ' + innerC.ContactName 
-			FROM dbo.Customers as innerC
-			WHERE (innerC.City = c.City) 
+			FROM dbo.Customers AS innerC
+			WHERE (innerC.City = customer.City) 
 			FOR XML PATH(''), TYPE
 		).value('(./text())[1]','VARCHAR(MAX)'),
 		1,
 		2,
 		''
 		) AS Customers
-FROM dbo.Customers as c
-GROUP BY c.City
-HAVING COUNT(*) > 1
+FROM dbo.Customers AS customer
+GROUP BY customer.City
+HAVING COUNT(customer.City) > 1
 GO
 
 /* Второй вариант */
 SELECT 
-	c.ContactName 
-FROM dbo.Customers as c
-WHERE c.City in 
+	customer.ContactName 
+FROM dbo.Customers AS customer
+WHERE customer.City IN
 	(SELECT innerC.City 
-		FROM dbo.Customers as innerC
+		FROM dbo.Customers AS innerC
 		GROUP BY innerC.City
-		HAVING COUNT(*) > 1)
+		HAVING COUNT(innerC.City) > 1)
 GO
 
 /*
 6.	По таблице Employees найти для каждого продавца его руководителя.
 */
-SELECT 
-	c.FirstName as Employee,
+SELECT
+	employee.FirstName AS Employee,
 	(SELECT innerC.FirstName
-		FROM dbo.Employees as innerC
-		WHERE innerC.EmployeeID = c.ReportsTo) as ReportsTo
-FROM dbo.Employees as c
+		FROM dbo.Employees AS innerC
+		WHERE innerC.EmployeeID = employee.ReportsTo) AS ReportsTo
+FROM dbo.Employees AS employee
 GO

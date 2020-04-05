@@ -7,7 +7,7 @@
 SELECT DISTINCT
 	OrderID
 FROM dbo.[Order Details]
-WHERE Quantity BETWEEN 3 and 10
+WHERE Quantity BETWEEN 3 AND 10
 GO
 
 /*
@@ -20,7 +20,7 @@ SELECT
 	CustomerID,
 	Country
 FROM dbo.Customers
-WHERE SUBSTRING(Country, 1, 1) BETWEEN 'b' and 'g'
+WHERE SUBSTRING(Country, 1, 1) BETWEEN 'b' AND 'g'
 ORDER BY Country
 GO
 
@@ -32,5 +32,5 @@ SELECT
 	CustomerID,
 	Country
 FROM dbo.Customers
-WHERE SUBSTRING(Country, 1, 1) >= 'b' and SUBSTRING(Country, 1, 1) <= 'g'
+WHERE SUBSTRING(Country, 1, 1) >= 'b' AND SUBSTRING(Country, 1, 1) <= 'g'
 GO

@@ -4,13 +4,13 @@
 	Использовать вложенный SELECT для этого запроса с использованием оператора IN. 
 */
 SELECT
-	Sup.CompanyName
-FROM dbo.Suppliers as Sup
-WHERE Sup.SupplierID IN (
+	supplier.CompanyName
+FROM dbo.Suppliers AS supplier
+WHERE supplier.SupplierID IN (
 	SELECT
-		Prod.SupplierID
-	FROM dbo.Products as Prod
-	WHERE Prod.UnitsInStock = 0
+		product.SupplierID
+	FROM dbo.Products AS product
+	WHERE product.UnitsInStock = 0
 )
 GO
 
@@ -18,14 +18,14 @@ GO
 2.	Выдать всех продавцов, которые имеют более 150 заказов. Использовать вложенный SELECT.
 */
 SELECT
-	Emp.FirstName
-FROM dbo.Employees as Emp
-WHERE Emp.EmployeeID IN (
+	employee.FirstName
+FROM dbo.Employees AS employee
+WHERE employee.EmployeeID IN (
 	SELECT
-		Ord.EmployeeID
-	FROM dbo.Orders as Ord
-	GROUP BY Ord.EmployeeID
-	HAVING COUNT(*) > 150
+		orders.EmployeeID
+	FROM dbo.Orders AS orders
+	GROUP BY orders.EmployeeID
+	HAVING COUNT(orders.OrderID) > 150
 )
 GO
 
@@ -35,12 +35,12 @@ GO
 	Использовать оператор EXISTS.
 */
 SELECT
-	Cus.ContactName
-FROM dbo.Customers as Cus
+	customer.ContactName
+FROM dbo.Customers AS customer
 WHERE NOT EXISTS (
 	SELECT
-		Ord.EmployeeID
-	FROM dbo.Orders as Ord
-	WHERE Ord.CustomerID = Cus.CustomerID
+		orders.EmployeeID
+	FROM dbo.Orders AS orders
+	WHERE orders.CustomerID = customer.CustomerID
 )
 GO

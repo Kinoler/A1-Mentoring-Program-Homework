@@ -8,7 +8,7 @@ SELECT
 	ShippedDate, 
 	ShipVia
 FROM dbo.Orders
-WHERE ShippedDate > '1998-05-05 23:59:59.999' and ShipVia >= 2
+WHERE CONVERT(VARCHAR(26), ShippedDate, 23) >= '1998-05-06' and ShipVia >= 2
 GO
 
 /*
@@ -21,9 +21,9 @@ SELECT
 	OrderID, 
 	CASE
 		WHEN ShippedDate IS NULL THEN 'Not Shipped'
-	END as ShippedDate
+	END AS ShippedDate
 FROM dbo.Orders
-WHERE ShippedDate is null
+WHERE ShippedDate IS NULL
 GO
 
 /*
@@ -38,8 +38,8 @@ SELECT
 	OrderID as 'Order Number', 
 	CASE
 		WHEN ShippedDate IS NULL THEN 'Not Shipped'
-		ELSE convert(varchar(25), ShippedDate, 120) 
-	END as 'Shipped Date'
+		ELSE CONVERT(VARCHAR(25), ShippedDate, 120) 
+	END AS 'Shipped Date'
 FROM dbo.Orders
-WHERE ShippedDate > '1998-05-06' or ShippedDate is null
+WHERE CONVERT(VARCHAR(26), ShippedDate, 23) > '1998-05-06' OR ShippedDate IS NULL
 GO
