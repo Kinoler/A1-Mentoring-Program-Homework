@@ -27,25 +27,24 @@ namespace ADO.DbConnectors
 
         public void ExecuteNonQuery(string commandText, params IDataParameter[] parameters)
         {
-            var command = OpenConnectionAndCreateCommand(commandText, CommandType.Text, parameters);
+            using var command = OpenConnectionAndCreateCommand(commandText, CommandType.Text, parameters);
             command.ExecuteNonQuery();
         }
 
         public DataSet GetDataSet(string commandText, params IDataParameter[] parameters)
         {
-            var command = OpenConnectionAndCreateCommand(commandText, CommandType.Text, parameters);
+            using var command = OpenConnectionAndCreateCommand(commandText, CommandType.Text, parameters);
 
             var dataset = new DataSet();
             var dataAdaper = DbProviderFactory.CreateDataAdapter();
             dataAdaper.SelectCommand = command;
             dataAdaper.Fill(dataset);
-
             return dataset;
         }
 
         public DataTable CallStoredProcedure(string procedureName, params IDataParameter[] parameters)
         {
-            var command = OpenConnectionAndCreateCommand(procedureName, CommandType.StoredProcedure, parameters);
+            using var command = OpenConnectionAndCreateCommand(procedureName, CommandType.StoredProcedure, parameters);
 
             var table = new DataTable();
             table.Load(command.ExecuteReader());
@@ -54,7 +53,7 @@ namespace ADO.DbConnectors
 
         private DbConnection CreateConnection(string connectionString)
         {
-            var connection = DbProviderFactory.CreateConnection();
+            using var connection = DbProviderFactory.CreateConnection();
             connection.ConnectionString = connectionString;
 
             return connection;
@@ -68,7 +67,7 @@ namespace ADO.DbConnectors
             var command = DbProviderFactory.CreateCommand();
             command.Connection = connection;
             command.CommandText = commandText;
-            command.CommandType = CommandType.Text;
+            command.CommandType = type;
 
             foreach (var parameter in parameters)
                 command.Parameters.Add(parameter);

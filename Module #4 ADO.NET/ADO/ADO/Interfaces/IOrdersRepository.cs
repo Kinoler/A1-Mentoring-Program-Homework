@@ -11,7 +11,7 @@ namespace ADO.Interfaces
     {
         IEnumerable<Order> GetOrders(int windowCapacity, int windowNumber);
         Order GetOrder(int id);
-        DetailOfOrder[] GetDetailOfOrder(int id);
+        IEnumerable<DetailOfOrder> GetDetailOfOrder(int id);
         void Add(Order order);
         void Update(Order order);
         void Delete(Order order);

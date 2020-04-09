@@ -13,7 +13,7 @@
                 case "System.Data.SqlClient":
                     return new OrderSQL();
                 default:
-                    return null;
+                    throw new System.NotSupportedException($"The {providerName} provider does not support");
             }
         }
 

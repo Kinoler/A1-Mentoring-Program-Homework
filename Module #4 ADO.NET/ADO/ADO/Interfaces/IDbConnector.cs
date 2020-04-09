@@ -6,9 +6,16 @@ namespace ADO.Interfaces
 {
     internal interface IDbConnector
     {
+        string ProviderName { get; }
+
         DataTable CallStoredProcedure(string procedureName, params IDataParameter[] parameters);
 
-        IDataParameter CreateParameter(string name, object value, DbType dbType, bool isNullable, ParameterDirection direction);
+        IDataParameter CreateParameter(
+            string name, 
+            object value,
+            DbType dbType,
+            bool isNullable,
+            ParameterDirection direction);
 
         IDataParameter CreateParameter(
             string name,
@@ -19,7 +26,5 @@ namespace ADO.Interfaces
         DataSet GetDataSet(string commandText, params IDataParameter[] parameters);
 
         void ExecuteNonQuery(string commandText, params IDataParameter[] parameters);
-
-        string ProviderName { get; }
     }
 }

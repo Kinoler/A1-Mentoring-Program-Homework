@@ -85,13 +85,12 @@ namespace ADOTests
             return newRow;
         }
 
-        [Test]
-        public void GetElements_CallMethodWithValidValue_ShouldCallGetDataTableWithCorrectQuery()
+        [TestCase(0, 0)]
+        [TestCase(1, 1)]
+        public void GetElements_CallMethodWithValidValue_ShouldCallGetDataTableWithCorrectQuery(int windowCapacity, int windowNumber)
         {
             //Arrange
             var expected = OrderSql.SelectAllQuery;
-            var windowCapacity = 0;
-            var windowNumber = 0;
 
             //Act
             NorthwindOrder.GetOrders(windowCapacity, windowNumber);
@@ -101,11 +100,11 @@ namespace ADOTests
         }
 
         [Test]
-        public void GetElements_CallMethodWithValidValue_ShouldReturnAllOrdersWithCorrectFillValue()
+        public void GetElements_CallGetOrdersWithValidValue_ShouldReturnAllOrdersWithCorrectFillValue()
         {
             //Arrange
             var order = NewRow(0).ToObject<Order>();
-            var expected = order ;
+            var expected = order;
 
             //Act
             MockDbConnector.Setup(dbConnector =>
@@ -153,7 +152,7 @@ namespace ADOTests
         public void Update_CallMethodWithOrderStateInProgress_ThrowInvalidOperationException()
         {
             //Arrange
-            var order = new Order {OrderDate = DateTime.MinValue};
+            var order = new Order {OrderDate = DateTime.Now};
 
             //Assert
             Assert.Throws<InvalidOperationException>(() => NorthwindOrder.Update(order));
@@ -163,7 +162,7 @@ namespace ADOTests
         public void Update_CallMethodWithOrderStateComplete_ThrowInvalidOperationException()
         {
             //Arrange
-            var order = new Order {OrderDate = DateTime.MinValue, ShippedDate = DateTime.MinValue};
+            var order = new Order {OrderDate = DateTime.Now, ShippedDate = DateTime.Now};
 
             //Assert
             Assert.Throws<InvalidOperationException>(() => NorthwindOrder.Update(order));
@@ -173,7 +172,7 @@ namespace ADOTests
         public void Delete_CallMethodWithOrderStateComplete_ThrowInvalidOperationException()
         {
             //Arrange
-            var order = new Order { OrderDate = DateTime.MinValue, ShippedDate = DateTime.MinValue };
+            var order = new Order { OrderDate = DateTime.Now, ShippedDate = DateTime.Now };
 
             //Assert
             Assert.Throws<InvalidOperationException>(() => NorthwindOrder.Delete(order));
@@ -184,7 +183,7 @@ namespace ADOTests
         {
             //Arrange
             var order = new Order();
-            var expected = DateTime.MinValue;
+            var expected = DateTime.Now;
 
             //Act
             NorthwindOrder.SetOrderDate(order, expected);
@@ -199,10 +198,10 @@ namespace ADOTests
         {
             //Arrange
             var order = new Order {OrderDate = DateTime.MaxValue};
-            var expected = DateTime.MinValue;
+            var expected = DateTime.Now;
 
             //Assert
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetOrderDate(order, expected));
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.SetOrderDate(order, expected));
         }
 
         [Test]
@@ -210,10 +209,10 @@ namespace ADOTests
         {
             //Arrange
             var order = new Order { OrderDate = DateTime.MaxValue, ShippedDate = DateTime.MaxValue };
-            var expected = DateTime.MinValue;
+            var expected = DateTime.Now;
 
             //Assert
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetOrderDate(order, expected));
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.SetOrderDate(order, expected));
         }
 
         [Test]
@@ -221,7 +220,7 @@ namespace ADOTests
         {
             //Arrange
             var order = new Order { OrderDate = DateTime.MaxValue };
-            var expected = DateTime.MinValue;
+            var expected = DateTime.Now;
 
             //Act
             NorthwindOrder.SetShippedDate(order, expected);
@@ -236,10 +235,10 @@ namespace ADOTests
         {
             //Arrange
             var order = new Order();
-            var expected = DateTime.MinValue;
+            var expected = DateTime.Now;
 
             //Assert
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetShippedDate(order, expected));
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.SetShippedDate(order, expected));
         }
 
         [Test]
@@ -247,10 +246,10 @@ namespace ADOTests
         {
             //Arrange
             var order = new Order { OrderDate = DateTime.MaxValue, ShippedDate = DateTime.MaxValue };
-            var expected = DateTime.MinValue;
+            var expected = DateTime.Now;
 
             //Assert
-            Assert.Throws<ArgumentException>(() => NorthwindOrder.SetShippedDate(order, expected));
+            Assert.Throws<InvalidOperationException>(() => NorthwindOrder.SetShippedDate(order, expected));
         }
     }
 }
