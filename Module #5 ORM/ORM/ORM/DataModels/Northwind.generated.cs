@@ -385,24 +385,6 @@ namespace DataModel
 		public Product Product { get; set; }
 
         #endregion
-
-        public static OrderDetail Build(OrderDetail orderDetail, Product product)
-        {
-            if (orderDetail != null)
-            {
-                orderDetail.Product = product;
-            }
-            return orderDetail;
-        }
-
-        public static OrderDetail Build(OrderDetail orderDetail, Order order)
-        {
-            if (orderDetail != null)
-            {
-                orderDetail.Order = order;
-            }
-            return orderDetail;
-        }
     }
 
 	[Table(Schema="dbo", Name="Order Details Extended", IsView=true)]
@@ -484,41 +466,6 @@ namespace DataModel
 		public Supplier Supplier { get; set; }
 
         #endregion
-
-        public static Product Build(Product product, Category category)
-        {
-            if (product != null)
-            {
-                product.Category = category;
-            }
-            return product;
-        }
-
-        public static Product Build(Product product, Category category, Supplier supplier)
-        {
-            if (product != null)
-            {
-                product.Category = category;
-            }
-            return Product.Build(product, category);
-        }
-
-        public Product Clone()
-        {
-            return new Product()
-            {
-                ProductID = ProductID,
-                ProductName = ProductName,
-                SupplierID = SupplierID,
-                CategoryID = CategoryID,
-                QuantityPerUnit = QuantityPerUnit,
-                UnitPrice = UnitPrice,
-                UnitsInStock = UnitsInStock,
-                UnitsOnOrder = UnitsOnOrder,
-                ReorderLevel = ReorderLevel,
-                Discontinued = Discontinued,
-            };
-        }
     }
 
 	[Table(Schema="dbo", Name="Products Above Average Price", IsView=true)]
