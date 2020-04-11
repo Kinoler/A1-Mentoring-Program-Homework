@@ -260,12 +260,18 @@ namespace DataModel
 		[PrimaryKey(1), NotNull] public int    EmployeeID  { get; set; } // int
 		[PrimaryKey(2), NotNull] public string TerritoryID { get; set; } // nvarchar(20)
 
-		#region Associations
+        public EmployeeTerritory(int employeeID, string territoryID)
+        {
+            EmployeeID = employeeID;
+            TerritoryID = territoryID;
+        }
 
-		/// <summary>
-		/// FK_EmployeeTerritories_Employees
-		/// </summary>
-		[Association(ThisKey="EmployeeID", OtherKey="EmployeeID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_EmployeeTerritories_Employees", BackReferenceName="EmployeeTerritories")]
+        #region Associations
+
+        /// <summary>
+        /// FK_EmployeeTerritories_Employees
+        /// </summary>
+        [Association(ThisKey="EmployeeID", OtherKey="EmployeeID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_EmployeeTerritories_Employees", BackReferenceName="EmployeeTerritories")]
 		public Employee Employee { get; set; }
 
 		/// <summary>
@@ -378,8 +384,26 @@ namespace DataModel
 		[Association(ThisKey="ProductID", OtherKey="ProductID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_Order_Details_Products", BackReferenceName="OrderDetails")]
 		public Product Product { get; set; }
 
-		#endregion
-	}
+        #endregion
+
+        public static OrderDetail Build(OrderDetail orderDetail, Product product)
+        {
+            if (orderDetail != null)
+            {
+                orderDetail.Product = product;
+            }
+            return orderDetail;
+        }
+
+        public static OrderDetail Build(OrderDetail orderDetail, Order order)
+        {
+            if (orderDetail != null)
+            {
+                orderDetail.Order = order;
+            }
+            return orderDetail;
+        }
+    }
 
 	[Table(Schema="dbo", Name="Order Details Extended", IsView=true)]
 	public partial class OrderDetailsExtended
@@ -428,11 +452,11 @@ namespace DataModel
 	[Table(Schema="dbo", Name="Products")]
 	public partial class Product
 	{
-		[PrimaryKey, Identity   ] public int      ProductID       { get; set; } // int
+		[PrimaryKey, Identity   ] public int ProductID { get; set; } // int
 		[Column,     NotNull    ] public string   ProductName     { get; set; } // nvarchar(40)
 		[Column,        Nullable] public int?     SupplierID      { get; set; } // int
 		[Column,        Nullable] public int?     CategoryID      { get; set; } // int
-		[Column,        Nullable] public string   QuantityPerUnit { get; set; } // nvarchar(20)
+        [Column,        Nullable] public string   QuantityPerUnit { get; set; } // nvarchar(20)
 		[Column,        Nullable] public decimal? UnitPrice       { get; set; } // money
 		[Column,        Nullable] public short?   UnitsInStock    { get; set; } // smallint
 		[Column,        Nullable] public short?   UnitsOnOrder    { get; set; } // smallint
@@ -461,14 +485,39 @@ namespace DataModel
 
         #endregion
 
+        public static Product Build(Product product, Category category)
+        {
+            if (product != null)
+            {
+                product.Category = category;
+            }
+            return product;
+        }
+
         public static Product Build(Product product, Category category, Supplier supplier)
         {
             if (product != null)
             {
                 product.Category = category;
-                product.Supplier = supplier;
             }
-            return product;
+            return Product.Build(product, category);
+        }
+
+        public Product Clone()
+        {
+            return new Product()
+            {
+                ProductID = ProductID,
+                ProductName = ProductName,
+                SupplierID = SupplierID,
+                CategoryID = CategoryID,
+                QuantityPerUnit = QuantityPerUnit,
+                UnitPrice = UnitPrice,
+                UnitsInStock = UnitsInStock,
+                UnitsOnOrder = UnitsOnOrder,
+                ReorderLevel = ReorderLevel,
+                Discontinued = Discontinued,
+            };
         }
     }
 

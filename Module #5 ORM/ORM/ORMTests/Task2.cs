@@ -25,13 +25,16 @@ namespace ORMTests
             NorthwindDb.Dispose();
         }
 
-        [Test]
-        public void TheListOfProductsWithCategoryAndSupplier()
+        [TestCase("Chai", "Charlotte Cooper", "Beverages")]
+        public void TheListOfProductsWithCategoryAndSupplier(
+            string productName,
+            string supplierName,
+            string categoryName)
         {
             // Arrange
-            const string expectedProductName = "Chai";
-            const string expectedSupplierName = "Charlotte Cooper";
-            const string expectedCategoryName = "Beverages";
+            var expectedProductName = productName;
+            var expectedSupplierName = supplierName;
+            var expectedCategoryName = categoryName;
 
             var products = NorthwindDb.Products
                .SelectMany(
@@ -59,13 +62,14 @@ namespace ORMTests
             Assert.AreEqual(expectedCategoryName, actualCategoryName);
         }
 
-
-        [Test]
-        public void TheListOfEmployeesWithRegion()
+        [TestCase("Nancy", "WA")]
+        public void TheListOfEmployeesWithRegion(
+            string firstName,
+            string regionName)
         {
             // Arrange
-            const string expectedFirstName = "Nancy";
-            const string expectedRegion = "WA";
+            var expectedFirstName = firstName;
+            var expectedRegionName = regionName;
 
             var employees = NorthwindDb.Employees.Select(s => s);
 
@@ -77,7 +81,7 @@ namespace ORMTests
 
             // Assert
             Assert.AreEqual(expectedFirstName, actualFirstName);
-            Assert.AreEqual(expectedRegion, actualRegion);
+            Assert.AreEqual(expectedRegionName, actualRegion);
         }
 
         [TestCase(1, 4)]
@@ -118,7 +122,7 @@ namespace ORMTests
         [TestCase(2, new int[] {1, 2, 3})]
         [TestCase(3, new int[] {1, 2, 3})]
         [TestCase(4, new int[] {1, 2, 3})]
-        public void TheStatisticByTheRegikkon(int regionId, int[] count)
+        public void TheListOfEmployeeWithShipVia(int regionId, int[] count)
         {
             // Arrange
             var expectedRegion = regionId;
