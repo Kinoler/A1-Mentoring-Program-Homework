@@ -163,6 +163,7 @@
     <Folder Include="Schema Objects\Database Level Objects\Storage\Partition Functions\" />
     <Folder Include="Schema Objects\Database Level Objects\Storage\Partition Schemes\" />
     <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post deploy" />
   </ItemGroup>
   <ItemGroup>
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
@@ -452,9 +453,10 @@
     </Build>
     <Build Include="Schema Objects\Schemas\Northwind\Programmability\Stored Procedures\CustomErrorThrow.sql" />
     <Build Include="Schema Objects\Schemas\Northwind\Tables\Cards.table.sql" />
-    <None Include="Scripts\Categories.sql" />
-    <None Include="Scripts\Products.sql" />
-    <None Include="Scripts\Suppliers.sql" />
+    <None Include="Scripts\Post deploy\Categories.sql" />
+    <None Include="Scripts\Post deploy\Products.sql" />
+    <None Include="Scripts\Post deploy\Suppliers.sql" />
+    <PostDeploy Include="Scripts\Post deploy\PostDeploy.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug.publish.xml" />
