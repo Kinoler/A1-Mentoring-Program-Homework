@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="hasSidebar hasPageActions hasBreadcrumb conceptual has-default-focus theme-light" lang="ru-ru" dir="ltr" data-css-variable-support="true" data-authenticated="false" data-auth-status-determined="false" data-target="docs" x-ms-format-detection="none">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="Руководство для участников разработки документации Майкрософт. Общие сведения - Contributor Guide" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.microsoft.com/ru-ru/contribute/" />
+			<meta property="og:description" content="В этом руководстве вы узнаете, как создавать статьи для сайта документации Майкрософт docs.microsoft.com." />
+		<meta property="og:image" content="https://docs.microsoft.com/en-us/media/logos/logo-ms-social.png" />
+		<meta property="og:image:alt" content="Microsoft Logo" />
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@docsmsft" />
+
+
+	<meta name="author" content="BillWagner" />
+<meta name="bilingual_type" content="hover over" />
+<meta name="breadcrumb_path" content="breadcrumb/toc.json" />
+<meta name="depot_name" content="MSDN.ContributionGuide" />
+<meta name="description" content="В этом руководстве вы узнаете, как создавать статьи для сайта документации Майкрософт docs.microsoft.com." />
+<meta name="document_id" content="70fbb1c8-1435-e762-8824-78cf96faed84" />
+<meta name="document_version_independent_id" content="062879b5-72cf-2353-63f2-d862fe1b40ba" />
+<meta name="enable_loc_sxs" content="true" />
+<meta name="gitcommit" content="https://github.com/MicrosoftDocs/Contribute.ru-RU/blob/0f0d4309eb6040e3c56cfafe26f8f807735626e5/Contribute/index.md" />
+<meta name="hideScope" content="false" />
+<meta name="locale" content="ru-ru" />
+<meta name="manager" content="wpickett" />
+<meta name="ms.author" content="wiwagn" />
+<meta name="ms.contentlocale" content="ru-RU" />
+<meta name="ms.custom" content="external-contributor-guide" />
+<meta name="ms.date" content="02/19/2019" />
+<meta name="ms.lasthandoff" content="04/22/2020" />
+<meta name="ms.locfileid" content="81784280" />
+<meta name="ms.openlocfilehash" content="95dadff41bb31e0b34ee34f85ae47708297954f1" />
+<meta name="ms.prod" content="non-product-specific" />
+<meta name="ms.sourcegitcommit" content="cfba5ad25b898bfed76046126ce8ff4871910701" />
+<meta name="ms.topic" content="contributor-guide" />
+<meta name="ms.translationtype" content="HT" />
+<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/Contribute.ru-RU/blob/live-sxs/Contribute/index.md" />
+<meta name="search.ms_docsetname" content="ContributionGuide" />
+<meta name="search.ms_product" content="MSDN" />
+<meta name="search.ms_sitename" content="Docs" />
+<meta name="site_name" content="Docs" />
+<meta name="updated_at" content="2020-04-23 08:03 AM" />
+<meta name="page_type" content="conceptual" />
+<meta name="toc_rel" content="toc.json" />
+<meta name="pdf_url_template" content="https://docs.microsoft.com/pdfstore/ru-ru/MSDN.ContributionGuide/{branchName}{pdfName}" />
+<meta name="word_count" content="2056" />
+
+
+	<meta name="scope" content="Contribute" />
+<link href="https://docs.microsoft.com/ru-ru/contribute/" rel="canonical">
+	<title>Руководство для участников разработки документации Майкрософт. Общие сведения - Contributor Guide | Microsoft Docs</title>
+
+		<link rel="stylesheet" href="/_themes/docs.theme/master/ru-ru/_themes/styles/fde4fc64.site-ltr.css ">
+
+	<link rel="stylesheet" href="/_themes/docs.theme/master/ru-ru/_themes/styles/672b4bb0.conceptual.css ">
+
+
+	<script>
+	var msDocs = {
+		data: {
+			timeOrigin: Date.now(),
+			azureHeaderLocale: 'ru-ru',
+			contentLocale: 'ru-ru',
+			contentDir: 'ltr',
+			userLocale: 'ru-ru',
+			userDir: 'ltr',
+			pageTemplate: 'Conceptual',
+			brand: '',
+			context: {
+
+			},
+			hasBinaryRating: true,
+			hasGithubIssues: true,
+			showFeedbackReport: false,
+			enableTutorialFeedback: false,
+			feedbackSystem: 'GitHub',
+			feedbackGitHubRepo: 'MicrosoftDocs/Contribute.ru-ru',
+			feedbackProductUrl: 'https://aka.ms/sitefeedback',
+			contentGitUrl: 'https://github.com/MicrosoftDocs/Contribute.ru-ru/blob/live/Contribute/index.md',
+			extendBreadcrumb: true,
+			isEditDisplayable: true,
+			hideViewSource: false,
+			hasPageActions: true,
+			hasBookmark: true,
+			hasShare: true
+		},
+		functions:{}
+	};
+	if (!('Promise' in window && 'resolve' in window.Promise && 'reject' in window.Promise && 'all' in window.Promise && 'race' in window.Promise)) {
+		document.write('<script src="/static/third-party/bluebird/3.5.0/bluebird.min.js" integrity="sha384-aD4BDeDGeLXLpPK4yKeqtZQa9dv4a/7mQ+4L5vwshIYH1Mc2BrXvHd32iHzYCQy5" crossorigin="anonymous"><\/script>');
+	}
+	if (typeof fetch !== 'function') {
+		document.write('<script src="/static/third-party/fetch/3.0.0/fetch.umd.min.js" integrity="sha384-EQIXrC5K2+7X8nGgLkB995I0/6jfAvvyG1ieZ+WYGxgJHFMD/alsG9fSDWvzb5Y1" crossorigin="anonymous"><\/script>');
+	}
+	if (typeof HTMLTemplateElement === 'undefined') {
+		document.write('<script src="/static/third-party/template/1.4.0/template.min.js" integrity="sha384-1zKzI6ldTVHMU7n0W2HpE/lhHI+UG4D9IIaxbj3kT2UhCWicdTuJkTtnKuu0CQzN" crossorigin="anonymous"><\/script>');
+	}
+	if (typeof URL !== 'function') {
+		document.write('<script src="/static/third-party/url/0.5.7/url.min.js" integrity="sha384-vn7xBMtpSTfzaTRWxj0kVq0UcsbBrTOgZ/M1ISHqe1V358elYva+lfiEC+T8jLPc" crossorigin="anonymous"><\/script>');
+	}
+	</script>
+
+	<script src="/static/third-party/jquery/3.3.1/jquery.min.js" integrity="sha384-Q4GEli30r5Awgb/ITt925nE8buHKjVWM/x3DX8t5JwRLT9P/C2r7u7XzNwvpTTGw" crossorigin="anonymous"></script>
+		<script src="/_themes/docs.theme/master/ru-ru/_themes/scripts/775e3ec2.index-docs.js"></script>
+
+</head>
+
+<body lang="ru-ru" dir="ltr">
+<div class="header-holder has-default-focus">
+	<a href="#main" class="skip-to-main-link visually-hidden-until-focused is-fixed has-inner-focus focus-visible has-top-zero has-left-zero has-right-zero has-padding-medium has-text-centered has-body-background-medium" tabindex="1">Пропустить и перейти к основному содержимому</a>
+		<div id="headerAreaHolder" data-bi-name="header">
+<header role="banner" itemscope="itemscope" itemtype="http://schema.org/Organization">
+	<div class="nav-bar">
+		<a itemprop="url" href="https://www.microsoft.com" aria-label="Microsoft" class="nav-bar-button has-padding-left-medium-mobile">
+			<div class="nav-bar-logo has-background-image theme-display is-light" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+			<div class="nav-bar-logo has-background-image theme-display is-dark is-high-contrast" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+		</a>
+		<div class="nav-bar-item is-hidden-tablet">
+			<button class="nav-bar-button is-size-5 is-text has-body-background has-padding-none" title="Глобальная навигация">
+				<span class="has-text-weight-semibold has-padding-left-small has-padding-bottom-extra-small"></span>
+				<div class="nav-bar-burger has-padding-none has-height-zero">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span class="is-visually-hidden">Глобальная навигация</span>
+				</div>
+			</button>
+		</div>
+		<nav class="nav-bar-nav" role="navigation" aria-label="Глобальный">
+			<ul class="nav-bar-nav-list">
+				<li class="nav-bar-item is-category has-spacing">
+					<a class="nav-bar-button title has-hover-underline is-4" itemprop="url" href="/en-us/">
+						<span>Docs</span>
+					</a>
+				</li>
+				<li class="nav-bar-item">
+					<a class="nav-bar-button has-hover-underline" href="/en-us/">
+						<span>Документация</span>
+					</a>
+				</li>
+				<li class="nav-bar-item">
+					<a class="nav-bar-button has-hover-underline" href="/en-us/learn/">
+						<span>Learn</span>
+					</a>
+				</li>
+				<li class="nav-bar-item">
+					<a class="nav-bar-button has-hover-underline" href="/en-us/samples/browse/">
+						<span>Примеры кода</span>
+					</a>
+				</li>
+				<li class="dropdown nav-bar-item" hidden="">
+					<button aria-expanded="false" class="dropdown-trigger nav-bar-button has-hover-underline" aria-controls="ax-53">
+						<span>Подробнее</span>
+						<span class="nav-bar-button-chevron" aria-hidden="true">
+							<span class="docon docon-chevron-down-light expanded-indicator"></span>
+						</span>
+					</button>
+					<ul class="dropdown-menu" id="ax-53" aria-label="Подробнее">
+						<li class="nav-bar-item" hidden="">
+							<a class="nav-bar-button" href="/en-us/">Документация</a>
+						</li>
+						<li class="nav-bar-item" hidden="">
+							<a class="nav-bar-button" href="/en-us/learn/">Learn</a>
+						</li>
+						<li class="nav-bar-item" hidden="">
+							<a class="nav-bar-button" href="/en-us/samples/browse/">Примеры кода</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<span class="nav-bar-spacer is-hidden-mobile"></span>
+		<div class="nav-bar-item has-flex-grow-mobile has-flex-shrink-mobile">
+		</div>
+		<div class="nav-bar-item is-size-7 is-hidden-mobile">
+		</div>
+	</div>
+	<div class="nav-bar is-content is-hidden-mobile has-border-top">
+	</div>
+</header>		</div>
+		<div class="content-header uhf-container has-padding has-default-focus has-border-bottom-none" data-bi-name="content-header">
+			<nav class="has-padding-none has-padding-left-medium-tablet has-padding-right-medium-tablet has-padding-left-none-uhf-tablet has-padding-left-none-uhf-tablet has-padding-none-desktop has-flex-grow" data-bi-name="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList" role="navigation" aria-label="Навигатор">
+				<ul id="page-breadcrumbs" class="breadcrumbs">
+				</ul>
+			</nav>
+		<div class="content-header-controls">
+			<button type="button" class="contents-button button" data-bi-name="contents-expand" aria-haspopup="true">
+				<span class="icon"><span class="docon docon-menu" aria-hidden="true"></span></span>
+				<span>Содержимое</span>
+			</button>
+		</div>
+		<div class="content-header-controls exit-focus">
+			<button type="button" class="ap-collapse-behavior ap-expanded button" data-bi-name="ap-collapse" aria-controls="action-panel">
+				<span class="icon"><span class="docon docon-exit-mode" aria-hidden="true"></span></span>
+				<span>Выйти из режима фокусировки</span>
+			</button>
+		</div>
+		<div class="has-padding-none-tablet has-padding-medium is-size-7 is-flex-touch has-flex-justify-content-space-between-touch has-flex-grow">
+			<ul class="is-hidden-mobile action-list has-flex-justify-content-start has-flex-justify-content-end-tablet is-flex is-flex-row has-flex-wrap has-flex-grow is-unstyled">
+				<li>
+					<button type="button" class="bookmark button is-text has-inner-focus is-small is-icon-only-touch" data-list-type="bookmarks" data-bi-name="bookmark" title="Добавить эту страницу в закладки">
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-single-bookmark"></span>
+						</span>
+						<span class="bookmark-status is-visually-hidden-touch is-hidden-portrait">Закладка</span>
+					</button>
+				</li>
+					<li id="feedback-section-link">
+						<a href="#feedback" class="button is-text has-inner-focus is-small is-icon-only-touch" data-bi-name="comments" title="Отправить отзыв об этой странице">
+							<span class="icon">
+								<span class="docon docon-comment-lines" aria-hidden="true"></span>
+							</span>
+							<span class="is-visually-hidden-touch is-hidden-portrait">Обратная связь</span>
+						</a>
+					</li>
+						<li id="contenteditbtn">
+							<a href="https://github.com/MicrosoftDocs/Contribute.ru-ru/blob/live/Contribute/index.md" class="button is-text has-inner-focus is-icon-only-touch is-small" title="Редактировать этот документ" data-bi-name="edit" data-original_content_git_url="https://github.com/MicrosoftDocs/Contribute.ru-RU/blob/live-sxs/Contribute/index.md" data-original_content_git_url_template="{repo}/blob/{branch}/Contribute/index.md" data-pr_repo="" data-pr_branch="">
+							<span class="icon">
+								<span class="docon docon-edit-outline" aria-hidden="true"></span>
+							</span>
+							<span class="is-visually-hidden-touch is-hidden-portrait">Изменить</span>
+						</a>
+					</li>
+				<li>
+<div class="sharing dropdown has-caret">
+	<button class="dropdown-trigger button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small is-icon-only-touch" aria-controls="sharing-menu" aria-expanded="false" title="Поделиться этим документом" data-bi-name="share">
+		<span class="icon" aria-hidden="true">
+			<span class="docon docon-sharing"></span>
+		</span>
+		<span class="is-visually-hidden-touch is-hidden-portrait">Поделиться</span>
+	</button>
+	<div class="dropdown-menu has-padding-small" id="sharing-menu">
+		<ul data-bi-name="share-links">
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-twitter" data-bi-name="twitter">
+					<span class="icon">
+						<span class="docon docon-brand-twitter has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>Twitter</span>
+				</a>
+			</li>
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-linkedin" data-bi-name="linkedin">
+					<span class="icon">
+						<span class="docon docon-brand-linkedin has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>LinkedIn</span>
+				</a>
+			</li>
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-facebook" data-bi-name="facebook">
+					<span class="icon">
+						<span class="docon docon-brand-facebook has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>Facebook</span>
+				</a>
+			</li>
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-email" data-bi-name="email">
+					<span class="icon">
+						<span class="docon docon-mail-message-fill has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>Адрес электронной почты</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>				</li>
+				<li>
+
+<div class="lang-toggle-container">
+	<label for="language-toggle" aria-hidden="true" tabindex="-1">Прочитать на английском</label>
+	<div class="checkbox-toggle-wrapper">
+		<input type="checkbox" id="language-toggle" aria-label="Прочитать на английском">
+		<label for="language-toggle" class="switch"></label>
+	</div>
+</div>				</li>
+			</ul>
+			<button type="button" class="has-border contents-button button is-small is-text is-hidden-tablet has-inner-focus" aria-label="Содержимое" data-bi-name="contents-expand">
+				<span class="icon">
+					<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+				</span>
+				<span>Оглавление</span>
+			</button>
+			<div class="is-invisible"></div>
+			<div class="is-hidden-tablet level-item is-flexible level-right">
+				<button type="button" class="page-actions-button button is-small is-text is-hidden-tablet has-inner-focus has-border is-full-height  has-margin-left-small" aria-label="Действия страницы" data-bi-name="pageactions">
+					<span aria-hidden="true">. . .</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="banner-holder" class="has-default-focus has-overflow-hidden">
+	</div>
+
+	<div id="disclaimer-holder" class="has-overflow-hidden has-default-focus"></div>
+	</div>
+
+	<div class="mainContainer  uhf-container has-top-padding  has-default-focus" data-bi-name="body">
+
+		<div class="columns has-large-gaps is-gapless-mobile ">
+
+			<div id="left-container" class="left-container is-hidden-mobile column is-one-third-tablet is-one-quarter-desktop">
+				<nav id="affixed-left-container" class="is-fixed is-flex is-flex-column" role="navigation" aria-label="Основной"></nav>
+			</div>
+
+			<section class="primary-holder column is-two-thirds-tablet is-three-quarters-desktop">
+				<div class="columns is-gapless-mobile has-large-gaps ">
+
+
+				<div id="main-column" class="column  is-full is-four-fifths-desktop ">
+
+					<main id="main" role="main" class="content " data-bi-name="content" lang="ru-ru" dir="ltr">
+
+
+
+						<h1 id="microsoft-docs-contributor-guide-overview"><span data-ttu-id="35b9b-103">Руководство для участников разработки документации Майкрософт. Общие сведения</span><span class="sxs-lookup"><span data-stu-id="35b9b-103">Microsoft Docs contributor guide overview</span></span></h1>
+
+						<ul class="metadata page-metadata" data-bi-name="page info" lang="ru-ru" dir="ltr">
+							<li class="displayDate loading">
+								<time role="presentation" datetime="2019-02-19T00:00:00.000Z" data-article-date-source="ms.date">02/19/2019</time>
+							</li>
+								<li class="readingTime">Время чтения: 5 мин</li>
+							<li class="contributors-holder">
+								<a class="has-inner-focus" href="https://github.com/MicrosoftDocs/Contribute.ru-ru/blob/live/Contribute/index.md" title="2 Соавторы" aria-label="2 Соавторы">
+									<ul class="contributors" data-bi-name="contributors" aria-hidden="true">
+												<li><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNMsAcAAQUAoVnxsV8AAAAASUVORK5CYII=" data-src="https://github.com/BillWagner.png?size=32" role="presentation"/></li>
+												<li><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNMsAcAAQUAoVnxsV8AAAAASUVORK5CYII=" data-src="https://github.com/olprod.png?size=32" role="presentation"/></li>
+									</ul>
+								</a>
+							</li>
+
+						</ul>
+
+						<nav id="center-doc-outline" class="doc-outline is-hidden-desktop" data-bi-name="intopic toc" role="navigation" aria-label="Структура статьи">
+							<h3>В этой статье</h3>
+						</nav>
+
+						<!-- <content> -->
+							
+<p><span data-ttu-id="35b9b-104">Добро пожаловать в руководство для участников <a href="https://docs.microsoft.com" data-linktype="external">docs.microsoft.com</a> (Docs)!</span><span class="sxs-lookup"><span data-stu-id="35b9b-104">Welcome to the <a href="https://docs.microsoft.com" data-linktype="external">docs.microsoft.com</a> (Docs) Contributor Guide!</span></span></p>
+<p><span data-ttu-id="35b9b-105">Некоторая документация корпорации Майкрософт предоставляется с открытым исходным кодом на портале GitHub.</span><span class="sxs-lookup"><span data-stu-id="35b9b-105">Several of the Microsoft documentation sets are open source and hosted on GitHub.</span></span> <span data-ttu-id="35b9b-106">Не вся документация предоставляется с полностью открытым кодом, но многие документы размещены в общедоступных репозиториях, где вы можете создавать запросы на вытягивание.</span><span class="sxs-lookup"><span data-stu-id="35b9b-106">Not all document sets are completely open source but many have public-facing repos where you can make suggested changes via pull requests.</span></span> <span data-ttu-id="35b9b-107">Такой подход к открытому коду упрощает и улучшает взаимодействие между разработчиками продукта, командами по созданию содержимого и клиентами, а также обеспечивает ряд дополнительных преимуществ:</span><span class="sxs-lookup"><span data-stu-id="35b9b-107">This open source approach streamlines and improves communication between product engineers, content teams, and customers, and has other advantages:</span></span></p>
+<ul>
+<li><span data-ttu-id="35b9b-108">Возможность <em>открытого планирования</em> содержимого репозиториев с такими текстами позволяет получать отзывы и определять наиболее востребованную документацию.</span><span class="sxs-lookup"><span data-stu-id="35b9b-108">Open source repos <em>plan in the open</em> to get feedback on what docs are most needed.</span></span></li>
+<li><span data-ttu-id="35b9b-109">Возможность <em>открытой проверки</em> репозиториев с такими текстами позволяет гарантировать максимальную полезность содержимого при первой же публикации.</span><span class="sxs-lookup"><span data-stu-id="35b9b-109">Open source repos <em>review in the open</em> to publish the most helpful content on our first release.</span></span></li>
+<li><span data-ttu-id="35b9b-110">Возможность <em>открытой правки</em> репозиториев с такими текстами позволяет упростить непрерывное совершенствование опубликованного содержимого.</span><span class="sxs-lookup"><span data-stu-id="35b9b-110">Open source repos <em>update in the open</em> to make it easier to continuously improve the content.</span></span></li>
+</ul>
+<p><span data-ttu-id="35b9b-111">Пользовательский интерфейс сайта <a href="https://docs.microsoft.com" data-linktype="external">docs.microsoft.com</a> непосредственно интегрирует рабочие процессы <a href="https://github.com" data-linktype="external">GitHub</a>, делая их использование еще более удобными.</span><span class="sxs-lookup"><span data-stu-id="35b9b-111">The user experience on <a href="https://docs.microsoft.com" data-linktype="external">docs.microsoft.com</a> integrates <a href="https://github.com" data-linktype="external">GitHub</a> workflows directly to make it even easier.</span></span> <span data-ttu-id="35b9b-112">Для начала <a href="#quick-edits-to-existing-documents" data-linktype="self-bookmark">отредактируйте просматриваемый документ</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-112">Start by <a href="#quick-edits-to-existing-documents" data-linktype="self-bookmark">editing the document you are viewing</a>.</span></span> <span data-ttu-id="35b9b-113">Кроме того, вы можете помочь тем, что будете <a href="#review-open-prs" data-linktype="self-bookmark">просматривать новые разделы</a> или <a href="#create-quality-issues" data-linktype="self-bookmark">создавать отчеты о проблемах с качеством</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-113">Or, help by <a href="#review-open-prs" data-linktype="self-bookmark">reviewing new topics</a>, or <a href="#create-quality-issues" data-linktype="self-bookmark">create quality issues</a>.</span></span></p>
+<div class="IMPORTANT">
+<p>Важно!</p>
+<p><span data-ttu-id="35b9b-114">При работе со всеми репозиториями, используемыми для публикации на сайте docs.microsoft.com, необходимо соблюдать <a href="https://opensource.microsoft.com/codeofconduct/" data-linktype="external">правила поведения для управляемых компанией Майкрософт сообществ разработки ПО с открытым кодом</a> и <a href="https://dotnetfoundation.org/code-of-conduct" data-linktype="external">правила поведения от .NET Foundation</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-114">All repositories that publish to docs.microsoft.com have adopted the <a href="https://opensource.microsoft.com/codeofconduct/" data-linktype="external">Microsoft Open Source Code of Conduct</a> or the <a href="https://dotnetfoundation.org/code-of-conduct" data-linktype="external">.NET Foundation Code of Conduct</a>.</span></span> <span data-ttu-id="35b9b-115">Дополнительные сведения см. на странице с <a href="https://opensource.microsoft.com/codeofconduct/faq/" data-linktype="external">часто задаваемыми вопросами о правилах поведения</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-115">For more information, see the <a href="https://opensource.microsoft.com/codeofconduct/faq/" data-linktype="external">Code of Conduct FAQ</a>.</span></span> <span data-ttu-id="35b9b-116">С любыми вопросами и комментариями можно также обратиться по адресу <a href="mailto:opencode@microsoft.com" data-linktype="external">opencode@microsoft.com</a> или <a href="mailto:conduct@dotnetfoundation.org" data-linktype="external">conduct@dotnetfoundation.org</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-116">Or contact <a href="mailto:opencode@microsoft.com" data-linktype="external">opencode@microsoft.com</a>, or <a href="mailto:conduct@dotnetfoundation.org" data-linktype="external">conduct@dotnetfoundation.org</a> with any questions or comments.</span></span><br></p>
+<p><span data-ttu-id="35b9b-117">Порядок внесения незначительных изменений или уточнений в документацию и примеры кода из общедоступных репозиториев см. в <a href="https://docs.microsoft.com/legal/termsofuse" data-linktype="external">условиях использования на сайте docs.microsoft.com</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-117">Minor corrections or clarifications to documentation and code examples in public repositories are covered by the <a href="https://docs.microsoft.com/legal/termsofuse" data-linktype="external">docs.microsoft.com Terms of Use</a>.</span></span> <span data-ttu-id="35b9b-118">Если новые или значительные изменения вносят не сотрудники корпорации Майкрософт, в комментариях к запросу на вытягивание появляется предложение принять условия лицензионного соглашения с участником (CLA).</span><span class="sxs-lookup"><span data-stu-id="35b9b-118">New or significant changes generate a comment in the pull request, asking you to submit an online Contribution License Agreement (CLA) if you are not an employee of Microsoft.</span></span> <span data-ttu-id="35b9b-119">Вам нужно заполнить онлайн-форму, после чего мы сможем проверить или принять ваш запрос на вытягивание.</span><span class="sxs-lookup"><span data-stu-id="35b9b-119">We need you to complete the online form before we can review or accept your pull request.</span></span></p>
+</div>
+<h2 id="quick-edits-to-existing-documents"><span data-ttu-id="35b9b-120">Быстрое редактирование существующей документации</span><span class="sxs-lookup"><span data-stu-id="35b9b-120">Quick edits to existing documents</span></span></h2>
+<p><span data-ttu-id="35b9b-121">Быстрое редактирование позволяет оптимизировать отправку отчетов и устранение небольших ошибок и пропусков в документации.</span><span class="sxs-lookup"><span data-stu-id="35b9b-121">Quick edits streamline the process to report and fix small errors and omissions in documents.</span></span> <span data-ttu-id="35b9b-122">Несмотря на все прилагаемые усилия, в публикуемых документах, <em>к сожалению</em>, встречаются небольшие грамматические ошибки и опечатки.</span><span class="sxs-lookup"><span data-stu-id="35b9b-122">Despite all efforts, small grammar and spelling errors <em>do</em> make their way into our published documents.</span></span> <span data-ttu-id="35b9b-123">Вы можете создавать отчеты об ошибках, но быстрее и проще создать запрос на вытягивание, чтобы исправить ошибку, если есть такая возможность.</span><span class="sxs-lookup"><span data-stu-id="35b9b-123">While you can create issues to report mistakes, it's faster and easier to create a pull request (PR) to fix the issue, when the option is available.</span></span></p>
+<ol>
+<li><p><span data-ttu-id="35b9b-124">Содержимое на некоторых страницах документов можно редактировать прямо в браузере.</span><span class="sxs-lookup"><span data-stu-id="35b9b-124">Some docs pages allow you to edit content directly in the browser.</span></span> <span data-ttu-id="35b9b-125">В таком случае вы увидите кнопку <strong>Edit</strong> (Изменить), как показано ниже.</span><span class="sxs-lookup"><span data-stu-id="35b9b-125">If so, you'll see an <strong>Edit</strong> button like the one shown below.</span></span> <span data-ttu-id="35b9b-126">При нажатии <strong>Edit</strong> (или ее локализованного варианта) откроется исходный файл на GitHub.</span><span class="sxs-lookup"><span data-stu-id="35b9b-126">Clicking the <strong>Edit</strong> (or equivalently localized) button takes you to the source file on GitHub.</span></span> <span data-ttu-id="35b9b-127">Если кнопка <strong>Edit</strong> со значком карандаша не отображается, значит, редактирование страницы документации недоступно.</span><span class="sxs-lookup"><span data-stu-id="35b9b-127">If the <strong>Edit</strong> button (pencil icon without text) is missing, that means the documentation page is not available to be changed.</span></span></p>
+<p><img src="media/index/edit-article.png" alt="Расположение ссылки &quot;Изменить&quot;" data-linktype="relative-path"></p>
+</li>
+<li><p><span data-ttu-id="35b9b-129">Щелкните значок карандаша, чтобы отредактировать статью.</span><span class="sxs-lookup"><span data-stu-id="35b9b-129">Next, click the pencil icon, to edit the article as shown.</span></span> <span data-ttu-id="35b9b-130">Если значок карандаша показан серым, войдите в свою учетную запись GitHub или создайте новую.</span><span class="sxs-lookup"><span data-stu-id="35b9b-130">If the pencil icon is grayed out, you need to either log in to your GitHub account or create a new account.</span></span></p>
+<p><img src="media/index/edit-icon.png" alt="Расположение значка карандаша" data-linktype="relative-path"></p>
+</li>
+<li><p><span data-ttu-id="35b9b-132">Внесите необходимые изменения в веб-редакторе.</span><span class="sxs-lookup"><span data-stu-id="35b9b-132">Make your changes in the web editor.</span></span> <span data-ttu-id="35b9b-133">Щелкните вкладку <strong>Preview changes</strong> (Предварительный просмотр изменений), чтобы проверить форматирование измененного текста.</span><span class="sxs-lookup"><span data-stu-id="35b9b-133">Click the <strong>Preview changes</strong> tab to check the formatting of your change.</span></span></p>
+</li>
+<li><p><span data-ttu-id="35b9b-134">Закончив вносить изменения, прокрутите страницу вниз до конца.</span><span class="sxs-lookup"><span data-stu-id="35b9b-134">Once you have made your changes, scroll to the bottom of the page.</span></span> <span data-ttu-id="35b9b-135">Введите заголовок и описание изменений и нажмите кнопку <strong>Propose file change</strong> (Предложить изменение файла), как показано на рисунке ниже:</span><span class="sxs-lookup"><span data-stu-id="35b9b-135">Enter a title and description for your changes and click <strong>Propose file change</strong> as shown in the following figure:</span></span></p>
+<p><img src="media/index/submit-pull-request.png" alt="Propose file change (Предложить изменение файла)" data-linktype="relative-path"></p>
+</li>
+<li><p><span data-ttu-id="35b9b-137">Предложив изменения, необходимо попросить владельцев репозитория вытянуть эти изменения в репозиторий.</span><span class="sxs-lookup"><span data-stu-id="35b9b-137">Now that you've proposed your change, you need to ask the owners of the repository to &quot;pull&quot; your changes into their repository.</span></span> <span data-ttu-id="35b9b-138">Это можно сделать с помощью так называемого запроса на вытягивание.</span><span class="sxs-lookup"><span data-stu-id="35b9b-138">This is done using something called a &quot;pull request&quot;.</span></span> <span data-ttu-id="35b9b-139">После нажатия кнопки <strong>Propose file change</strong> (Предложить изменение файла), изображенной на рисунке выше, должна открыться новая страница, как на рисунке ниже:</span><span class="sxs-lookup"><span data-stu-id="35b9b-139">When you clicked on <strong>Propose file change</strong> in the figure above, you should have been taken to a new page that looks like the following figure:</span></span></p>
+<p><img src="media/index/create-pull-request.png" alt="Создание запроса на вытягивание" data-linktype="relative-path"></p>
+<p><span data-ttu-id="35b9b-141">Нажмите кнопку <strong>Create pull request</strong> (Создать запрос на вытягивание), введите имя (и при необходимости описание) запроса на вытягивание, а затем снова нажмите кнопку <strong>Create pull request</strong> (Создать запрос на вытягивание).</span><span class="sxs-lookup"><span data-stu-id="35b9b-141">Click <strong>Create pull request</strong>, enter a title (and optionally a description) for the pull request, and then click <strong>Create pull request</strong> again.</span></span> <span data-ttu-id="35b9b-142">Если вы новичок на GitHub, см. дополнительные сведения в статье <a href="https://help.github.com/en/articles/about-pull-requests" data-linktype="external">About Pull Requests</a> (О запросах на вытягивание).</span><span class="sxs-lookup"><span data-stu-id="35b9b-142">(If you are new to GitHub, see <a href="https://help.github.com/en/articles/about-pull-requests" data-linktype="external">About Pull Requests</a> for more information.)</span></span></p>
+</li>
+<li><p><span data-ttu-id="35b9b-143">Вот и все!</span><span class="sxs-lookup"><span data-stu-id="35b9b-143">That's it!</span></span> <span data-ttu-id="35b9b-144">Участники команды по созданию содержимого проверят ваш запрос на вытягивание и выполнят слияние.</span><span class="sxs-lookup"><span data-stu-id="35b9b-144">Content team members will review and merge your PR.</span></span> <span data-ttu-id="35b9b-145">Вы можете получить ответ с просьбой отредактировать изменения, если вы внесли значительные правки.</span><span class="sxs-lookup"><span data-stu-id="35b9b-145">You may get some feedback requesting changes if you made larger changes.</span></span></p>
+</li>
+</ol>
+<p><span data-ttu-id="35b9b-146">Пользовательский интерфейс редактирования сайта GitHub может реагировать по-разному в зависимости от ваших разрешений на работу с репозиторием.</span><span class="sxs-lookup"><span data-stu-id="35b9b-146">The GitHub editing UI responds to your permissions on the repository.</span></span> <span data-ttu-id="35b9b-147">Предыдущие рисунки актуальны для участников, которые не имеют разрешения на запись в целевом репозитории.</span><span class="sxs-lookup"><span data-stu-id="35b9b-147">The preceding images are accurate for contributors that do not have write permissions to the target repository.</span></span> <span data-ttu-id="35b9b-148">GitHub автоматически создает вилку целевого репозитория в вашей учетной записи.</span><span class="sxs-lookup"><span data-stu-id="35b9b-148">GitHub automatically creates a fork of the target repository in your account.</span></span> <span data-ttu-id="35b9b-149">Если у вас есть права на запись в целевом репозитории, GitHub создает в нем новую ветвь.</span><span class="sxs-lookup"><span data-stu-id="35b9b-149">If you have write-access to the target repository, GitHub creates a new branch in the target repo.</span></span> <span data-ttu-id="35b9b-150">Имя ветви указано в формате <strong>&lt;GitHubId&gt;-patch-n</strong>, где GitHubId — ваш идентификатор на сайте GitHub, а patch-n — числовой идентификатор исправления.</span><span class="sxs-lookup"><span data-stu-id="35b9b-150">The branch name has the form <strong>&lt;GitHubId&gt;-patch-n</strong> using your GitHub ID, and a numeric identifier for the patch branch.</span></span></p>
+<p><span data-ttu-id="35b9b-151">Для всех изменений используются запросы на вытягивание, даже если вносящий их участник имеет права на запись.</span><span class="sxs-lookup"><span data-stu-id="35b9b-151">We use pull requests for all changes, even for contributors that have write-access.</span></span> <span data-ttu-id="35b9b-152">В большинстве репозиториев ветвь <code>master</code> защищена, так что обновления должны отправляться в виде запросов на вытягивание.</span><span class="sxs-lookup"><span data-stu-id="35b9b-152">Most repositories have the <code>master</code> branch protected so that updates must be submitted as pull requests.</span></span></p>
+<p><span data-ttu-id="35b9b-153">Редактирование в браузере лучше использовать для незначительных и эпизодических изменений.</span><span class="sxs-lookup"><span data-stu-id="35b9b-153">The in-browser editing experience is best for minor or infrequent changes.</span></span> <span data-ttu-id="35b9b-154">Если вы вносите значительные изменения или используете расширенные возможности Git (например, управление ветвями или продвинутое разрешение конфликтов слияния), вам необходимо <a href="how-to-write-workflows-major" data-linktype="relative-path">создать вилку репозитория и работать локально</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-154">If you make large contributions or use advanced Git features (such as branch management or advanced merge conflict resolution), you need to <a href="how-to-write-workflows-major" data-linktype="relative-path">fork the repo and work locally</a>.</span></span></p>
+<div class="NOTE">
+<p>Примечание</p>
+<p><span data-ttu-id="35b9b-155">Если эта функция включена, вы можете редактировать статью на <strong>любом языке</strong>, и в зависимости от типа редактирования результаты будет следующими:</span><span class="sxs-lookup"><span data-stu-id="35b9b-155">If enabled, you can edit an article in <strong>any language</strong> and, based on the type of edit, the following will happen:</span></span></p>
+<ol>
+<li><span data-ttu-id="35b9b-156">Любые утвержденные лингвистические изменения помогут улучшить нашу систему машинного перевода.</span><span class="sxs-lookup"><span data-stu-id="35b9b-156">any linguistic change that is approved, will also help improve our Machine Translation engine</span></span></li>
+<li><span data-ttu-id="35b9b-157">В случае утверждения каких-то значительных изменений содержимого статьи эти изменения будут переданы на внутреннюю обработку, а затем внесены в англоязычную версию статьи и впоследствии локализованы на все прочие языки.</span><span class="sxs-lookup"><span data-stu-id="35b9b-157">any edit that significantly modifies the content of the article will be handled internally to submit a change to the same article in English so that it will get localized in all languages if approved.</span></span>
+<span data-ttu-id="35b9b-158">Таким образом, предложенные вами изменения помогут улучшить статью не только на вашем, но и на всех доступных языках.</span><span class="sxs-lookup"><span data-stu-id="35b9b-158">Your suggested improvements will not only positively affect articles in your own language, but in all available languages.</span></span></li>
+</ol>
+</div>
+<h2 id="review-open-prs"><span data-ttu-id="35b9b-159">Проверка открытых запросов на вытягивание</span><span class="sxs-lookup"><span data-stu-id="35b9b-159">Review open PRs</span></span></h2>
+<p><span data-ttu-id="35b9b-160">Вы можете просматривать новые разделы до их публикации, проверяя открытые запросы на вытягивание.</span><span class="sxs-lookup"><span data-stu-id="35b9b-160">You can read new topics before they are published by checking the currently open PRs.</span></span> <span data-ttu-id="35b9b-161">Проверки выполняются в соответствии с <a href="https://guides.github.com/introduction/flow/" data-linktype="external">процедурой GitHub</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-161">Reviews follow the <a href="https://guides.github.com/introduction/flow/" data-linktype="external">GitHub flow</a> process.</span></span> <span data-ttu-id="35b9b-162">Предложенные обновления и новые статьи можно увидеть в общедоступных репозиториях.</span><span class="sxs-lookup"><span data-stu-id="35b9b-162">You can see proposed updates or new articles in public repositories.</span></span> <span data-ttu-id="35b9b-163">Вы можете проверять их и добавлять комментарии.</span><span class="sxs-lookup"><span data-stu-id="35b9b-163">Review them and add your comments.</span></span> <span data-ttu-id="35b9b-164">Просматривайте любые наши репозитории с документацией и открытые запросы на вытягивание с интересующей вас тематикой.</span><span class="sxs-lookup"><span data-stu-id="35b9b-164">Look at any of our docs repositories, and check the open pull requests (PRs) for areas that interest you.</span></span> <span data-ttu-id="35b9b-165">Отзывы пользователей о предлагаемых обновлениях идут на пользу всему сообществу.</span><span class="sxs-lookup"><span data-stu-id="35b9b-165">Community feedback on proposed updates helps the entire community.</span></span></p>
+<h2 id="create-quality-issues"><span data-ttu-id="35b9b-166">Создание отчетов о проблемах с качеством</span><span class="sxs-lookup"><span data-stu-id="35b9b-166">Create quality issues</span></span></h2>
+<p><span data-ttu-id="35b9b-167">Мы постоянно работаем над улучшением нашей документации.</span><span class="sxs-lookup"><span data-stu-id="35b9b-167">Our docs are a continuous work in progress.</span></span> <span data-ttu-id="35b9b-168">Качественные запросы помогают нам сосредоточиться на наиболее приоритетных для сообщества направлениях.</span><span class="sxs-lookup"><span data-stu-id="35b9b-168">Good issues help us focus our efforts on the highest priorities for the community.</span></span> <span data-ttu-id="35b9b-169">Чем больше информации мы получаем от вас, тем полезнее ваш запрос.</span><span class="sxs-lookup"><span data-stu-id="35b9b-169">The more detail you can provide, the more helpful the issue.</span></span> <span data-ttu-id="35b9b-170">Расскажите нам о том, какую информацию вы искали.</span><span class="sxs-lookup"><span data-stu-id="35b9b-170">Tell us what information you sought.</span></span> <span data-ttu-id="35b9b-171">Расскажите о том, какие условия поиска вы использовали.</span><span class="sxs-lookup"><span data-stu-id="35b9b-171">Tell us the search terms you used.</span></span> <span data-ttu-id="35b9b-172">Если вы не знаете, с чего начать, расскажите о том, с чего вы хотели бы начать знакомство с новой технологией.</span><span class="sxs-lookup"><span data-stu-id="35b9b-172">If you can't get started, tell us how you want to start exploring unfamiliar technology.</span></span></p>
+<p><span data-ttu-id="35b9b-173">Большая часть документов корпорации Майкрософт содержит раздел <strong>Обратная связь</strong> в нижней части страницы. В этом разделе можно нажать кнопку <strong>Отзыв о продукте</strong> или <strong>Отзыв о содержимом</strong>, чтобы отследить проблемы, связанные с этой статьей.</span><span class="sxs-lookup"><span data-stu-id="35b9b-173">Many of Microsoft's documentation pages have a <strong>Feedback</strong> section at the bottom of the page where you can click to leave <strong>Product feedback</strong> or <strong>Content feedback</strong> to track issues that are specific to that article.</span></span></p>
+<p><span data-ttu-id="35b9b-174">Чтобы понять ваши потребности, нам необходимы ваши отзывы.</span><span class="sxs-lookup"><span data-stu-id="35b9b-174">Issues start the conversation about what's needed.</span></span> <span data-ttu-id="35b9b-175">Команда по созданию содержимого ответит на эти запросы, предложив возможные варианты решения, и поинтересуется вашим мнением.</span><span class="sxs-lookup"><span data-stu-id="35b9b-175">The content team will respond to these issues with ideas for what we can add, and ask for your opinions.</span></span> <span data-ttu-id="35b9b-176">Когда проект решения будет готов, мы попросим вас <a href="#review-open-prs" data-linktype="self-bookmark">проверить запрос на вытягивание</a>.</span><span class="sxs-lookup"><span data-stu-id="35b9b-176">When we create a draft, we'll ask you to <a href="#review-open-prs" data-linktype="self-bookmark">review the PR</a>.</span></span></p>
+<h2 id="get-more-involved"><span data-ttu-id="35b9b-177">Узнайте больше</span><span class="sxs-lookup"><span data-stu-id="35b9b-177">Get more involved</span></span></h2>
+<p><span data-ttu-id="35b9b-178">В других разделах представлена информация, которая поможет вам стать участником и внести свой вклад в развитие документации Майкрософт. В них разъясняются принципы работы с репозиториями GitHub, средствами Markdown и расширениями, используемыми на платформе документации Майкрософт.</span><span class="sxs-lookup"><span data-stu-id="35b9b-178">Other topics help you get started productively contributing to Microsoft Docs. They explain working with GitHub repositories, Markdown tools, and extensions used in the Microsoft Docs platform.</span></span></p>
+
+						<!-- </content> -->
+
+						</main>
+
+						<!-- recommended content page section -->
+
+							<nav data-bi-name="recommendation-bottom" hidden id="recommended-content-center" class="is-hidden-desktop" aria-labelledby="recommended-content-center-title">
+								<h3 id="recommended-content-center-title" class="is-size-2 has-margin-top-large has-margin-bottom-small">Похожие статьи</h3>
+							</nav>
+
+						<!-- end recommended content page section -->
+
+						<!-- page rating section -->
+								<div class="is-hidden-desktop has-border-top has-margin-top-large has-padding-top-small">
+									
+									
+<div class="feedback-verbatim has-border-bottom has-padding-bottom-small has-margin-bottom-small" data-bi-name="rating">
+    <div class="binary-rating">
+        <div class="binary-rating-buttons">
+            <h3 class="has-text-weight-semibold has-margin-top-none has-margin-bottom-small">Были ли сведения на этой странице полезными?</h3>
+            <div>
+                <button class="thumb-rating like has-inner-focus has-padding-left-extra-small has-padding-right-extra-small" title="Да" data-bi-name="rating-yes" aria-expanded="false" data-bi-sat="1" aria-controls="rating-container-mobile">
+                    <span aria-hidden="true" class="icon docon docon-like"></span>
+                    <span>Да</span>
+                </button>
+                <button class="thumb-rating dislike has-inner-focus has-padding-none has-padding-right-extra-small" title="Нет" data-bi-name="rating-no" data-bi-sat="0" aria-expanded="false" aria-controls="rating-container-mobile">
+                    <span aria-hidden="true" class="icon docon docon-dislike"></span>
+                    <span>Нет</span>
+                </button>
+            </div>
+        </div>
+        <form class="feedback-verbatim-form is-hidden" id="rating-container-mobile">
+            <div class="verbatim-textarea box is-relative has-box-shadow-none has-border has-margin-top-small has-padding-extra-small is-size-8">
+                <label for="rating-textarea-mobile" class="visually-hidden">Хотите оставить дополнительный отзыв?</label>
+                <textarea id="rating-textarea-mobile" rows="4" maxlength="999" placeholder="Хотите оставить дополнительный отзыв?" required class="textarea has-border-none has-box-shadow-none has-inner-focus"></textarea>
+            </div>
+            <div class="buttons is-right has-margin-top-medium has-margin-right-extra-small">
+                <button class="skip-rating button is-text is-link is-small" type="button">Пропустить</button>
+                <button class="submit-rating button is-primary is-small" data-bi-name="rating-verbatim" disabled type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+    <div class="thankyou-rating is-hidden" tabindex="-1">
+        <p>Спасибо!</p>
+    </div>
+</div>								</div>
+						<!-- end page rating section -->
+
+
+						<!-- feedback section -->
+<section class="feedback-section" data-bi-name="feedback-section">
+
+    <h2 id="feedback">Обратная связь</h2>
+
+    <div class="alert choose-feedback-type">
+        <p aria-hidden="true" id="send-feedback-about">Отправить отзыв о следующем:</p>
+
+        <div class="choose-feedback-buttons">
+                <a class="button feedback-type-product has-margin-bottom-small" aria-label="Отправить отзыв об этом продукте" href="https://aka.ms/sitefeedback" data-bi-name="product-feedback">
+                    <span>Этот продукт</span>
+                    <span aria-hidden="true" class="icon docon docon-navigate-external"></span>
+                </a>
+
+            <div class="field is-inline-flex has-margin-bottom-small">
+                <div class="control has-margin-top-none has-margin-bottom-none">
+                    <button class="button feedback-sign-in-button has-text-wrap" aria-label="Отправить отзыв об этой странице" data-bi-name="feedback-sign-in">
+                        <span aria-hidden="true" class="icon docon docon-brand-github"></span>
+                        <span>Эта страница</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="field is-inline-flex has-margin-bottom-small" hidden>
+                <div class="control has-margin-top-none has-margin-bottom-none">
+                    <button aria-controls="feedback-form" aria-describedby="send-feedback-about" aria-expanded="false" class="button feedback-form-toggle" data-bi-name="documentation-feedback">
+                        <span aria-hidden="true" class="icon docon docon-brand-github"></span>
+Эта страница                        <span aria-hidden="true" class="icon">
+                            <span class="expanded-indicator docon docon-chevron-down-light"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <p>Вы также можете оставить отзыв непосредственно на <a data-bi-name="create-issue-on-github" class="github-link">GitHub <span class="docon docon-navigate-external" aria-hidden="true"></span></a>.</p>
+        </div>
+    </div>
+
+    <form accept-charset="UTF-8" action="javascript:" autocomplete="off" class="feedback-form" hidden id="feedback-form">
+        <h3 class="feedback-form-heading current-user">
+            <img class="avatar" alt="Аватар" width="36" height="36" aria-hidden="true">
+            <span aria-hidden="true" class="username"></span>
+            <span class="visually-hidden">Отправить отзыв об этой странице</span>
+        </h3>
+
+        <label>
+            <span class="visually-hidden">Заголовок</span>
+            <input class="input is-radiusless has-margin-bottom-small" name="title" type="text" placeholder="Заголовок" required pattern=".*[^\s]+.*">
+        </label>
+        <label>
+            <span class="visually-hidden">Оставить комментарий</span>
+            <textarea name="body" placeholder="Оставить комментарий" class="textarea is-radiusless" required></textarea>
+        </label>
+
+        <div class="action-container">
+            <button class="button is-primary" name="submit" type="submit">Отправить отзыв</button>
+        </div>
+    </form>
+
+    <div class="feedback-status alert is-loading">
+        <p>Загрузка отзыва...</p>
+    </div>
+
+    <div class="feedback-tab-group tabGroup" data-tab-group-independent hidden>
+        <ul role="tablist">
+            <li role="presentation">
+                <a aria-controls="tabpanel-issues-open" data-tab="issues-open" href="#tabpanel-issues-open" role="tab"></a>
+            </li>
+            <li role="presentation">
+                <a aria-controls="tabpanel-issues-closed" data-tab="issues-closed" href="#tabpanel-issues-closed" role="tab"></a>
+            </li>
+        </ul>
+        <section data-tab="issues-open" id="tabpanel-issues-open" role="tabpanel">
+            <div class="no-issues-placeholder">Нет открытых вопросов</div>
+            <ul class="github-issues-list" aria-label="Нерешенные проблемы"></ul>
+        </section>
+        <section data-tab="issues-closed" id="tabpanel-issues-closed" role="tabpanel">
+            <div class="no-issues-placeholder">Нет закрытых вопросов</div>
+            <ul class="github-issues-list" aria-label="Решенные проблемы"></ul>
+        </section>
+    </div>
+    <div class="action-container">
+        <a class="view-on-github" data-bi-name="view-on-github" hidden href="https://github.com/MicrosoftDocs/Contribute.ru-ru/issues">
+            <span aria-hidden="true" class="docon docon-brand-github"></span>
+            <span>Просмотреть на GitHub</span>
+            <span aria-hidden="true" class="docon docon-navigate-external"></span>
+        </a>
+    </div>
+</section>
+
+						<!-- end feedback section -->
+
+						<!-- feedback report section -->
+						<!-- end feedback report section -->
+
+						<div class="footerContainer is-visible-interactive has-default-focus ">
+<footer id="footer-interactive" data-bi-name="footer" class="footer-layout">
+
+    <div class="is-flex is-full-height has-padding-right-extra-large-desktop">
+		<a data-mscc-ic="false" class="locale-selector-link has-flex-shrink-none" href="#" data-bi-name="select-locale"><span class="icon docon docon-world is-size-4 has-margin-right-small" aria-hidden="true"></span><span class="local-selector-link-text"></span></a>
+		<div class="has-margin-left-medium has-margin-right-medium has-flex-shrink-none">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button is-transparent is-small is-icon-only-touch has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Тема" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Тема</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector has-padding-small">
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="light">
+					<span class="theme-light has-margin-right-small">
+						<span
+							class="theme-selector-icon css-variable-support has-border is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Светлая					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="dark">
+					<span class="theme-dark has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Темная					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Высокая контрастность					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>		</div>
+	</div>
+
+    <ul class="links" data-bi-name="footerlinks">
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/previous-versions/" data-bi-name="archivelink">Документация по предыдущей версии</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/teamblog" data-bi-name="bloglink">Блог</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/contribute" data-bi-name="contributorGuide">Участие в доработке</a></li>
+			<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Конфиденциальность и файлы cookie</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/legal/termsofuse" data-bi-name="termsofuse">Условия использования</a></li>
+		<li><a data-mscc-ic="false" href="https://aka.ms/sitefeedback" data-bi-name="feedback">Отзывы о сайте</a></li>
+		<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Товарные знаки</a></li>
+		<li>&copy; Microsoft 2020</li>
+    </ul>
+</footer>
+						</div>
+					</div>
+
+					<div class="is-size-7 right-container column is-one-quarter is-one-fifth-desktop is-hidden-mobile is-hidden-tablet-only" data-bi-name="pageactions" role="complementary" aria-label="Действия страницы">
+						<div id="affixed-right-container" class="doc-outline is-fixed is-vertically-scrollable">
+								
+								
+<div class="feedback-verbatim has-border-bottom has-padding-bottom-small has-margin-bottom-small" data-bi-name="rating">
+    <div class="binary-rating">
+        <div class="binary-rating-buttons">
+            <h3 class="has-text-weight-semibold has-margin-top-none has-margin-bottom-small">Были ли сведения на этой странице полезными?</h3>
+            <div>
+                <button class="thumb-rating like has-inner-focus has-padding-left-extra-small has-padding-right-extra-small" title="Да" data-bi-name="rating-yes" aria-expanded="false" data-bi-sat="1" aria-controls="rating-container-desktop">
+                    <span aria-hidden="true" class="icon docon docon-like"></span>
+                    <span>Да</span>
+                </button>
+                <button class="thumb-rating dislike has-inner-focus has-padding-none has-padding-right-extra-small" title="Нет" data-bi-name="rating-no" data-bi-sat="0" aria-expanded="false" aria-controls="rating-container-desktop">
+                    <span aria-hidden="true" class="icon docon docon-dislike"></span>
+                    <span>Нет</span>
+                </button>
+            </div>
+        </div>
+        <form class="feedback-verbatim-form is-hidden" id="rating-container-desktop">
+            <div class="verbatim-textarea box is-relative has-box-shadow-none has-border has-margin-top-small has-padding-extra-small is-size-8">
+                <label for="rating-textarea-desktop" class="visually-hidden">Хотите оставить дополнительный отзыв?</label>
+                <textarea id="rating-textarea-desktop" rows="4" maxlength="999" placeholder="Хотите оставить дополнительный отзыв?" required class="textarea has-border-none has-box-shadow-none has-inner-focus"></textarea>
+            </div>
+            <div class="buttons is-right has-margin-top-medium has-margin-right-extra-small">
+                <button class="skip-rating button is-text is-link is-small" type="button">Пропустить</button>
+                <button class="submit-rating button is-primary is-small" data-bi-name="rating-verbatim" disabled type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+    <div class="thankyou-rating is-hidden" tabindex="-1">
+        <p>Спасибо!</p>
+    </div>
+</div>								<nav data-bi-name="recommendation-sidebar" hidden id="recommended-content-nav" role="navigation" aria-labelledby="recommended-content-nav-title">
+									<h3 id="recommended-content-nav-title">Похожие статьи</h3>
+								</nav>
+							<nav id="side-doc-outline" data-bi-name="intopic toc" role="navigation" aria-label="Структура статьи">
+								<h3>В этой статье</h3>
+							</nav>
+						</div>
+					</div>
+
+					<!--end of div.columns -->
+				</div>
+
+			<!--end of .primary-holder -->
+			</section>
+
+			<aside id="interactive-container" class="interactive-container is-visible-interactive column has-body-background-dark ">
+			</aside>
+		</div>
+
+		<!--end of .mainContainer -->
+	</div>
+
+	<div id="openFeedbackContainer" class="openfeedback-container"></div>
+
+	<div class="footerContainer has-default-focus is-hidden-interactive ">
+<footer id="footer" data-bi-name="footer" class="footer-layout uhf-container has-padding" role="contentinfo">
+
+    <div class="is-flex is-full-height has-padding-right-extra-large-desktop">
+		<a data-mscc-ic="false" class="locale-selector-link has-flex-shrink-none" href="#" data-bi-name="select-locale"><span class="icon docon docon-world is-size-4 has-margin-right-small" aria-hidden="true"></span><span class="local-selector-link-text"></span></a>
+		<div class="has-margin-left-medium has-margin-right-medium has-flex-shrink-none">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button is-transparent is-small is-icon-only-touch has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Тема" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Тема</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector has-padding-small">
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="light">
+					<span class="theme-light has-margin-right-small">
+						<span
+							class="theme-selector-icon css-variable-support has-border is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Светлая					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="dark">
+					<span class="theme-dark has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Темная					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Высокая контрастность					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>		</div>
+	</div>
+    <ul class="links" data-bi-name="footerlinks">
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/previous-versions/" data-bi-name="archivelink">Документация по предыдущей версии</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/teamblog" data-bi-name="bloglink">Блог</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/contribute" data-bi-name="contributorGuide">Участие в доработке</a></li>
+			<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Конфиденциальность и файлы cookie</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/legal/termsofuse" data-bi-name="termsofuse">Условия использования</a></li>
+		<li><a data-mscc-ic="false" href="https://aka.ms/sitefeedback" data-bi-name="feedback">Отзывы о сайте</a></li>
+		<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Товарные знаки</a></li>
+		<li>&copy; Microsoft 2020</li>
+    </ul>
+</footer>
+	</div>
+
+	<div id="action-panel" role="region" aria-label="Панель действий" class="action-panel has-default-focus" tabindex="-1"></div>
+</body>
+</html>

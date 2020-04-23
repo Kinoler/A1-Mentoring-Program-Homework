@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="hasSidebar hasPageActions hasBreadcrumb conceptual has-default-focus theme-light" lang="en-us" dir="ltr" data-css-variable-support="true" data-authenticated="false" data-auth-status-determined="false" data-target="docs" x-ms-format-detection="none">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="HttpClient is Here!" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.microsoft.com/en-us/archive/blogs/henrikn/httpclient-is-here" />
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@docsmsft" />
+
+
+	<meta name="archived_blog_id" content="47153" />
+<meta name="archived_blog_orig_url" content="https://blogs.msdn.microsoft.com/henrikn" />
+<meta name="archived_blog_post_author" content="Henrik F Nielsen" />
+<meta name="archived_blog_post_author_email" content="henrikn@microsoft.com" />
+<meta name="archived_blog_post_id" content="363" />
+<meta name="author" content="kexugit" />
+<meta name="breadcrumb_path" content="/archive/blogs/bread/toc.json" />
+<meta name="depot_name" content="MSDN.blogs-archive" />
+<meta name="document_id" content="8f24ac6f-c746-0b46-7f13-579911834188" />
+<meta name="document_version_independent_id" content="c4fc729b-0ed4-94c2-97c4-fa98bb8d6dfd" />
+<meta name="gitcommit" content="https://docs-archive.visualstudio.com/DefaultCollection/docs-archive-project/_git/blogs-archive-pr/commit/b1e8e2636fecb5506007f86ab5aec32dc1eb4ffb?path=/blogs-archive/henrikn/httpclient-is-here.md&amp;_a=contents" />
+<meta name="is_archived" content="true" />
+<meta name="locale" content="en-us" />
+<meta name="ms.author" content="Archiveddocs" />
+<meta name="ms.date" content="02/16/2012" />
+<meta name="ms.topic" content="Archived" />
+<meta name="original_content_git_url" content="https://docs-archive.visualstudio.com/DefaultCollection/docs-archive-project/_git/blogs-archive-pr?path=/blogs-archive/henrikn/httpclient-is-here.md&amp;version=GBlive&amp;_a=contents" />
+<meta name="ROBOTS" content="NOINDEX,NOFOLLOW" />
+<meta name="search.ms_docsetname" content="blogs-archive" />
+<meta name="search.ms_product" content="MSDN" />
+<meta name="search.ms_sitename" content="Docs" />
+<meta name="site_name" content="Docs" />
+<meta name="uhfHeaderId" content="MSDocsHeader-Archive" />
+<meta name="updated_at" content="2020-02-07 07:49 PM" />
+<meta name="page_type" content="conceptual" />
+<meta name="toc_rel" content="toc.json" />
+<meta name="word_count" content="823" />
+
+
+	<meta name="scope" content="Blogs" />
+<link href="https://docs.microsoft.com/en-us/archive/blogs/henrikn/httpclient-is-here" rel="canonical">
+	<title>HttpClient is Here! | Microsoft Docs</title>
+
+		<link rel="stylesheet" href="/_themes/docs.theme/master/ru-ru/_themes/styles/fde4fc64.site-ltr.css ">
+
+	<link rel="stylesheet" href="/_themes/docs.theme/master/ru-ru/_themes/styles/672b4bb0.conceptual.css ">
+
+
+	<script>
+	var msDocs = {
+		data: {
+			timeOrigin: Date.now(),
+			azureHeaderLocale: 'ru-ru',
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'ru-ru',
+			userDir: 'ltr',
+			pageTemplate: 'Conceptual',
+			brand: '',
+			context: {
+
+			},
+			hasBinaryRating: false,
+			hasGithubIssues: false,
+			showFeedbackReport: false,
+			enableTutorialFeedback: false,
+			feedbackSystem: 'None',
+			feedbackGitHubRepo: '',
+			feedbackProductUrl: '',
+			contentGitUrl: 'https://docs-archive.visualstudio.com/DefaultCollection/docs-archive-project/_git/blogs-archive-pr?path=/blogs-archive/henrikn/httpclient-is-here.md&version=GBlive&_a=contents',
+			extendBreadcrumb: false,
+			isEditDisplayable: false,
+			hideViewSource: false,
+			hasPageActions: true,
+			hasBookmark: true,
+			hasShare: true
+		},
+		functions:{}
+	};
+	if (!('Promise' in window && 'resolve' in window.Promise && 'reject' in window.Promise && 'all' in window.Promise && 'race' in window.Promise)) {
+		document.write('<script src="/static/third-party/bluebird/3.5.0/bluebird.min.js" integrity="sha384-aD4BDeDGeLXLpPK4yKeqtZQa9dv4a/7mQ+4L5vwshIYH1Mc2BrXvHd32iHzYCQy5" crossorigin="anonymous"><\/script>');
+	}
+	if (typeof fetch !== 'function') {
+		document.write('<script src="/static/third-party/fetch/3.0.0/fetch.umd.min.js" integrity="sha384-EQIXrC5K2+7X8nGgLkB995I0/6jfAvvyG1ieZ+WYGxgJHFMD/alsG9fSDWvzb5Y1" crossorigin="anonymous"><\/script>');
+	}
+	if (typeof HTMLTemplateElement === 'undefined') {
+		document.write('<script src="/static/third-party/template/1.4.0/template.min.js" integrity="sha384-1zKzI6ldTVHMU7n0W2HpE/lhHI+UG4D9IIaxbj3kT2UhCWicdTuJkTtnKuu0CQzN" crossorigin="anonymous"><\/script>');
+	}
+	if (typeof URL !== 'function') {
+		document.write('<script src="/static/third-party/url/0.5.7/url.min.js" integrity="sha384-vn7xBMtpSTfzaTRWxj0kVq0UcsbBrTOgZ/M1ISHqe1V358elYva+lfiEC+T8jLPc" crossorigin="anonymous"><\/script>');
+	}
+	</script>
+
+	<script src="/static/third-party/jquery/3.3.1/jquery.min.js" integrity="sha384-Q4GEli30r5Awgb/ITt925nE8buHKjVWM/x3DX8t5JwRLT9P/C2r7u7XzNwvpTTGw" crossorigin="anonymous"></script>
+		<script src="/_themes/docs.theme/master/ru-ru/_themes/scripts/775e3ec2.index-docs.js"></script>
+
+</head>
+
+<body lang="ru-ru" dir="ltr">
+<div class="header-holder has-default-focus">
+	<a href="#main" class="skip-to-main-link visually-hidden-until-focused is-fixed has-inner-focus focus-visible has-top-zero has-left-zero has-right-zero has-padding-medium has-text-centered has-body-background-medium" tabindex="1">Пропустить и перейти к основному содержимому</a>
+		<div id="headerAreaHolder" data-bi-name="header">
+<header role="banner" itemscope="itemscope" itemtype="http://schema.org/Organization">
+	<div class="nav-bar">
+		<a itemprop="url" href="https://www.microsoft.com" aria-label="Microsoft" class="nav-bar-button has-padding-left-medium-mobile">
+			<div class="nav-bar-logo has-background-image theme-display is-light" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+			<div class="nav-bar-logo has-background-image theme-display is-dark is-high-contrast" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+		</a>
+		<div class="nav-bar-item is-hidden-tablet">
+			<button class="nav-bar-button is-size-5 is-text has-body-background has-padding-none" title="Глобальная навигация">
+				<span class="has-text-weight-semibold has-padding-left-small has-padding-bottom-extra-small"></span>
+				<div class="nav-bar-burger has-padding-none has-height-zero">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span class="is-visually-hidden">Глобальная навигация</span>
+				</div>
+			</button>
+		</div>
+		<nav class="nav-bar-nav" role="navigation" aria-label="Глобальный">
+			<ul class="nav-bar-nav-list">
+				<li class="nav-bar-item is-category has-spacing">
+					<a class="nav-bar-button title has-hover-underline is-4" itemprop="url" href="/en-us/">
+						<span>Docs</span>
+					</a>
+				</li>
+				<li class="nav-bar-item">
+					<a class="nav-bar-button has-hover-underline" href="/en-us/">
+						<span>Документация</span>
+					</a>
+				</li>
+				<li class="nav-bar-item">
+					<a class="nav-bar-button has-hover-underline" href="/en-us/learn/">
+						<span>Learn</span>
+					</a>
+				</li>
+				<li class="nav-bar-item">
+					<a class="nav-bar-button has-hover-underline" href="/en-us/samples/browse/">
+						<span>Примеры кода</span>
+					</a>
+				</li>
+				<li class="dropdown nav-bar-item" hidden="">
+					<button aria-expanded="false" class="dropdown-trigger nav-bar-button has-hover-underline" aria-controls="ax-53">
+						<span>Подробнее</span>
+						<span class="nav-bar-button-chevron" aria-hidden="true">
+							<span class="docon docon-chevron-down-light expanded-indicator"></span>
+						</span>
+					</button>
+					<ul class="dropdown-menu" id="ax-53" aria-label="Подробнее">
+						<li class="nav-bar-item" hidden="">
+							<a class="nav-bar-button" href="/en-us/">Документация</a>
+						</li>
+						<li class="nav-bar-item" hidden="">
+							<a class="nav-bar-button" href="/en-us/learn/">Learn</a>
+						</li>
+						<li class="nav-bar-item" hidden="">
+							<a class="nav-bar-button" href="/en-us/samples/browse/">Примеры кода</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<span class="nav-bar-spacer is-hidden-mobile"></span>
+		<div class="nav-bar-item has-flex-grow-mobile has-flex-shrink-mobile">
+		</div>
+		<div class="nav-bar-item is-size-7 is-hidden-mobile">
+		</div>
+	</div>
+	<div class="nav-bar is-content is-hidden-mobile has-border-top">
+	</div>
+</header>		</div>
+		<div class="content-header uhf-container has-padding has-default-focus has-border-bottom-none" data-bi-name="content-header">
+			<nav class="has-padding-none has-padding-left-medium-tablet has-padding-right-medium-tablet has-padding-left-none-uhf-tablet has-padding-left-none-uhf-tablet has-padding-none-desktop has-flex-grow" data-bi-name="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList" role="navigation" aria-label="Навигатор">
+				<ul id="page-breadcrumbs" class="breadcrumbs">
+				</ul>
+			</nav>
+		<div class="content-header-controls">
+			<button type="button" class="contents-button button" data-bi-name="contents-expand" aria-haspopup="true">
+				<span class="icon"><span class="docon docon-menu" aria-hidden="true"></span></span>
+				<span>Содержимое</span>
+			</button>
+		</div>
+		<div class="content-header-controls exit-focus">
+			<button type="button" class="ap-collapse-behavior ap-expanded button" data-bi-name="ap-collapse" aria-controls="action-panel">
+				<span class="icon"><span class="docon docon-exit-mode" aria-hidden="true"></span></span>
+				<span>Выйти из режима фокусировки</span>
+			</button>
+		</div>
+		<div class="has-padding-none-tablet has-padding-medium is-size-7 is-flex-touch has-flex-justify-content-space-between-touch has-flex-grow">
+			<ul class="is-hidden-mobile action-list has-flex-justify-content-start has-flex-justify-content-end-tablet is-flex is-flex-row has-flex-wrap has-flex-grow is-unstyled">
+				<li>
+					<button type="button" class="bookmark button is-text has-inner-focus is-small is-icon-only-touch" data-list-type="bookmarks" data-bi-name="bookmark" title="Добавить эту страницу в закладки">
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-single-bookmark"></span>
+						</span>
+						<span class="bookmark-status is-visually-hidden-touch is-hidden-portrait">Закладка</span>
+					</button>
+				</li>
+				<li>
+<div class="sharing dropdown has-caret">
+	<button class="dropdown-trigger button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small is-icon-only-touch" aria-controls="sharing-menu" aria-expanded="false" title="Поделиться этим документом" data-bi-name="share">
+		<span class="icon" aria-hidden="true">
+			<span class="docon docon-sharing"></span>
+		</span>
+		<span class="is-visually-hidden-touch is-hidden-portrait">Поделиться</span>
+	</button>
+	<div class="dropdown-menu has-padding-small" id="sharing-menu">
+		<ul data-bi-name="share-links">
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-twitter" data-bi-name="twitter">
+					<span class="icon">
+						<span class="docon docon-brand-twitter has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>Twitter</span>
+				</a>
+			</li>
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-linkedin" data-bi-name="linkedin">
+					<span class="icon">
+						<span class="docon docon-brand-linkedin has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>LinkedIn</span>
+				</a>
+			</li>
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-facebook" data-bi-name="facebook">
+					<span class="icon">
+						<span class="docon docon-brand-facebook has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>Facebook</span>
+				</a>
+			</li>
+			<li>
+				<a class="button is-text is-fullwidth has-flex-justify-content-start has-inner-focus is-small share-email" data-bi-name="email">
+					<span class="icon">
+						<span class="docon docon-mail-message-fill has-text-primary" aria-hidden="true"></span>
+					</span>
+					<span>Адрес электронной почты</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>				</li>
+			</ul>
+			<button type="button" class="has-border contents-button button is-small is-text is-hidden-tablet has-inner-focus" aria-label="Содержимое" data-bi-name="contents-expand">
+				<span class="icon">
+					<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+				</span>
+				<span>Оглавление</span>
+			</button>
+			<div class="is-invisible"></div>
+			<div class="is-hidden-tablet level-item is-flexible level-right">
+				<button type="button" class="page-actions-button button is-small is-text is-hidden-tablet has-inner-focus has-border is-full-height  has-margin-left-small" aria-label="Действия страницы" data-bi-name="pageactions">
+					<span aria-hidden="true">. . .</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="banner-holder" class="has-default-focus has-overflow-hidden">
+	</div>
+
+	<div id="disclaimer-holder" class="has-overflow-hidden has-default-focus"></div>
+	</div>
+
+	<div class="mainContainer  uhf-container has-top-padding  has-default-focus" data-bi-name="body">
+
+		<div class="columns has-large-gaps is-gapless-mobile ">
+
+			<div id="left-container" class="left-container is-hidden-mobile column is-one-third-tablet is-one-quarter-desktop">
+				<nav id="affixed-left-container" class="is-fixed is-flex is-flex-column" role="navigation" aria-label="Основной"></nav>
+			</div>
+
+			<section class="primary-holder column is-two-thirds-tablet is-three-quarters-desktop">
+				<div class="columns is-gapless-mobile has-large-gaps ">
+
+
+				<div id="main-column" class="column  is-full is-four-fifths-desktop ">
+
+					<main id="main" role="main" class="content " data-bi-name="content" lang="en-us" dir="ltr">
+
+
+
+						<h1 id="httpclient-is-here">HttpClient is Here!</h1>
+
+						<ul class="metadata page-metadata" data-bi-name="page info" lang="ru-ru" dir="ltr">
+							<li class="displayDate loading">
+								<time role="presentation" datetime="2012-02-16T00:00:00.000Z" data-article-date-source="ms.date">02/16/2012</time>
+							</li>
+								<li class="readingTime">Время чтения: 4 мин</li>
+
+						</ul>
+
+						<nav id="center-doc-outline" class="doc-outline is-hidden-desktop" data-bi-name="intopic toc" role="navigation" aria-label="Структура статьи">
+							<h3>В этой статье</h3>
+						</nav>
+
+						<!-- <content> -->
+							
+<p>HttpClient is a modern HTTP client for .NET. It provides a flexible and extensible API for accessing all things exposed through HTTP. HttpClient has been available for a while as part of <a href="http://nuget.org/packages/HttpClient" data-linktype="external">WCF Web API preview 6</a> but is now shipping as part of <a href="http://www.asp.net/web-api" data-linktype="external">ASP.NET Web API</a> and directly in .NET 4.5. You can also download it using <a href="http://nuget.org/" data-linktype="external">NuGet</a> – we just use the following three NuGet packages in this blog:</p>
+<ol>
+<li><strong>System.Net.Http</strong>: The main NuGet package providing the basic HttpClient and related classes</li>
+<li><strong>System.Net.Http.Formatting</strong>: Adds support for serialization, deserialization as well as for many additional features building on top of System.Net.Http</li>
+<li><strong>System.Json</strong>: Adds support for JsonVaue which is a mechanism for reading and manipulating JSON documents</li>
+</ol>
+<p>In case you haven’t played with HttpClient before, here is a quick overview of how it works:</p>
+<p>HttpClient is the main class for sending and receiving HttpRequestMessages and HttpResponseMessages. If you are used to using WebClient or HttpWebRequest then it is worth noting that HttpClient differs in some interesting ways – here’s how to think about an HttpClient:</p>
+<ol>
+<li>An HttpClient instance is the place to configure extensions, set default headers, cancel outstanding requests and more.</li>
+<li>You can issue as many requests as you like through a single HttpClient instance.</li>
+<li>HttpClients are not tied to particular HTTP server or host; you can submit any HTTP request using the same HttpClient instance.</li>
+<li>You can derive from HttpClient to create specialized clients for particular sites or patterns</li>
+<li>HttpClient uses the new Task-oriented pattern for handling asynchronous requests making it dramatically easier to manage and coordinate multiple outstanding requests.</li>
+</ol>
+<h1 id="kicking-the-tires">Kicking the Tires</h1>
+<p>We will be diving into lots of details in the near-future around features, extensibility, serialization, and more but let’s first kick the tires by sending a request to the <a href="http://data.worldbank.org/" data-linktype="external">World Bank Data Web API</a>. Please see <a href="../webdev/list-of-asp-net-web-api-and-httpclient-samples" data-linktype="relative-path">List of ASP.NET Web API and HttpClient Samples</a> for the complete sample solution. The service provides all kinds of information about countries around the world. It exposes the data both as XML and as JSON but in this sample we download it as JSON and use JsonValue to traverse the request for interesting information without having to create a CLR type on the client side:</p>
+<pre><code>    1: /// &lt;summary&gt;
+    2: /// Sample download list of countries from the World Bank Data sources at http://data.worldbank.org/
+    3: /// &lt;/summary&gt;
+    4: class Program
+    5: {
+    6:     static string _address = &quot;http://api.worldbank.org/countries?format=json&quot;;
+    7:  
+    8:     static void Main(string[] args)
+    9:     {
+   10:         // Create an HttpClient instance
+   11:         HttpClient client = new HttpClient();
+   12:  
+   13:         // Send a request asynchronously continue when complete
+   14:         client.GetAsync(_address).ContinueWith(
+   15:             (requestTask) =&gt;
+   16:             {
+   17:                 // Get HTTP response from completed task.
+   18:                 HttpResponseMessage response = requestTask.Result;
+   19:  
+   20:                 // Check that response was successful or throw exception
+   21:                 response.EnsureSuccessStatusCode();
+   22:  
+   23:                 // Read response asynchronously as JsonValue and write out top facts for each country
+   24:                 response.Content.ReadAsAsync&lt;JsonArray&gt;().ContinueWith(
+   25:                     (readTask) =&gt;
+   26:                     {
+   27:                         Console.WriteLine(&quot;First 50 countries listed by The World Bank...&quot;);
+   28:                         foreach (var country in readTask.Result[1])
+   29:                         {
+   30:                             Console.WriteLine(&quot;   {0}, Country Code: {1}, Capital: {2}, Latitude: {3}, Longitude: {4}&quot;,
+   31:                                 country.Value[&quot;name&quot;],
+   32:                                 country.Value[&quot;iso2Code&quot;],
+   33:                                 country.Value[&quot;capitalCity&quot;],
+   34:                                 country.Value[&quot;latitude&quot;],
+   35:                                 country.Value[&quot;longitude&quot;]);
+   36:                         }
+   37:                     });
+   38:             });
+   39:  
+   40:         Console.WriteLine(&quot;Hit ENTER to exit...&quot;);
+   41:         Console.ReadLine();
+   42:     }
+   43: }
+</code></pre>
+<p>The HttpResponseMessage contains information about the response including the status code, headers, and any entity body. The entity body is encapsulated in HttpContent which captures content headers such as Content-Type, Content-Encoding, etc. as well as the actual content. The content can be read using any number of ReadAs* methods depending on how you would like to consume the data. In the sample above, we read the content as JsonArray so that we can navigate the data and get the information we want.</p>
+<h1 id="trying-out-net-45">Trying out .Net 4.5</h1>
+<p>An exciting feature in .NET 4.5 is the language support for asynchronous programming that makes programming Tasks even easier. Using the new <strong>async</strong> and <strong>await</strong> language keywords, we can replace the “ContinueWith” pattern in the sample above and get something that looks very clean like this:</p>
+<pre><code>    1: static string _address = &quot;http://api.worldbank.org/countries?format=json&quot;;
+    2:  
+    3: static async void Run()
+    4: {
+    5:     // Create an HttpClient instance
+    6:     HttpClient client = new HttpClient();
+    7:  
+    8:     // Send a request asynchronously continue when complete
+    9:     HttpResponseMessage response = await client.GetAsync(_address);
+   10:  
+   11:     // Check that response was successful or throw exception
+   12:     response.EnsureSuccessStatusCode();
+   13:  
+   14:     // Read response asynchronously as JsonValue and write out top facts for each country
+   15:     JsonArray content = await response.Content.ReadAsAsync&lt;JsonArray&gt;();
+   16:  
+   17:     Console.WriteLine(&quot;First 50 countries listed by The World Bank...&quot;);
+   18:     foreach (var country in content[1])
+   19:     {
+   20:         Console.WriteLine(&quot;   {0}, Country Code: {1}, Capital: {2}, Latitude: {3}, Longitude: {4}&quot;,
+   21:             country.Value[&quot;name&quot;],
+   22:             country.Value[&quot;iso2Code&quot;],
+   23:             country.Value[&quot;capitalCity&quot;],
+   24:             country.Value[&quot;latitude&quot;],
+   25:             country.Value[&quot;longitude&quot;]);
+   26:     }
+   27: }
+   28:  
+   29: static void Main(string[] args)
+   30: {
+   31:     Run();
+   32:     Console.WriteLine(&quot;Hit ENTER to exit...&quot;);
+   33:     Console.ReadLine();
+   34: }
+</code></pre>
+<p>Have fun!</p>
+<p>Henrik</p>
+<p>del.icio.us Tags: <a href="http://del.icio.us/popular/asp.net" data-linktype="external">asp.net</a>,<a href="http://del.icio.us/popular/web" data-linktype="external">web</a>,<a href="http://del.icio.us/popular/mvc" data-linktype="external">mvc</a>,<a href="http://del.icio.us/popular/webapi" data-linktype="external">webapi</a>,<a href="http://del.icio.us/popular/rest" data-linktype="external">rest</a>,<a href="http://del.icio.us/popular/httpclient" data-linktype="external">httpclient</a></p>
+
+						<!-- </content> -->
+
+						</main>
+
+						<!-- recommended content page section -->
+
+							<nav data-bi-name="recommendation-bottom" hidden id="recommended-content-center" class="is-hidden-desktop" aria-labelledby="recommended-content-center-title">
+								<h3 id="recommended-content-center-title" class="is-size-2 has-margin-top-large has-margin-bottom-small">Похожие статьи</h3>
+							</nav>
+
+						<!-- end recommended content page section -->
+
+						<!-- page rating section -->
+						<!-- end page rating section -->
+
+
+						<!-- feedback section -->
+
+						<!-- end feedback section -->
+
+						<!-- feedback report section -->
+						<!-- end feedback report section -->
+
+						<div class="footerContainer is-visible-interactive has-default-focus ">
+<footer id="footer-interactive" data-bi-name="footer" class="footer-layout">
+
+    <div class="is-flex is-full-height has-padding-right-extra-large-desktop">
+		<a data-mscc-ic="false" class="locale-selector-link has-flex-shrink-none" href="#" data-bi-name="select-locale"><span class="icon docon docon-world is-size-4 has-margin-right-small" aria-hidden="true"></span><span class="local-selector-link-text"></span></a>
+		<div class="has-margin-left-medium has-margin-right-medium has-flex-shrink-none">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button is-transparent is-small is-icon-only-touch has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Тема" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Тема</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector has-padding-small">
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="light">
+					<span class="theme-light has-margin-right-small">
+						<span
+							class="theme-selector-icon css-variable-support has-border is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Светлая					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="dark">
+					<span class="theme-dark has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Темная					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Высокая контрастность					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>		</div>
+	</div>
+
+    <ul class="links" data-bi-name="footerlinks">
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/previous-versions/" data-bi-name="archivelink">Документация по предыдущей версии</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/teamblog" data-bi-name="bloglink">Блог</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/contribute" data-bi-name="contributorGuide">Участие в доработке</a></li>
+			<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Конфиденциальность и файлы cookie</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/legal/termsofuse" data-bi-name="termsofuse">Условия использования</a></li>
+		<li><a data-mscc-ic="false" href="https://aka.ms/sitefeedback" data-bi-name="feedback">Отзывы о сайте</a></li>
+		<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Товарные знаки</a></li>
+		<li>&copy; Microsoft 2020</li>
+    </ul>
+</footer>
+						</div>
+					</div>
+
+					<div class="is-size-7 right-container column is-one-quarter is-one-fifth-desktop is-hidden-mobile is-hidden-tablet-only" data-bi-name="pageactions" role="complementary" aria-label="Действия страницы">
+						<div id="affixed-right-container" class="doc-outline is-fixed is-vertically-scrollable">
+								<nav data-bi-name="recommendation-sidebar" hidden id="recommended-content-nav" role="navigation" aria-labelledby="recommended-content-nav-title">
+									<h3 id="recommended-content-nav-title">Похожие статьи</h3>
+								</nav>
+							<nav id="side-doc-outline" data-bi-name="intopic toc" role="navigation" aria-label="Структура статьи">
+								<h3>В этой статье</h3>
+							</nav>
+						</div>
+					</div>
+
+					<!--end of div.columns -->
+				</div>
+
+			<!--end of .primary-holder -->
+			</section>
+
+			<aside id="interactive-container" class="interactive-container is-visible-interactive column has-body-background-dark ">
+			</aside>
+		</div>
+
+		<!--end of .mainContainer -->
+	</div>
+
+	<div id="openFeedbackContainer" class="openfeedback-container"></div>
+
+	<div class="footerContainer has-default-focus is-hidden-interactive ">
+<footer id="footer" data-bi-name="footer" class="footer-layout uhf-container has-padding" role="contentinfo">
+
+    <div class="is-flex is-full-height has-padding-right-extra-large-desktop">
+		<a data-mscc-ic="false" class="locale-selector-link has-flex-shrink-none" href="#" data-bi-name="select-locale"><span class="icon docon docon-world is-size-4 has-margin-right-small" aria-hidden="true"></span><span class="local-selector-link-text"></span></a>
+		<div class="has-margin-left-medium has-margin-right-medium has-flex-shrink-none">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button is-transparent is-small is-icon-only-touch has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Тема" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Тема</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector has-padding-small">
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="light">
+					<span class="theme-light has-margin-right-small">
+						<span
+							class="theme-selector-icon css-variable-support has-border is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Светлая					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="dark">
+					<span class="theme-dark has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Темная					</span>
+				</button>
+			</li>
+			<li class="theme is-block">
+				<button class="button is-text is-small theme-control is-fullwidth has-flex-justify-content-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast has-margin-right-small">
+						<span
+							class="has-border theme-selector-icon css-variable-support is-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span role="menuitem">
+Высокая контрастность					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>		</div>
+	</div>
+    <ul class="links" data-bi-name="footerlinks">
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/previous-versions/" data-bi-name="archivelink">Документация по предыдущей версии</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/teamblog" data-bi-name="bloglink">Блог</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/contribute" data-bi-name="contributorGuide">Участие в доработке</a></li>
+			<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Конфиденциальность и файлы cookie</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/ru-ru/legal/termsofuse" data-bi-name="termsofuse">Условия использования</a></li>
+		<li><a data-mscc-ic="false" href="https://aka.ms/sitefeedback" data-bi-name="feedback">Отзывы о сайте</a></li>
+		<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Товарные знаки</a></li>
+		<li>&copy; Microsoft 2020</li>
+    </ul>
+</footer>
+	</div>
+
+	<div id="action-panel" role="region" aria-label="Панель действий" class="action-panel has-default-focus" tabindex="-1"></div>
+</body>
+</html>
