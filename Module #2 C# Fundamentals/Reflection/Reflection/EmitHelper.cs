@@ -16,7 +16,7 @@ namespace Reflection
         public delegate object CreateExportObjectDelegate();
         public delegate void SetImportPropertyDelegate(object instance, object[] propValues);
 
-        public static CreateImportObjectDelegate CreateMethodForConstructImportClass(CreatedObjectModel createdObject)
+        public static CreateImportObjectDelegate CreateMethodForConstructImportClass(ModelObjectCreated createdObject)
         {
             DynamicMethod construct = new DynamicMethod(
                 ".ctor",
@@ -44,7 +44,7 @@ namespace Reflection
             return createDelegate;
         }
 
-        public static CreateExportObjectDelegate CreateMethodForConstructExportClass(CreatedObjectModel createdObject)
+        public static CreateExportObjectDelegate CreateMethodForConstructExportClass(ModelObjectCreated createdObject)
         {
             DynamicMethod construct = new DynamicMethod(
                 ".ctor",
@@ -62,7 +62,7 @@ namespace Reflection
             return createDelegate;
         }
 
-        public static SetImportPropertyDelegate CreateMethodForSetImportProperty(CreatedObjectModel createdObject)
+        public static SetImportPropertyDelegate CreateMethodForSetImportProperty(ModelObjectCreated createdObject)
         {
             DynamicMethod construct = new DynamicMethod(
                 "SetImportProperty",
