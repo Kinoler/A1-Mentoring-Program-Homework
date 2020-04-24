@@ -140,76 +140,29 @@ namespace ORMTests
             NorthwindDb.Categories.Delete(cat => cat.CategoryID == categoryId);
         }
 
-        [Test]
-        public void ReplaceTheProductToItsCopy()
+        [TestCase(1, 2)]
+        public void ReplaceTheProductToItsCopy(int oldProductId, int newProductId)
         {
-            // Arrange
-            var orderDetails = NorthwindDb.OrderDetails
-                .SelectMany(
-                    orderDetail => NorthwindDb.Products
-                        .Where(product => product.ProductID == orderDetail.ProductID)
-                        .DefaultIfEmpty(),
-                    (orderDetail, product) => new { orderDetail, product })
-                .SelectMany(
-                    orderDetail => NorthwindDb.Orders
-                        .Where(order => order.OrderID == orderDetail.orderDetail.OrderID)
-                        .DefaultIfEmpty(),
-                    (orderDetailWithProduct, order) => OrderDetail.Build(OrderDetail.Build(orderDetailWithProduct.orderDetail, orderDetailWithProduct.product), order))
-                .Where(orderDetail => orderDetail.Order.ShippedDate == null);
-
-            var expectedArrayOfProductID = orderDetails.ToArray()
-                .Select(orderDetail => orderDetail.Product.ProductID)
-                .ToArray();
-
             // Act
-            var addedNewProductIds = new List<int>();
-            foreach (var orderDetail in orderDetails.ToArray())
-            {
-                var product = orderDetail.Product;
-                var newProductId = NorthwindDb.InsertWithInt32Identity(new Product()
-                {
-                    ProductName = product.ProductName,
-                    SupplierID = product.SupplierID,
-                    CategoryID = product.CategoryID,
-                    QuantityPerUnit = product.QuantityPerUnit,
-                    UnitPrice = product.UnitPrice,
-                    UnitsInStock = product.UnitsInStock,
-                    UnitsOnOrder = product.UnitsOnOrder,
-                    ReorderLevel = product.ReorderLevel,
-                    Discontinued = product.Discontinued,
-                });
-
-                NorthwindDb.OrderDetails
-                    .Where(detail => detail.OrderID == orderDetail.OrderID && 
-                                     detail.ProductID == orderDetail.ProductID)
-                    .Set(
-                        detail => detail.ProductID,
-                        newProductId)
-                    .Update();
-            }
-            
-            var actualArrayOfProductID = orderDetails.ToArray()
-                .Select(orderDetail => orderDetail.Product.ProductID)
-                .ToArray();
+            NorthwindDb.OrderDetails
+                .Where(orderDetail => orderDetail.ProductID == oldProductId)
+                .Set(
+                    orderDetail => orderDetail.ProductID,
+                    newProductId)
+                .Update();
 
             // Assert
-            CollectionAssert.IsEmpty(expectedArrayOfProductID.Intersect(actualArrayOfProductID));
+            var actualOldProducts = NorthwindDb.OrderDetails.Where(orderDetail => orderDetail.ProductID == oldProductId);
+
+            CollectionAssert.IsEmpty(actualOldProducts);
 
             // Remove
-            var oldProductEnumerator = expectedArrayOfProductID.GetEnumerator();
-            foreach (var orderDetail in orderDetails.ToArray())
-            {
-                var oldProductId = oldProductEnumerator.MoveNext() ? (int) oldProductEnumerator.Current : 1;
-                NorthwindDb.OrderDetails
-                    .Where(detail => detail.OrderID == orderDetail.OrderID &&
-                                     detail.ProductID == orderDetail.ProductID)
-                    .Set(
-                        detail => detail.ProductID,
-                        oldProductId)
-                    .Update();
-            }
-
-            NorthwindDb.Products.Delete(prod => actualArrayOfProductID.Contains(prod.ProductID));
+            NorthwindDb.OrderDetails
+                .Where(orderDetail => orderDetail.ProductID == newProductId)
+                .Set(
+                    orderDetail => orderDetail.ProductID,
+                    oldProductId)
+                .Update();
         }
     }
 }

@@ -3,27 +3,6 @@ using LinqToDB.Mapping;
 
 namespace DataModel
 {
-    public partial class Product
-    {
-        public static Product Build(Product product, Category category)
-        {
-            if (product != null)
-            {
-                product.Category = category;
-            }
-            return product;
-        }
-
-        public static Product Build(Product product, Category category, Supplier supplier)
-        {
-            if (product != null)
-            {
-                product.Category = category;
-            }
-            return Product.Build(product, category);
-        }
-    }
-
     public partial class OrderDetail
     {
         public static DataModel.OrderDetail Build(DataModel.OrderDetail orderDetail, DataModel.Product product)

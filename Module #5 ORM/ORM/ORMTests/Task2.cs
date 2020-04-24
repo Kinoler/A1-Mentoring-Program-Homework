@@ -62,26 +62,37 @@ namespace ORMTests
             Assert.AreEqual(expectedCategoryName, actualCategoryName);
         }
 
-        [TestCase("Nancy", "WA")]
+        [TestCase("Nancy", 1)]
         public void TheListOfEmployeesWithRegion(
             string firstName,
-            string regionName)
+            int regionId)
         {
             // Arrange
             var expectedFirstName = firstName;
-            var expectedRegionName = regionName;
+            var expectedRegionId = regionId;
 
-            var employees = NorthwindDb.Employees.Select(s => s);
+            var employees = NorthwindDb.EmployeeTerritories
+                .Join(
+                    NorthwindDb.Employees,
+                    et => et.EmployeeID,
+                    e => e.EmployeeID,
+                    (et, e) => new {e.FirstName, et.TerritoryID })
+                .Where(joined => joined.FirstName == firstName)
+                .Join(
+                    NorthwindDb.Territories,
+                    et => et.TerritoryID,
+                    t => t.TerritoryID,
+                    (joined, t) => new { joined.FirstName, t.RegionID});
 
             // Act
             var firstEmployee = employees.FirstOrDefault();
             
             var actualFirstName = firstEmployee?.FirstName;
-            var actualRegion = firstEmployee?.Region;
+            var actualRegion = firstEmployee?.RegionID;
 
             // Assert
             Assert.AreEqual(expectedFirstName, actualFirstName);
-            Assert.AreEqual(expectedRegionName, actualRegion);
+            Assert.AreEqual(expectedRegionId, actualRegion);
         }
 
         [TestCase(1, 4)]
@@ -100,18 +111,17 @@ namespace ORMTests
                         NorthwindDb.Territories,
                         et => et.TerritoryID,
                         t => t.TerritoryID,
-                        (et, t) => new {et, t})
-                    .GroupBy(
-                        grouped => new {grouped.t.RegionID, grouped.et.EmployeeID},
-                        grouped => grouped.t))
-                .GroupBy(grouped => grouped.Key.RegionID);
-                
+                        (et, t) => new {et.EmployeeID, t.RegionID})
+                    .Distinct())
+                .GroupBy(grouped => grouped.RegionID)
+                .Where(grouped => grouped.Key == regionId)
+                .Select(grouped => new { grouped.Key, Count = grouped.Count() });
 
             // Act
             var regionById = regionGrouped.FirstOrDefault(grouped => grouped.Key == regionId);
 
             var actualRegion = regionById?.Key;
-            var actualCount = regionById?.Count();
+            var actualCount = regionById?.Count;
 
             // Assert
             Assert.AreEqual(expectedRegion, actualRegion);
@@ -129,18 +139,17 @@ namespace ORMTests
             var expectedCount = count;
 
             var regionGrouped =
-                (NorthwindDb.Orders
-                    .GroupBy(
-                        order => new { order.EmployeeID, order.ShipVia },
-                        order => order))
-                .GroupBy(order => order.Key.EmployeeID);
+                NorthwindDb.Orders
+                    .Select(order => new { order.EmployeeID, order.ShipVia })
+                    .Distinct()
+                    .GroupBy(order => order.EmployeeID);
 
 
             // Act
             var regionById = regionGrouped.FirstOrDefault(grouped => grouped.Key == regionId);
 
             var actualRegion = regionById?.Key;
-            var actualCount = regionById?.Select(r => r.Key.ShipVia).ToList();
+            var actualCount = regionById?.Select(r => r.ShipVia).ToList();
 
             // Assert
             Assert.AreEqual(expectedRegion, actualRegion);
