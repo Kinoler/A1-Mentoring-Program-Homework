@@ -1,45 +1,45 @@
 /*
-1.	Âûáðàòü â òàáëèöå Orders çàêàçû, êîòîðûå áûëè äîñòàâëåíû ïîñëå 6 ìàÿ 1998 ãîäà 
-	(êîëîíêà ShippedDate) âêëþ÷èòåëüíî è êîòîðûå äîñòàâëåíû ñ ShipVia >= 2. 
-	Çàïðîñ äîëæåí âîçâðàùàòü òîëüêî êîëîíêè OrderID, ShippedDate è ShipVia. 
+1.	Ð’Ñ‹Ð±Ñ€Ð°Ñ‚ÑŒ Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ Orders Ð·Ð°ÐºÐ°Ð·Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð±Ñ‹Ð»Ð¸ Ð´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ñ‹ Ð¿Ð¾ÑÐ»Ðµ 6 Ð¼Ð°Ñ 1998 Ð³Ð¾Ð´Ð° 
+	(ÐºÐ¾Ð»Ð¾Ð½ÐºÐ° ShippedDate) Ð²ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾ Ð¸ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ñ‹ Ñ ShipVia >= 2. 
+	Ð—Ð°Ð¿Ñ€Ð¾Ñ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÐºÐ¾Ð»Ð¾Ð½ÐºÐ¸ OrderID, ShippedDate Ð¸ ShipVia. 
 */
 SELECT 
 	OrderID, 
 	ShippedDate, 
 	ShipVia
 FROM dbo.Orders
-WHERE ShippedDate > '1998-05-05 23:59:59.999' and ShipVia >= 2
+WHERE CONVERT(VARCHAR(26), ShippedDate, 23) >= '1998-05-06' and ShipVia >= 2
 GO
 
 /*
-2.	Íàïèñàòü çàïðîñ, êîòîðûé âûâîäèò òîëüêî íåäîñòàâëåííûå çàêàçû èç òàáëèöû Orders. 
-	Â ðåçóëüòàòàõ çàïðîñà âîçâðàùàòü äëÿ êîëîíêè ShippedDate âìåñòî çíà÷åíèé NULL 
-	ñòðîêó ‘Not Shipped’ (èñïîëüçîâàòü ñèñòåìíóþ ôóíêöèþ CASÅ). 
-	Çàïðîñ äîëæåí âîçâðàùàòü òîëüêî êîëîíêè OrderID è ShippedDate.
+2.	ÐÐ°Ð¿Ð¸ÑÐ°Ñ‚ÑŒ Ð·Ð°Ð¿Ñ€Ð¾Ñ, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð²Ñ‹Ð²Ð¾Ð´Ð¸Ñ‚ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð½ÐµÐ´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð·Ð°ÐºÐ°Ð·Ñ‹ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Orders. 
+	Ð’ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°Ñ… Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ Ð´Ð»Ñ ÐºÐ¾Ð»Ð¾Ð½ÐºÐ¸ ShippedDate Ð²Ð¼ÐµÑÑ‚Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹ NULL 
+	ÑÑ‚Ñ€Ð¾ÐºÑƒ â€˜Not Shippedâ€™ (Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ ÑÐ¸ÑÑ‚ÐµÐ¼Ð½ÑƒÑŽ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ CASÐ•). 
+	Ð—Ð°Ð¿Ñ€Ð¾Ñ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÐºÐ¾Ð»Ð¾Ð½ÐºÐ¸ OrderID Ð¸ ShippedDate.
 */
 SELECT 
 	OrderID, 
 	CASE
 		WHEN ShippedDate IS NULL THEN 'Not Shipped'
-	END as ShippedDate
+	END AS ShippedDate
 FROM dbo.Orders
-WHERE ShippedDate is null
+WHERE ShippedDate IS NULL
 GO
 
 /*
-3.	Âûáðàòü â òàáëèöå Orders çàêàçû, êîòîðûå áûëè äîñòàâëåíû ïîñëå 6 ìàÿ 1998 ãîäà 
-	(ShippedDate) íå âêëþ÷àÿ ýòó äàòó èëè êîòîðûå åùå íå äîñòàâëåíû. 
-	Â çàïðîñå äîëæíû âîçâðàùàòüñÿ òîëüêî êîëîíêè OrderID (ïåðåèìåíîâàòü â Order Number) è 
-	ShippedDate (ïåðåèìåíîâàòü â Shipped Date). Â ðåçóëüòàòàõ çàïðîñà âîçâðàùàòü äëÿ 
-	êîëîíêè ShippedDate âìåñòî çíà÷åíèé NULL ñòðîêó ‘Not Shipped’, äëÿ îñòàëüíûõ çíà÷åíèé 
-	âîçâðàùàòü äàòó â ôîðìàòå ïî óìîë÷àíèþ.
+3.	Ð’Ñ‹Ð±Ñ€Ð°Ñ‚ÑŒ Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ Orders Ð·Ð°ÐºÐ°Ð·Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð±Ñ‹Ð»Ð¸ Ð´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ñ‹ Ð¿Ð¾ÑÐ»Ðµ 6 Ð¼Ð°Ñ 1998 Ð³Ð¾Ð´Ð° 
+	(ShippedDate) Ð½Ðµ Ð²ÐºÐ»ÑŽÑ‡Ð°Ñ ÑÑ‚Ñƒ Ð´Ð°Ñ‚Ñƒ Ð¸Ð»Ð¸ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ ÐµÑ‰Ðµ Ð½Ðµ Ð´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ñ‹. 
+	Ð’ Ð·Ð°Ð¿Ñ€Ð¾ÑÐµ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒÑÑ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÐºÐ¾Ð»Ð¾Ð½ÐºÐ¸ OrderID (Ð¿ÐµÑ€ÐµÐ¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ñ‚ÑŒ Ð² Order Number) Ð¸ 
+	ShippedDate (Ð¿ÐµÑ€ÐµÐ¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ñ‚ÑŒ Ð² Shipped Date). Ð’ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°Ñ… Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ Ð´Ð»Ñ 
+	ÐºÐ¾Ð»Ð¾Ð½ÐºÐ¸ ShippedDate Ð²Ð¼ÐµÑÑ‚Ð¾ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹ NULL ÑÑ‚Ñ€Ð¾ÐºÑƒ â€˜Not Shippedâ€™, Ð´Ð»Ñ Ð¾ÑÑ‚Ð°Ð»ÑŒÐ½Ñ‹Ñ… Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹ 
+	Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°Ñ‚ÑŒ Ð´Ð°Ñ‚Ñƒ Ð² Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚Ðµ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ.
 */
 SELECT 
 	OrderID as 'Order Number', 
 	CASE
 		WHEN ShippedDate IS NULL THEN 'Not Shipped'
-		ELSE convert(varchar(25), ShippedDate, 120) 
-	END as 'Shipped Date'
+		ELSE CONVERT(VARCHAR(25), ShippedDate, 120) 
+	END AS 'Shipped Date'
 FROM dbo.Orders
-WHERE ShippedDate > '1998-05-06' or ShippedDate is null
+WHERE CONVERT(VARCHAR(26), ShippedDate, 23) > '1998-05-06' OR ShippedDate IS NULL
 GO

@@ -1,46 +1,46 @@
 /*
-1.	Выдать всех поставщиков (колонка CompanyName в таблице Suppliers), 
-	у которых нет хотя бы одного продукта на складе (UnitsInStock в таблице Products равно 0). 
-	Использовать вложенный SELECT для этого запроса с использованием оператора IN. 
+1.	Р’С‹РґР°С‚СЊ РІСЃРµС… РїРѕСЃС‚Р°РІС‰РёРєРѕРІ (РєРѕР»РѕРЅРєР° CompanyName РІ С‚Р°Р±Р»РёС†Рµ Suppliers), 
+	Сѓ РєРѕС‚РѕСЂС‹С… РЅРµС‚ С…РѕС‚СЏ Р±С‹ РѕРґРЅРѕРіРѕ РїСЂРѕРґСѓРєС‚Р° РЅР° СЃРєР»Р°РґРµ (UnitsInStock РІ С‚Р°Р±Р»РёС†Рµ Products СЂР°РІРЅРѕ 0). 
+	РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІР»РѕР¶РµРЅРЅС‹Р№ SELECT РґР»СЏ СЌС‚РѕРіРѕ Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РѕРїРµСЂР°С‚РѕСЂР° IN. 
 */
 SELECT
-	Sup.CompanyName
-FROM dbo.Suppliers as Sup
-WHERE Sup.SupplierID IN (
+	supplier.CompanyName
+FROM dbo.Suppliers AS supplier
+WHERE supplier.SupplierID IN (
 	SELECT
-		Prod.SupplierID
-	FROM dbo.Products as Prod
-	WHERE Prod.UnitsInStock = 0
+		product.SupplierID
+	FROM dbo.Products AS product
+	WHERE product.UnitsInStock = 0
 )
 GO
 
 /*
-2.	Выдать всех продавцов, которые имеют более 150 заказов. Использовать вложенный SELECT.
+2.	Р’С‹РґР°С‚СЊ РІСЃРµС… РїСЂРѕРґР°РІС†РѕРІ, РєРѕС‚РѕСЂС‹Рµ РёРјРµСЋС‚ Р±РѕР»РµРµ 150 Р·Р°РєР°Р·РѕРІ. РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІР»РѕР¶РµРЅРЅС‹Р№ SELECT.
 */
 SELECT
-	Emp.FirstName
-FROM dbo.Employees as Emp
-WHERE Emp.EmployeeID IN (
+	employee.FirstName
+FROM dbo.Employees AS employee
+WHERE employee.EmployeeID IN (
 	SELECT
-		Ord.EmployeeID
-	FROM dbo.Orders as Ord
-	GROUP BY Ord.EmployeeID
-	HAVING COUNT(*) > 150
+		orders.EmployeeID
+	FROM dbo.Orders AS orders
+	GROUP BY orders.EmployeeID
+	HAVING COUNT(orders.OrderID) > 150
 )
 GO
 
 /*
-3.	Выдать всех заказчиков (таблица Customers), которые не имеют 
-	ни одного заказа (подзапрос по таблице Orders). 
-	Использовать оператор EXISTS.
+3.	Р’С‹РґР°С‚СЊ РІСЃРµС… Р·Р°РєР°Р·С‡РёРєРѕРІ (С‚Р°Р±Р»РёС†Р° Customers), РєРѕС‚РѕСЂС‹Рµ РЅРµ РёРјРµСЋС‚ 
+	РЅРё РѕРґРЅРѕРіРѕ Р·Р°РєР°Р·Р° (РїРѕРґР·Р°РїСЂРѕСЃ РїРѕ С‚Р°Р±Р»РёС†Рµ Orders). 
+	РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕРїРµСЂР°С‚РѕСЂ EXISTS.
 */
 SELECT
-	Cus.ContactName
-FROM dbo.Customers as Cus
+	customer.ContactName
+FROM dbo.Customers AS customer
 WHERE NOT EXISTS (
 	SELECT
-		Ord.EmployeeID
-	FROM dbo.Orders as Ord
-	WHERE Ord.CustomerID = Cus.CustomerID
+		orders.EmployeeID
+	FROM dbo.Orders AS orders
+	WHERE orders.CustomerID = customer.CustomerID
 )
 GO

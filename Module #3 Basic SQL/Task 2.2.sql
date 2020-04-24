@@ -1,113 +1,113 @@
 /*
-1.	По таблице Orders найти количество заказов с группировкой по годам. 
-	В результатах запроса надо возвращать две колонки c названиями Year и Total. 
-	Написать проверочный запрос, который вычисляет количество всех заказов.
+1.	РџРѕ С‚Р°Р±Р»РёС†Рµ Orders РЅР°Р№С‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР°Р·РѕРІ СЃ РіСЂСѓРїРїРёСЂРѕРІРєРѕР№ РїРѕ РіРѕРґР°Рј. 
+	Р’ СЂРµР·СѓР»СЊС‚Р°С‚Р°С… Р·Р°РїСЂРѕСЃР° РЅР°РґРѕ РІРѕР·РІСЂР°С‰Р°С‚СЊ РґРІРµ РєРѕР»РѕРЅРєРё c РЅР°Р·РІР°РЅРёСЏРјРё Year Рё Total. 
+	РќР°РїРёСЃР°С‚СЊ РїСЂРѕРІРµСЂРѕС‡РЅС‹Р№ Р·Р°РїСЂРѕСЃ, РєРѕС‚РѕСЂС‹Р№ РІС‹С‡РёСЃР»СЏРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РІСЃРµС… Р·Р°РєР°Р·РѕРІ.
 */
 SELECT 
-	YEAR(o.OrderDate) as 'Year',
-	COUNT(*) as 'Total'
-FROM dbo.Orders as o
-GROUP BY YEAR(o.OrderDate)
+	YEAR(orders.OrderDate) AS 'Year',
+	COUNT(orders.OrderID) AS 'Total'
+FROM dbo.Orders AS orders
+GROUP BY YEAR(orders.OrderDate)
 GO
 
 SELECT 
-	COUNT(*) as 'Total'
-FROM dbo.Orders as o
+	COUNT(orders.OrderID) as 'Total'
+FROM dbo.Orders as orders
 GO
 
 /*
-2.	По таблице Orders найти количество заказов, cделанных каждым продавцом. 
-	Заказ для указанного продавца – это любая запись в таблице Orders, 
-	где в колонке EmployeeID задано значение для данного продавца. 
-	В результатах запроса надо возвращать колонку с именем продавца 
-	(Должно высвечиваться имя полученное конкатенацией LastName & FirstName. 
-	Эта строка LastName & FirstName должна быть получена отдельным запросом в 
-	колонке основного запроса. Также основной запрос должен использовать 
-	группировку по EmployeeID.) с названием колонки ‘Seller’ и колонку c 
-	количеством заказов возвращать с названием 'Amount'. 
-	Результаты запроса должны быть упорядочены по убыванию количества заказов. 
+2.	РџРѕ С‚Р°Р±Р»РёС†Рµ Orders РЅР°Р№С‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР°Р·РѕРІ, cРґРµР»Р°РЅРЅС‹С… РєР°Р¶РґС‹Рј РїСЂРѕРґР°РІС†РѕРј. 
+	Р—Р°РєР°Р· РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РїСЂРѕРґР°РІС†Р° вЂ“ СЌС‚Рѕ Р»СЋР±Р°СЏ Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Рµ Orders, 
+	РіРґРµ РІ РєРѕР»РѕРЅРєРµ EmployeeID Р·Р°РґР°РЅРѕ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ РґР°РЅРЅРѕРіРѕ РїСЂРѕРґР°РІС†Р°. 
+	Р’ СЂРµР·СѓР»СЊС‚Р°С‚Р°С… Р·Р°РїСЂРѕСЃР° РЅР°РґРѕ РІРѕР·РІСЂР°С‰Р°С‚СЊ РєРѕР»РѕРЅРєСѓ СЃ РёРјРµРЅРµРј РїСЂРѕРґР°РІС†Р° 
+	(Р”РѕР»Р¶РЅРѕ РІС‹СЃРІРµС‡РёРІР°С‚СЊСЃСЏ РёРјСЏ РїРѕР»СѓС‡РµРЅРЅРѕРµ РєРѕРЅРєР°С‚РµРЅР°С†РёРµР№ LastName & FirstName. 
+	Р­С‚Р° СЃС‚СЂРѕРєР° LastName & FirstName РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїРѕР»СѓС‡РµРЅР° РѕС‚РґРµР»СЊРЅС‹Рј Р·Р°РїСЂРѕСЃРѕРј РІ 
+	РєРѕР»РѕРЅРєРµ РѕСЃРЅРѕРІРЅРѕРіРѕ Р·Р°РїСЂРѕСЃР°. РўР°РєР¶Рµ РѕСЃРЅРѕРІРЅРѕР№ Р·Р°РїСЂРѕСЃ РґРѕР»Р¶РµРЅ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ 
+	РіСЂСѓРїРїРёСЂРѕРІРєСѓ РїРѕ EmployeeID.) СЃ РЅР°Р·РІР°РЅРёРµРј РєРѕР»РѕРЅРєРё вЂSellerвЂ™ Рё РєРѕР»РѕРЅРєСѓ c 
+	РєРѕР»РёС‡РµСЃС‚РІРѕРј Р·Р°РєР°Р·РѕРІ РІРѕР·РІСЂР°С‰Р°С‚СЊ СЃ РЅР°Р·РІР°РЅРёРµРј 'Amount'. 
+	Р РµР·СѓР»СЊС‚Р°С‚С‹ Р·Р°РїСЂРѕСЃР° РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СѓРїРѕСЂСЏРґРѕС‡РµРЅС‹ РїРѕ СѓР±С‹РІР°РЅРёСЋ РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РєР°Р·РѕРІ. 
 */
 SELECT 
 	(SELECT 
-		CONCAT(e.LastName, ' ',e.FirstName)
-		FROM dbo.Employees as e
-		WHERE e.EmployeeID = o.EmployeeID
-	) as 'Seller',
-	COUNT(*) as Amount
-FROM dbo.Orders as o
-GROUP BY o.EmployeeID
+		CONCAT(employee.LastName, ' ',employee.FirstName)
+		FROM dbo.Employees AS employee
+		WHERE employee.EmployeeID = orders.EmployeeID
+	) AS 'Seller',
+	COUNT(orders.OrderID) AS Amount
+FROM dbo.Orders AS orders
+GROUP BY orders.EmployeeID
 ORDER BY Amount
 GO
 
 /*
-3.	По таблице Orders найти количество заказов, сделанных каждым продавцом и 
-	для каждого покупателя. 
-	Необходимо определить это только для заказов, сделанных в 1998 году.
+3.	РџРѕ С‚Р°Р±Р»РёС†Рµ Orders РЅР°Р№С‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР°Р·РѕРІ, СЃРґРµР»Р°РЅРЅС‹С… РєР°Р¶РґС‹Рј РїСЂРѕРґР°РІС†РѕРј Рё 
+	РґР»СЏ РєР°Р¶РґРѕРіРѕ РїРѕРєСѓРїР°С‚РµР»СЏ. 
+	РќРµРѕР±С…РѕРґРёРјРѕ РѕРїСЂРµРґРµР»РёС‚СЊ СЌС‚Рѕ С‚РѕР»СЊРєРѕ РґР»СЏ Р·Р°РєР°Р·РѕРІ, СЃРґРµР»Р°РЅРЅС‹С… РІ 1998 РіРѕРґСѓ.
 */
 SELECT 
-	o.EmployeeID,
-	o.CustomerID,
-	COUNT(*) as 'Total'
-FROM dbo.Orders as o
-WHERE YEAR(o.OrderDate) = '1998'
-GROUP BY o.EmployeeID, o.CustomerID
+	orders.EmployeeID,
+	orders.CustomerID,
+	COUNT(orders.OrderID) AS 'Total'
+FROM dbo.Orders AS orders
+WHERE YEAR(orders.OrderDate) = '1998'
+GROUP BY orders.EmployeeID, orders.CustomerID
 GO
 
 /*
-4.	Найти покупателей и продавцов, которые живут в одном городе. 
-	Если в городе живут только один или несколько продавцов, или только 
-	один или несколько покупателей, то информация о таких покупателя и 
-	продавцах не должна попадать в результирующий набор. 
-	Не использовать конструкцию JOIN. 
+4.	РќР°Р№С‚Рё РїРѕРєСѓРїР°С‚РµР»РµР№ Рё РїСЂРѕРґР°РІС†РѕРІ, РєРѕС‚РѕСЂС‹Рµ Р¶РёРІСѓС‚ РІ РѕРґРЅРѕРј РіРѕСЂРѕРґРµ. 
+	Р•СЃР»Рё РІ РіРѕСЂРѕРґРµ Р¶РёРІСѓС‚ С‚РѕР»СЊРєРѕ РѕРґРёРЅ РёР»Рё РЅРµСЃРєРѕР»СЊРєРѕ РїСЂРѕРґР°РІС†РѕРІ, РёР»Рё С‚РѕР»СЊРєРѕ 
+	РѕРґРёРЅ РёР»Рё РЅРµСЃРєРѕР»СЊРєРѕ РїРѕРєСѓРїР°С‚РµР»РµР№, С‚Рѕ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С‚Р°РєРёС… РїРѕРєСѓРїР°С‚РµР»СЏ Рё 
+	РїСЂРѕРґР°РІС†Р°С… РЅРµ РґРѕР»Р¶РЅР° РїРѕРїР°РґР°С‚СЊ РІ СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ РЅР°Р±РѕСЂ. 
+	РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєРѕРЅСЃС‚СЂСѓРєС†РёСЋ JOIN. 
 */
 SELECT 
-	o.EmployeeID,
-	o.CustomerID
-FROM dbo.Orders as o
+	orders.EmployeeID,
+	orders.CustomerID
+FROM dbo.Orders AS orders
 WHERE 
-	(SELECT c.City FROM dbo.Customers as c WHERE c.CustomerID = o.CustomerID) = 
-	(SELECT e.City FROM dbo.Employees as e WHERE e.EmployeeID = o.EmployeeID)
+	(SELECT customer.City FROM dbo.Customers AS customer WHERE customer.CustomerID = orders.CustomerID) = 
+	(SELECT employee.City FROM dbo.Employees AS employee WHERE employee.EmployeeID = orders.EmployeeID)
 GO
 
 /*	
-5.	Найти всех покупателей, которые живут в одном городе. 
+5.	РќР°Р№С‚Рё РІСЃРµС… РїРѕРєСѓРїР°С‚РµР»РµР№, РєРѕС‚РѕСЂС‹Рµ Р¶РёРІСѓС‚ РІ РѕРґРЅРѕРј РіРѕСЂРѕРґРµ. 
 */
-/* Первый вариант */
+/* РџРµСЂРІС‹Р№ РІР°СЂРёР°РЅС‚ */
 SELECT 
-	c.City,
+	customer.City,
 	STUFF(
 		(SELECT ', ' + innerC.ContactName 
-			FROM dbo.Customers as innerC
-			WHERE (innerC.City = c.City) 
+			FROM dbo.Customers AS innerC
+			WHERE (innerC.City = customer.City) 
 			FOR XML PATH(''), TYPE
 		).value('(./text())[1]','VARCHAR(MAX)'),
 		1,
 		2,
 		''
 		) AS Customers
-FROM dbo.Customers as c
-GROUP BY c.City
-HAVING COUNT(*) > 1
+FROM dbo.Customers AS customer
+GROUP BY customer.City
+HAVING COUNT(customer.City) > 1
 GO
 
-/* Второй вариант */
+/* Р’С‚РѕСЂРѕР№ РІР°СЂРёР°РЅС‚ */
 SELECT 
-	c.ContactName 
-FROM dbo.Customers as c
-WHERE c.City in 
+	customer.ContactName 
+FROM dbo.Customers AS customer
+WHERE customer.City IN
 	(SELECT innerC.City 
-		FROM dbo.Customers as innerC
+		FROM dbo.Customers AS innerC
 		GROUP BY innerC.City
-		HAVING COUNT(*) > 1)
+		HAVING COUNT(innerC.City) > 1)
 GO
 
 /*
-6.	По таблице Employees найти для каждого продавца его руководителя.
+6.	РџРѕ С‚Р°Р±Р»РёС†Рµ Employees РЅР°Р№С‚Рё РґР»СЏ РєР°Р¶РґРѕРіРѕ РїСЂРѕРґР°РІС†Р° РµРіРѕ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЏ.
 */
-SELECT 
-	c.FirstName as Employee,
+SELECT
+	employee.FirstName AS Employee,
 	(SELECT innerC.FirstName
-		FROM dbo.Employees as innerC
-		WHERE innerC.EmployeeID = c.ReportsTo) as ReportsTo
-FROM dbo.Employees as c
+		FROM dbo.Employees AS innerC
+		WHERE innerC.EmployeeID = employee.ReportsTo) AS ReportsTo
+FROM dbo.Employees AS employee
 GO
