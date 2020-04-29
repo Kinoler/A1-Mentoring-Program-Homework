@@ -9,7 +9,6 @@ namespace IntParseLibrary
 {
     public class IntParse
     {
-
         public static int Parse(string str)
         {
             if (str == null)
@@ -23,6 +22,8 @@ namespace IntParseLibrary
 
         private static bool ParseNumber(string str, out int number)
         {
+            const int offsetDigitInChar = 48;
+
             bool negative = str[0] == '-';
             int start = negative ? 1 : 0;
             int num = 0;
@@ -36,7 +37,7 @@ namespace IntParseLibrary
                     checked
                     {
                         num *= 10;
-                        num += (ch - 48);
+                        num += (ch - offsetDigitInChar);
                     }
                 }
                 else
