@@ -4,16 +4,19 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
 using MvcMusicStore.ViewModels;
+using NLog;
 
 namespace MvcMusicStore.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MusicStoreEntities _storeContext = new MusicStoreEntities();
 
         // GET: /ShoppingCart/
         public async Task<ActionResult> Index()
         {
+            logger.Info("Access to GET: /ShoppingCart/");
             var cart = ShoppingCart.GetCart(_storeContext, this);
 
             var viewModel = new ShoppingCartViewModel
@@ -28,6 +31,7 @@ namespace MvcMusicStore.Controllers
         // GET: /ShoppingCart/AddToCart/5
         public async Task<ActionResult> AddToCart(int id)
         {
+            logger.Info("Access to GET: /ShoppingCart/AddToCart/5");
             var cart = ShoppingCart.GetCart(_storeContext, this);
 
             await cart.AddToCart(await _storeContext.Albums.SingleAsync(a => a.AlbumId == id));
@@ -41,6 +45,7 @@ namespace MvcMusicStore.Controllers
         [HttpPost]
         public async Task<ActionResult> RemoveFromCart(int id)
         {
+            logger.Info("Access to AJAX: /ShoppingCart/RemoveFromCart/5");
             var cart = ShoppingCart.GetCart(_storeContext, this);
 
             var albumName = await _storeContext.Carts

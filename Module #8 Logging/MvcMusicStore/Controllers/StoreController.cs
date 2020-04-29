@@ -3,22 +3,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
+using NLog;
 
 namespace MvcMusicStore.Controllers
 {
     public class StoreController : Controller
     {
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MusicStoreEntities _storeContext = new MusicStoreEntities();
 
         // GET: /Store/
         public async Task<ActionResult> Index()
         {
+            logger.Info("Access to GET: /Store/");
             return View(await _storeContext.Genres.ToListAsync());
         }
 
         // GET: /Store/Browse?genre=Disco
         public async Task<ActionResult> Browse(string genre)
         {
+            logger.Info("Access to GET: /Store/Browse?genre=Disco");
             return View(await _storeContext.Genres.Include("Albums").SingleAsync(g => g.Name == genre));
         }
 

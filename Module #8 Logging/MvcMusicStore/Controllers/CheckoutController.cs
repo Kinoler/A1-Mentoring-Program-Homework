@@ -3,12 +3,14 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
+using NLog;
 
 namespace MvcMusicStore.Controllers
 {
     [Authorize]
     public class CheckoutController : Controller
     {
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private const string PromoCode = "FREE";
 
         private readonly MusicStoreEntities _storeContext = new MusicStoreEntities();
@@ -16,6 +18,7 @@ namespace MvcMusicStore.Controllers
         // GET: /Checkout/
         public ActionResult AddressAndPayment()
         {
+            logger.Info("Access to GET: /Checkout/");
             return View();
         }
 
@@ -23,6 +26,7 @@ namespace MvcMusicStore.Controllers
         [HttpPost]
         public async Task<ActionResult> AddressAndPayment(FormCollection values)
         {
+            logger.Info("Access to POST: /Checkout/AddressAndPayment");
             var order = new Order();
             TryUpdateModel(order);
 
@@ -38,6 +42,8 @@ namespace MvcMusicStore.Controllers
 
                 await _storeContext.SaveChangesAsync();
 
+                logger.Debug("Card found");
+
                 return RedirectToAction("Complete", new { id = order.OrderId });
             }
 
@@ -47,6 +53,7 @@ namespace MvcMusicStore.Controllers
         // GET: /Checkout/Complete
         public async Task<ActionResult> Complete(int id)
         {
+            logger.Info("Access to GET: /Checkout/Complete");
             return await _storeContext.Orders.AnyAsync(o => o.OrderId == id && o.Username == User.Identity.Name)
                 ? View(id)
                 : View("Error");

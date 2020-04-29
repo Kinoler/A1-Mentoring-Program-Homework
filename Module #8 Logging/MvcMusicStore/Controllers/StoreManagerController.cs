@@ -3,17 +3,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
+using NLog;
 
 namespace MvcMusicStore.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class StoreManagerController : Controller
     {
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MusicStoreEntities _storeContext = new MusicStoreEntities();
 
         // GET: /StoreManager/
         public async Task<ActionResult> Index()
         {
+            logger.Info("Access to GET: /StoreManager/");
             return View(await _storeContext.Albums
                 .Include(a => a.Genre)
                 .Include(a => a.Artist)
@@ -23,6 +26,7 @@ namespace MvcMusicStore.Controllers
         // GET: /StoreManager/Details/5
         public async Task<ActionResult> Details(int id = 0)
         {
+            logger.Info("Access to GET: /StoreManager/Details/5");
             var album = await _storeContext.Albums.FindAsync(id);
             
             if (album == null)
@@ -36,6 +40,7 @@ namespace MvcMusicStore.Controllers
         // GET: /StoreManager/Create
         public async Task<ActionResult> Create()
         {
+            logger.Info("Access to GET: /StoreManager/Create");
             return await BuildView(null);
         }
 
@@ -43,6 +48,7 @@ namespace MvcMusicStore.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Album album)
         {
+            logger.Info("Access to POST: /StoreManager/Create");
             if (ModelState.IsValid)
             {
                 _storeContext.Albums.Add(album);
@@ -58,6 +64,7 @@ namespace MvcMusicStore.Controllers
         // GET: /StoreManager/Edit/5
         public async Task<ActionResult> Edit(int id = 0)
         {
+            logger.Info("Access to GET: /StoreManager/Edit/5");
             var album = await _storeContext.Albums.FindAsync(id);
             if (album == null)
             {
@@ -71,6 +78,7 @@ namespace MvcMusicStore.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(Album album)
         {
+            logger.Info("Access to POST: /StoreManager/Edit/5");
             if (ModelState.IsValid)
             {
                 _storeContext.Entry(album).State = EntityState.Modified;
@@ -86,6 +94,7 @@ namespace MvcMusicStore.Controllers
         // GET: /StoreManager/Delete/5
         public async Task<ActionResult> Delete(int id = 0)
         {
+            logger.Info("Access to GET: /StoreManager/Delete/5");
             var album = await _storeContext.Albums.FindAsync(id);
             if (album == null)
             {
@@ -99,6 +108,7 @@ namespace MvcMusicStore.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            logger.Info("Access to POST: /StoreManager/Delete/5");
             var album = await _storeContext.Albums.FindAsync(id);
             if (album == null)
             {
