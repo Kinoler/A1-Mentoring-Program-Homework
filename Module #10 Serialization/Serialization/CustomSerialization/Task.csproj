@@ -77,6 +77,12 @@
     <Compile Include="DB\Territory.cs" />
     <Compile Include="SerializationSolutions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializesClasses\IDataContractSurrogate\OrderDataContractSurrogate.cs" />
+    <Compile Include="SerializesClasses\SerializationCallbacks\NetDataContractWithCallback.cs" />
+    <Compile Include="SerializesClasses\ISerializable\NetDataContractWithISerializable.cs" />
+    <Compile Include="SerializesClasses\ISerializable\NetDataContractWithSerializationBinder.cs" />
+    <Compile Include="SerializesClasses\ISerializationSurrogate\OrderDetailSurrogateSelector.cs" />
+    <Compile Include="SerializesClasses\SerializationContext.cs" />
     <Compile Include="TestHelpers\SerializationTester.cs" />
     <Compile Include="TestHelpers\XmlDataContractSerializerTester.cs" />
   </ItemGroup>
@@ -87,6 +93,7 @@
   <ItemGroup>
     <Content Include="instnwnd.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
