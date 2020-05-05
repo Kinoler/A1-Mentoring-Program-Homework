@@ -146,6 +146,7 @@ namespace ORMTests
             // Act
             NorthwindDb.OrderDetails
                 .Where(orderDetail => orderDetail.ProductID == oldProductId)
+                .Where(orderDetail => orderDetail.Order.ShippedDate == null)
                 .Set(
                     orderDetail => orderDetail.ProductID,
                     newProductId)
