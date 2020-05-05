@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.XML" />
@@ -66,22 +67,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Orders\OrdersTests.cs" />
-    <Compile Include="Orders\OrdersManager.cs" />
-    <Compile Include="Orders\OrdersMemoryCache.cs" />
-    <Compile Include="Orders\OrdersRedisCache.cs" />
-    <Compile Include="Orders\IOrdersCache.cs" />
-    <Compile Include="Products\ProductsTests.cs" />
-    <Compile Include="Products\ProductsManager.cs" />
-    <Compile Include="Products\ProductsMemoryCache.cs" />
-    <Compile Include="Products\ProductsRedisCache.cs" />
-    <Compile Include="Categories\CategoriesManager.cs" />
-    <Compile Include="Categories\CategoriesMemoryCache.cs" />
-    <Compile Include="Categories\CategoriesRedisCache.cs" />
-    <Compile Include="Categories\ICategoriesCache.cs" />
-    <Compile Include="Categories\CacheTests.cs" />
-    <Compile Include="Products\IProductsCache.cs" />
+    <Compile Include="Helpers\GlobalConstants.cs" />
+    <Compile Include="Managers\OrdersManager.cs" />
+    <Compile Include="Tests\OrdersTests.cs" />
+    <Compile Include="Managers\ManagerBase.cs" />
+    <Compile Include="Tests\ProductsTests.cs" />
+    <Compile Include="Managers\ProductsManager.cs" />
+    <Compile Include="Managers\CategoriesManager.cs" />
+    <Compile Include="Caches\MemoryCache.cs" />
+    <Compile Include="Caches\RedisCache.cs" />
+    <Compile Include="Caches\CacheBase.cs" />
+    <Compile Include="Tests\CategoriesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
