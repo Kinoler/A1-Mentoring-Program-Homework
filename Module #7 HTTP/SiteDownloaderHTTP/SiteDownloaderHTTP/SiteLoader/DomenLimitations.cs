@@ -1,4 +1,4 @@
-﻿namespace SiteDownloaderHTTP
+﻿namespace SiteDownloaderHTTP.SiteLoader
 {
     public enum DomenLimitation
     {

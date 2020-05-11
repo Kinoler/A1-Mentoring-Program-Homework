@@ -59,9 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuratuon\ExtensionCollection.cs" />
+    <Compile Include="Configuratuon\ExtensionElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="Configuratuon\SiteLoaderConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

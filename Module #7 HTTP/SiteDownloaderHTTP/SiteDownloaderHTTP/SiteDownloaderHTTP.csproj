@@ -47,12 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoaderSettings.cs" />
-    <Compile Include="SiteLoader.cs" />
-    <Compile Include="DomenLimitations.cs" />
+    <Compile Include="FileWriters\HtmlFileWriter.cs" />
+    <Compile Include="FileWriters\JsFileWriter.cs" />
+    <Compile Include="FileWriters\SiteFileWriter.cs" />
+    <Compile Include="SiteLoader\LoaderSettings.cs" />
+    <Compile Include="SiteLoader\SiteLoader.cs" />
+    <Compile Include="SiteLoader\DomenLimitations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SiteFileWriter.cs" />
-    <Compile Include="UriHelper.cs" />
+    <Compile Include="Extensions\UriHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

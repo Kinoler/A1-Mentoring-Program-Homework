@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using HtmlAgilityPack;
 
 namespace SiteDownloaderHTTP
 {
-    public static class UriHelper
+    internal static class UriHelper
     {
         public static Uri GetUri(this string adress, Uri rootUri = null)
         {
@@ -33,31 +34,11 @@ namespace SiteDownloaderHTTP
             return null;
         }
 
-        public static async Task<HttpContent> GetContent(this Uri uri)
-        {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(uri.AbsoluteUri);
-            response.EnsureSuccessStatusCode();
-            return response.Content;
-        }
-
-        public static IEnumerable<string> GetAllReference(this string htmlContent)
-        {
-            HtmlDocument htmlSnippet = new HtmlDocument();
-            htmlSnippet.LoadHtml(htmlContent);
-
-            foreach (HtmlNode link in htmlSnippet.DocumentNode.SelectNodes("//a[@href]"))
-                yield return link.Attributes["href"].Value;
-
-            foreach (HtmlNode link in htmlSnippet.DocumentNode.SelectNodes("//*[@src]"))
-                yield return link.Attributes["src"].Value;
-        }
-
         public static string GetFileExtension(this Uri uri)
         {
             var fileName = uri.Segments.Last();
-            var index = fileName.LastIndexOf('.');
-            return index == -1 ? "html" : fileName.Substring(index + 1);
+            var extension = Path.GetExtension(fileName);
+            return string.IsNullOrEmpty(extension) ? "html" : extension;
         }
     }
 }

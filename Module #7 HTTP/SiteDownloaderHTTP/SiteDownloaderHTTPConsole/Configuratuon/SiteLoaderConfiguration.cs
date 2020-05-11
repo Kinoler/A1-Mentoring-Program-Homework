@@ -1,9 +1,10 @@
 ﻿using System.Configuration;
 using SiteDownloaderHTTP;
+using SiteDownloaderHTTP.SiteLoader;
 
 namespace SiteDownloaderHTTPConsole
 {
-    public class SiteLoaderSettingsConfigurationSection : ConfigurationSection
+    public class SiteLoaderConfiguration : ConfigurationSection
     {
         [ConfigurationProperty(nameof(PathToDirectory), IsRequired = true)]
         public string PathToDirectory => (string)base[nameof(PathToDirectory)];
@@ -20,20 +21,7 @@ namespace SiteDownloaderHTTPConsole
         [ConfigurationProperty(nameof(ShowStepsInRealTime), DefaultValue = true)]
         public bool ShowStepsInRealTime => (bool) base[nameof(ShowStepsInRealTime)];
 
-        [ConfigurationProperty(nameof(Extensions))]
-        public ExtensionCollection Extensions => (ExtensionCollection)this[nameof(Extensions)];
-    }
-
-    public class ExtensionCollection : ConfigurationElementCollection
-    {
-        protected override ConfigurationElement CreateNewElement() => new ExtensionElement();
-
-        protected override object GetElementKey(ConfigurationElement element) => ((ExtensionElement) element).Extension.GetHashCode();
-    }
-
-    public class ExtensionElement : ConfigurationElement
-    {
-        [ConfigurationProperty(nameof(Extension), IsRequired = true)]
-        public string Extension => (string) this[nameof(Extension)];
+        [ConfigurationProperty(nameof(FileExtensions))]
+        public ExtensionCollection FileExtensions => (ExtensionCollection)this[nameof(FileExtensions)];
     }
 }

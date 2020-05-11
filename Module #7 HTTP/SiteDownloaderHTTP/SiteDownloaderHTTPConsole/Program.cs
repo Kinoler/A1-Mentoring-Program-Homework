@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SiteDownloaderHTTP;
+using SiteDownloaderHTTP.SiteLoader;
 
 namespace SiteDownloaderHTTPConsole
 {
@@ -12,14 +13,14 @@ namespace SiteDownloaderHTTPConsole
     {
         static void Main()
         {
-            SiteLoaderSettingsConfigurationSection siteLoaderSettingsConfigurationSection;
+            SiteLoaderConfiguration siteLoaderConfiguration;
             var extensions = new List<string>();
             try
             {
-                siteLoaderSettingsConfigurationSection = (SiteLoaderSettingsConfigurationSection)
-                    ConfigurationManager.GetSection("SiteLoaderSettingsConfigurationSection");
+                siteLoaderConfiguration = (SiteLoaderConfiguration)
+                    ConfigurationManager.GetSection("SiteLoaderConfiguration");
 
-                foreach (ExtensionElement element in siteLoaderSettingsConfigurationSection.Extensions)
+                foreach (ExtensionElement element in siteLoaderConfiguration.Extensions)
                     extensions.Add(element.Extension);
             }
             catch (Exception)
@@ -30,19 +31,19 @@ namespace SiteDownloaderHTTPConsole
             }
 
             var loaderSettings = new LoaderSettings(
-                siteLoaderSettingsConfigurationSection.MaxDeep,
-                siteLoaderSettingsConfigurationSection.DomenLimitation,
+                siteLoaderConfiguration.MaxDeep,
+                siteLoaderConfiguration.DomenLimitation,
                 extensions,
-                siteLoaderSettingsConfigurationSection.ShowStepsInRealTime);
+                siteLoaderConfiguration.ShowStepsInRealTime);
 
                 var siteLoader = new SiteLoader(loaderSettings);
 
             siteLoader.SiteLoadStarted += (e, message) => Console.WriteLine(message);
 
             siteLoader
-                .Load(
-                    siteLoaderSettingsConfigurationSection.SiteAddress, 
-                    siteLoaderSettingsConfigurationSection.PathToDirectory)
+                .LoadAsync(
+                    siteLoaderConfiguration.SiteAddress, 
+                    siteLoaderConfiguration.PathToDirectory)
                 .ContinueWith(task => Console.WriteLine("Complete load"));
 
             Console.WriteLine("Hit ENTER to exit...");
