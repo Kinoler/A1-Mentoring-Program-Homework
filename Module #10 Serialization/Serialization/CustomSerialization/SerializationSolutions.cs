@@ -29,12 +29,12 @@ namespace Task
 
             var streamingContext = new StreamingContext(StreamingContextStates.All, dbContext);
             var tester =
-                new XmlDataContractSerializerTester<NetDataContractWithCallback>(
+                new XmlDataContractSerializerTester<CallbackCategoryCollection>(
                     new NetDataContractSerializer(streamingContext),
                     true);
 
 			var categories = dbContext.Categories.ToList();
-            var netDataContractWithCallback = new NetDataContractWithCallback(categories);
+            var netDataContractWithCallback = new CallbackCategoryCollection(categories);
 
 			// Act
 			var deserializedCategories = tester.SerializeAndDeserialize(netDataContractWithCallback);
@@ -55,7 +55,7 @@ namespace Task
 
             var netDataContractSerializer = new NetDataContractSerializer
             {
-                Binder = new NetDataContractWithSerializationBinder(),
+                Binder = new BinderProductCollection(),
 				Context = new StreamingContext(StreamingContextStates.All, serializationContext)
             };
 
@@ -85,7 +85,7 @@ namespace Task
 
             var serializer = new NetDataContractSerializer
             {
-                SurrogateSelector = new OrderDetailSurrogateSelector(),
+                SurrogateSelector = new SurrogateSelectorOrderDetailsCollection(),
                 Context = new StreamingContext(StreamingContextStates.All, serializationContext)
             };
 
@@ -112,7 +112,7 @@ namespace Task
 
             var serializer = new DataContractSerializer(typeof(IEnumerable<Order>), new DataContractSerializerSettings()
             {
-                DataContractSurrogate = new OrderDataContractSurrogate()
+                DataContractSurrogate = new ContractSurrogateOrderCollection()
             });
 
             var tester = new XmlDataContractSerializerTester<IEnumerable<Order>>(serializer, true);

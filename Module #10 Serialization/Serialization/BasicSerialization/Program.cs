@@ -13,10 +13,11 @@ namespace BasicSerialization
     {
         public const string XmlFrom = "books.xml";
         public const string XmlTo = "booksSerialized.xml";
+        public const string DefaultNamespace = "http://library.by/catalog";
 
         public static void Main()
         {
-            var serializer = new XmlSerializer(typeof(Catalog), "http://library.by/catalog");
+            var serializer = new XmlSerializer(typeof(Catalog), DefaultNamespace);
             Catalog deserializedCatalog = null;
 
             using (var fileStream = File.OpenRead(XmlFrom))

@@ -9,7 +9,7 @@ using Task.DB;
 
 namespace Task.SerializesClasses
 {
-    public class OrderDataContractSurrogate : IDataContractSurrogate
+    public class ContractSurrogateOrderCollection : IDataContractSurrogate
     {
         public Type GetDataContractType(Type type)
         {

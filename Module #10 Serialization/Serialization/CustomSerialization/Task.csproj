@@ -78,10 +78,10 @@
     <Compile Include="SerializationSolutions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializesClasses\IDataContractSurrogate\OrderDataContractSurrogate.cs" />
-    <Compile Include="SerializesClasses\SerializationCallbacks\NetDataContractWithCallback.cs" />
-    <Compile Include="SerializesClasses\ISerializable\NetDataContractWithISerializable.cs" />
-    <Compile Include="SerializesClasses\ISerializable\NetDataContractWithSerializationBinder.cs" />
-    <Compile Include="SerializesClasses\ISerializationSurrogate\OrderDetailSurrogateSelector.cs" />
+    <Compile Include="SerializesClasses\SerializationCallbacks\CallbackCategoryCollection.cs" />
+    <Compile Include="SerializesClasses\ISerializable\SerializableProductCollection.cs" />
+    <Compile Include="SerializesClasses\ISerializable\BinderProductCollection.cs" />
+    <Compile Include="SerializesClasses\ISerializationSurrogate\SurrogateSelectorOrderDetailsCollection.cs" />
     <Compile Include="SerializesClasses\SerializationContext.cs" />
     <Compile Include="TestHelpers\SerializationTester.cs" />
     <Compile Include="TestHelpers\XmlDataContractSerializerTester.cs" />
