@@ -1,6 +1,6 @@
-﻿namespace LogParser
+﻿namespace LogParser.Models
 {
-    public class StatisticModel
+    public class Statistic
     {
         public int ErrorCount { get; set; }
 

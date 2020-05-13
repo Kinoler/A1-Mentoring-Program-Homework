@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LogParser
+namespace LogParser.Services
 {
-    public static class LogParser
+    public class LogParser
     {
         private const string InfoLevel = "INFO";
         private const string DebugLevel = "DEBUG";
         private const string ErrorLevel = "ERROR";
 
-        public static StatisticModel Parse(string source)
+        private const int MinWordCount = 3; // In right format
+        private const int DebugLavelPosition = 2; // In right format
+        public Statistic Parse(IEnumerable< string> source)
         {
-            var lines = source.Split('\n');
-            var statisticModel = new StatisticModel();
+            var statisticModel = new Statistic();
             var errors = new List<string>();
 
-            foreach (var line in lines)
+            foreach (var line in source)
             {
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
@@ -41,13 +42,13 @@ namespace LogParser
             return statisticModel;
         }
 
-        public static string GetLevel(string line)
+        public string GetLevel(string line)
         {
             var words = line.Split(' ');
-            if (words.Length < 3)
+            if (words.Length < MinWordCount)
                 throw new InvalidOperationException("The file has a wrong format.");
 
-            return words[2];
+            return words[DebugLavelPosition];
         }
     }
 }

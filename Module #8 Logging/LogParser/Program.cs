@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogParser.Models;
 
 namespace LogParser
 {
@@ -21,11 +22,13 @@ namespace LogParser
                     continue;
                 }
 
-                StatisticModel statisticModel;
+                Statistic statisticModel;
                 try
                 {
-                    var fileSource = File.ReadAllText(path);
-                    statisticModel = LogParser.Parse(fileSource);
+                    var perser = new Services.LogParser();
+                    var fileLines = File.ReadLines(path);
+
+                    statisticModel = perser.Parse(fileLines);
                 }
                 catch (Exception e)
                 {

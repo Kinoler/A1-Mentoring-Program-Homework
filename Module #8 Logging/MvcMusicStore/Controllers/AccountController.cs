@@ -89,7 +89,7 @@ namespace MvcMusicStore.Controllers
 
                     return RedirectToLocal(returnUrl);
                 }
-                logger.Error("Invalid username or password.");
+                logger.Warn("Invalid username or password.");
                 ModelState.AddModelError("", "Invalid username or password.");
             }
 
