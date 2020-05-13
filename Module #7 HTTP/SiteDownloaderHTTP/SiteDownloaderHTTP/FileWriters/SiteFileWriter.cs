@@ -4,7 +4,7 @@ namespace SiteDownloaderHTTP.FileWriters
 {
     public abstract class SiteFileWriter
     {
-        public void WriteJsToFile(string root, string name, string content)
+        public void WriteToFile(string root, string name, string content)
         {
             var path = GetFilePath(root, name);
             CreateFile(root, path, content);

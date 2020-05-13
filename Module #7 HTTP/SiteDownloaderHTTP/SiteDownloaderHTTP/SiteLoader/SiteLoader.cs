@@ -71,7 +71,7 @@ namespace SiteDownloaderHTTP.SiteLoader
                     }
                 }
 
-                siteFileWriter?.WriteJsToFile(pathToSaveSite, nameOfSite, stringContent);
+                siteFileWriter?.WriteToFile(pathToSaveSite, nameOfSite, stringContent);
             }
             catch (Exception)
             {

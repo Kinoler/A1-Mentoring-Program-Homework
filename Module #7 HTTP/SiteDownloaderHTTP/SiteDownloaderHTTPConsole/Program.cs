@@ -11,7 +11,7 @@ namespace SiteDownloaderHTTPConsole
 {
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
             SiteLoaderConfiguration siteLoaderConfiguration;
             var extensions = new List<string>();
@@ -20,7 +20,7 @@ namespace SiteDownloaderHTTPConsole
                 siteLoaderConfiguration = (SiteLoaderConfiguration)
                     ConfigurationManager.GetSection("SiteLoaderConfiguration");
 
-                foreach (ExtensionElement element in siteLoaderConfiguration.Extensions)
+                foreach (ExtensionElement element in siteLoaderConfiguration.FileExtensions)
                     extensions.Add(element.Extension);
             }
             catch (Exception)
@@ -40,12 +40,11 @@ namespace SiteDownloaderHTTPConsole
 
             siteLoader.SiteLoadStarted += (e, message) => Console.WriteLine(message);
 
-            siteLoader
-                .LoadAsync(
+            await siteLoader.LoadAsync(
                     siteLoaderConfiguration.SiteAddress, 
-                    siteLoaderConfiguration.PathToDirectory)
-                .ContinueWith(task => Console.WriteLine("Complete load"));
+                    siteLoaderConfiguration.PathToDirectory);
 
+            Console.WriteLine("Complete load");
             Console.WriteLine("Hit ENTER to exit...");
             Console.ReadLine();
         }
