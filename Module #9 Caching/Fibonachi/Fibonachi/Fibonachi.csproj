@@ -82,11 +82,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caches\CacheConstants.cs" />
     <Compile Include="FibonachiCalculator.cs" />
     <Compile Include="Caches\FibonachiMemoryCache.cs" />
     <Compile Include="Caches\FibonachiRedisCache.cs" />
     <Compile Include="Caches\IFibonachiCache.cs" />
-    <Compile Include="GlobalConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Fibonachi.Caches
 {
-    public interface IFibonachiCache
+    public interface IFibonachiCache : IDisposable
     {
         Dictionary<int, long> Get(string forUser);
 

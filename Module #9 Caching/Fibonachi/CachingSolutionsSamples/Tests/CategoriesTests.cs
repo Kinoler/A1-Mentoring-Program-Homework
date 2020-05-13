@@ -22,7 +22,7 @@ namespace CachingSolutionsSamples
 		{
             PrintCached(new RedisCache<Category>("localhost"));
         }
-        public void PrintCached(CacheBase<Category> cacheBase)
+        public void PrintCached(EntitiesCache<Category> cacheBase)
         {
             var manager = new CategoriesManager(cacheBase);
 

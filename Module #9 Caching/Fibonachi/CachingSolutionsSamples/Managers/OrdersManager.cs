@@ -6,9 +6,9 @@ using NorthwindLibrary;
 
 namespace CachingSolutionsSamples.Managers
 {
-    public class OrdersManager : ManagerBase<Order>
+    public class OrdersManager : CollectionManager<Order>
     {
-        public OrdersManager(CacheBase<Order> cache)
+        public OrdersManager(EntitiesCache<Order> cache)
             : base(cache)
         {
         }

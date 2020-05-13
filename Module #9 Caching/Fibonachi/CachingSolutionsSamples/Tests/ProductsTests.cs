@@ -23,7 +23,7 @@ namespace CachingSolutionsSamples
             PrintCached(new RedisCache<Product>("localhost"));
         }
 
-        public void PrintCached(CacheBase<Product> cacheBase)
+        public void PrintCached(EntitiesCache<Product> cacheBase)
         {
             var manager = new ProductsManager(cacheBase);
 

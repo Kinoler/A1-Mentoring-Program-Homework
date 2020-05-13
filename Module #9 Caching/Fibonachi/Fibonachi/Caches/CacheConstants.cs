@@ -1,6 +1,6 @@
-﻿namespace Fibonachi
+﻿namespace Fibonachi.Caches
 {
-    public static class GlobalConstants
+    public static class CacheConstants
     {
         public const int CacheLiveTimeInMinutes = 10;
 

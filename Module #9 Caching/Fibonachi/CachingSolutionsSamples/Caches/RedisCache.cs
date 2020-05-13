@@ -6,7 +6,7 @@ using StackExchange.Redis;
 
 namespace CachingSolutionsSamples.Caches
 {
-	public class RedisCache<TCacheItem> : CacheBase<TCacheItem>
+	public class RedisCache<TCacheItem> : EntitiesCache<TCacheItem>
 	{
 		private readonly ConnectionMultiplexer _redisConnection;
         private readonly Serializer<IEnumerable<TCacheItem>> _serializer =

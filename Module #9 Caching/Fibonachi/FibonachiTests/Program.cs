@@ -31,14 +31,15 @@ namespace FibonachiTests
 
         public static void PrintFibonachi(IFibonachiCache fibonachiCache)
         {
-            var fibonachiCalculator = new FibonachiCalculator(fibonachiCache);
-            
-            for (var i = 0; i < 10; i++)
+            using (var fibonachiCalculator = new FibonachiCalculator(fibonachiCache))
             {
-                foreach (var value in fibonachiCalculator.GetCalculated(100))
-                    Console.WriteLine(value);
+                for (var i = 0; i < 10; i++)
+                {
+                    foreach (var value in fibonachiCalculator.GetCalculated(100))
+                        Console.WriteLine(value);
 
-                Thread.Sleep(100);
+                    Thread.Sleep(100);
+                }
             }
         }
     }

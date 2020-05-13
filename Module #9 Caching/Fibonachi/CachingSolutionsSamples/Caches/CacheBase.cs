@@ -6,12 +6,12 @@ using CachingSolutionsSamples.Helpers;
 
 namespace CachingSolutionsSamples.Caches
 {
-	public abstract class CacheBase<TCacheItem>
+	public abstract class EntitiesCache<TCacheItem>
     {
         protected CacheItemPolicy Policy { get; private set; }
         protected string Prefix { get; private set; }
 
-        protected CacheBase()
+        protected EntitiesCache()
         {
             Prefix = "Cache_" + typeof(TCacheItem).Name;
 

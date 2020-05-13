@@ -8,9 +8,9 @@ using NorthwindLibrary;
 
 namespace CachingSolutionsSamples.Managers
 {
-	public class CategoriesManager : ManagerBase<Category>
+	public class CategoriesManager : CollectionManager<Category>
 	{
-        public CategoriesManager(CacheBase<Category> cache)
+        public CategoriesManager(EntitiesCache<Category> cache)
             : base(cache)
         {
         }

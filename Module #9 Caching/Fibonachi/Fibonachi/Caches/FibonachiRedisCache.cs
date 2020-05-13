@@ -20,7 +20,7 @@ namespace Fibonachi.Caches
         public Dictionary<int, long> Get(string forUser)
         {
             var db = _redisConnection.GetDatabase();
-            byte[] s = db.StringGet(GlobalConstants.CachePrefix + forUser);
+            byte[] s = db.StringGet(CacheConstants.CachePrefix + forUser);
             if (s == null)
                 return null;
 
@@ -31,18 +31,23 @@ namespace Fibonachi.Caches
         public void Set(string forUser, Dictionary<int, long> fibonachiCache)
         {
             var db = _redisConnection.GetDatabase();
-            var key = GlobalConstants.CachePrefix + forUser;
+            var key = CacheConstants.CachePrefix + forUser;
 
             if (fibonachiCache == null)
             {
-                db.StringSet(key, RedisValue.Null, TimeSpan.FromMinutes(GlobalConstants.CacheLiveTimeInMinutes));
+                db.StringSet(key, RedisValue.Null, TimeSpan.FromMinutes(CacheConstants.CacheLiveTimeInMinutes));
             }
             else
             {
                 var stream = new MemoryStream();
                 _serializer.WriteObject(stream, fibonachiCache);
-                db.StringSet(key, stream.ToArray(), TimeSpan.FromMinutes(GlobalConstants.CacheLiveTimeInMinutes));
+                db.StringSet(key, stream.ToArray(), TimeSpan.FromMinutes(CacheConstants.CacheLiveTimeInMinutes));
             }
         }
-	}
+
+        public void Dispose()
+        {
+            _redisConnection?.Dispose();
+        }
+    }
 }

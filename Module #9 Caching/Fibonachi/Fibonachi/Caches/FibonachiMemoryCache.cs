@@ -10,13 +10,18 @@ namespace Fibonachi.Caches
 
         public Dictionary<int, long> Get(string forUser)
         {
-            return (Dictionary<int, long>)_cache.Get(GlobalConstants.CachePrefix + forUser);
+            return (Dictionary<int, long>)_cache.Get(CacheConstants.CachePrefix + forUser);
         }
 
         public void Set(string forUser, Dictionary<int, long> fibonachiCache)
         {
-            _cache.Set(GlobalConstants.CachePrefix + forUser, fibonachiCache, 
-                DateTime.Now.AddMinutes(GlobalConstants.CacheLiveTimeInMinutes));
+            _cache.Set(CacheConstants.CachePrefix + forUser, fibonachiCache, 
+                DateTime.Now.AddMinutes(CacheConstants.CacheLiveTimeInMinutes));
         }
-	}
+
+        public void Dispose()
+        {
+
+        }
+    }
 }

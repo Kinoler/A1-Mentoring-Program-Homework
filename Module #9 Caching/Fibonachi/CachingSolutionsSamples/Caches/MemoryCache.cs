@@ -3,7 +3,7 @@ using System.Runtime.Caching;
 
 namespace CachingSolutionsSamples.Caches
 {
-    public class MemoryCache<TCacheItem> : CacheBase<TCacheItem>
+    public class MemoryCache<TCacheItem> : EntitiesCache<TCacheItem>
 	{
         private readonly ObjectCache _cache = MemoryCache.Default;
 

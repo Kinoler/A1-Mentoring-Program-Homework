@@ -10,7 +10,7 @@ using StackExchange.Redis;
 
 namespace Fibonachi
 {
-    public class FibonachiCalculator
+    public class FibonachiCalculator : IDisposable
     {
         private readonly IFibonachiCache _cache;
         private string _user;
@@ -43,6 +43,11 @@ namespace Fibonachi
             fibonachiCache.Add(n, calculatedValue);
             _cache.Set(_user, fibonachiCache);
             return calculatedValue;
+        }
+
+        public void Dispose()
+        {
+            _cache?.Dispose();
         }
     }
 }

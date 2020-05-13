@@ -8,11 +8,11 @@ using NorthwindLibrary;
 
 namespace CachingSolutionsSamples.Managers
 {
-	public abstract class ManagerBase<TItem> where TItem : class
+	public abstract class CollectionManager<TItem> where TItem : class
 	{
-		private readonly CacheBase<TItem> _cache;
+		private readonly EntitiesCache<TItem> _cache;
 
-        protected ManagerBase(CacheBase<TItem> cache)
+        protected CollectionManager(EntitiesCache<TItem> cache)
 		{
 			this._cache = cache;
 		}
