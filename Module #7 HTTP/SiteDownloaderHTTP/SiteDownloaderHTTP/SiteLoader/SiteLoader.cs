@@ -51,7 +51,7 @@ namespace SiteDownloaderHTTP.SiteLoader
 
                 var content = await GetContentAsync(address);
                 var stringContent = await content.ReadAsStringAsync();
-                SiteFileWriter siteFileWriter = null;
+                var siteFileWriter = new SiteFileWriter();
 
                 switch (content.Headers.ContentType.MediaType)
                 {
@@ -60,18 +60,16 @@ namespace SiteDownloaderHTTP.SiteLoader
                         if (_currentDepth < _loaderSettings.Depth)
                             await LoadInternalSiteAsync(stringContent, pathToSaveSite, address);
 
-                        siteFileWriter = new HtmlFileWriter();
+                        siteFileWriter.WriteToFile(pathToSaveSite, nameOfSite, stringContent, ".html");
                         break;
                     }
                     case "application/javascript":
                     case "application/x-javascript":
                     {
-                        siteFileWriter = new JsFileWriter();
+                        siteFileWriter.WriteToFile(pathToSaveSite, nameOfSite, stringContent, ".js");
                         break;
                     }
                 }
-
-                siteFileWriter?.WriteToFile(pathToSaveSite, nameOfSite, stringContent);
             }
             catch (Exception)
             {

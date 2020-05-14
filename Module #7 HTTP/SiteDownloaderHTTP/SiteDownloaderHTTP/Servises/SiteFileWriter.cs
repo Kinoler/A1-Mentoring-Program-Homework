@@ -2,11 +2,11 @@
 
 namespace SiteDownloaderHTTP.FileWriters
 {
-    public abstract class SiteFileWriter
+    public class SiteFileWriter
     {
-        public void WriteToFile(string root, string name, string content)
+        public void WriteToFile(string root, string name, string content, string extension = null)
         {
-            var path = GetFilePath(root, name);
+            var path = Path.Combine(root, name, extension ?? "");
             CreateFile(root, path, content);
         }
 
@@ -20,7 +20,5 @@ namespace SiteDownloaderHTTP.FileWriters
 
             File.AppendAllText(path, content);
         }
-
-        protected abstract string GetFilePath(string root, string name);
     }
 }
