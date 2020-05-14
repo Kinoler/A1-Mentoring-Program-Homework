@@ -18,7 +18,6 @@ namespace Reflection
         private readonly Dictionary<Type, CreateExportObjectDelegate> _exportClasses;
         private readonly Dictionary<Type, Type> _exportInterfaces;
 
-
         public Container()
         {
             _importClasses = new Dictionary<Type, CreateImportObjectDelegate>();
@@ -30,31 +29,31 @@ namespace Reflection
         public void AddType(Type classType, Type interfaceType)
         {
             if (classType == null)
-                throw new ArgumentNullException($"The {nameof(classType)} parameter can not be null");
+                throw new ArgumentNullException(nameof(classType));
             if (interfaceType == null)
-                throw new ArgumentNullException($"The {nameof(interfaceType)} parameter can not be null");
+                throw new ArgumentNullException(nameof(interfaceType));
             if (!classType.IsClass)
-                throw new ArgumentException($"The {nameof(classType)} parameter should be class");
+                throw new ArgumentException($"The parameter should be class", nameof(classType));
             if (!interfaceType.IsInterface)
-                throw new ArgumentException($"The {nameof(interfaceType)} parameter should be interface");
+                throw new ArgumentException($"The parameter should be interface", nameof(interfaceType));
 
-            CreatedObjectModel createdObject = new CreatedObjectModel(classType);
-            if (!createdObject.IsExport)
-                throw new ArgumentException($"The {nameof(classType)} parameter should be " +
-                                            $"have the {nameof(ExportAttribute)} attribute");
+            var modelObjectCreated = new ModelObjectCreated(classType);
+            if (!modelObjectCreated.IsExport)
+                throw new ArgumentException($"The parameter should be " +
+                                            $"have the {nameof(ExportAttribute)} attribute", nameof(classType));
 
-            ExportAttribute exportAttribute = createdObject.Type.GetCustomAttribute<ExportAttribute>();
+            var exportAttribute = modelObjectCreated.Type.GetCustomAttribute<ExportAttribute>();
             if (!exportAttribute.IsInterfaceInitializer)
-                throw new ArgumentException($"The {nameof(classType)} parameter should be " +
+                throw new ArgumentException($"The parameter should be " +
                                             $"have {nameof(ExportAttribute)} attribute " +
-                                            $"with the {nameof(interfaceType)} parameter.");
+                                            $"with the {nameof(interfaceType)} parameter.", nameof(classType));
 
-            if (!createdObject.Type.GetInterfaces().Any(classInterface => classInterface == interfaceType))
-                throw new ArgumentException($"The {nameof(classType)} parameter should implement " +
-                                            $"the {nameof(interfaceType)} interface.");
+            if (!modelObjectCreated.Type.GetInterfaces().Any(classInterface => classInterface == interfaceType))
+                throw new ArgumentException($"The parameter should implement " +
+                                            $"the {nameof(interfaceType)} interface.", nameof(classType));
 
             if (_exportInterfaces.ContainsKey(interfaceType))
-                throw new ArgumentException("This interface type is already exist.");
+                throw new ArgumentException("This interface type is already exist.", nameof(interfaceType));
 
             _exportInterfaces.Add(interfaceType, classType);
             AddType(classType);
@@ -63,34 +62,34 @@ namespace Reflection
         public void AddType(Type type)
         {
             if (type == null)
-                throw new ArgumentNullException($"The {nameof(type)} parameter can not be null");
+                throw new ArgumentNullException($"The parameter can not be null", nameof(type));
 
-            CreatedObjectModel createdObject = new CreatedObjectModel(type);
+            var modelObjectCreated = new ModelObjectCreated(type);
 
-            bool hasAnyAttr = false;
-            if (createdObject.IsExport)
+            var hasAnyAttr = false;
+            if (modelObjectCreated.IsExport)
             {
                 if (_exportClasses.ContainsKey(type))
-                    throw new ArgumentException("This type is already exist.");
+                    throw new ArgumentException("This type is already exist.", nameof(type));
 
                 _exportClasses.Add(type, null);
                 hasAnyAttr = true;
             }
 
-            if (createdObject.IsConstructorImport ^
-                createdObject.IsPropertyImport)
+            if (modelObjectCreated.IsConstructorImport ^
+                modelObjectCreated.IsPropertyImport)
             {
                 if (_importClasses.ContainsKey(type))
-                    throw new ArgumentException("This type is already exist.");
+                    throw new ArgumentException("This type is already exist.", nameof(type));
 
                 _importClasses.Add(type, null);
                 hasAnyAttr = true;
             }
 
-            if (createdObject.IsPropertyImport)
+            if (modelObjectCreated.IsPropertyImport)
             {
                 if (_importPropClasses.ContainsKey(type))
-                    throw new ArgumentException("This type is already exist.");
+                    throw new ArgumentException("This type is already exist.", nameof(type));
 
                 _importPropClasses.Add(type, null);
                 hasAnyAttr = true;
@@ -98,106 +97,104 @@ namespace Reflection
 
             if (!hasAnyAttr)
             {
-                throw new ArgumentException($"The {nameof(type)} should be " +
+                throw new ArgumentException($"The should be " +
                                             $"have only one of {nameof(ExportAttribute)}, " +
                                             $"{nameof(ImportAttribute)} or " +
-                                            $"{nameof(ImportConstructorAttribute)} attributes.");
+                                            $"{nameof(ImportConstructorAttribute)} attributes.", nameof(type));
             }
         }
 
         public object CreateInstance(Type type)
         {
             if (!_importClasses.ContainsKey(type))
-            {
-                throw new ArgumentException("This type does not exist in container.");
-            }
+                throw new ArgumentException("This type does not exist in container.", nameof(type));
 
-            var createdObject = new CreatedObjectModel(type);
+            var modelObjectCreated = new ModelObjectCreated(type);
 
-            createdObject.Instance = CreateInstanceFromImportClass(createdObject);
+            modelObjectCreated.Instance = CreateInstanceForImportClass(modelObjectCreated);
 
-            if (createdObject.IsConstructorImport)
-                return createdObject.Instance;
+            if (modelObjectCreated.IsConstructorImport)
+                return modelObjectCreated.Instance;
 
-            if (createdObject.IsPropertyImport)
-                SetInstanceForProrerty(createdObject);
+            if (modelObjectCreated.IsPropertyImport)
+                SetProrertyForInstance(modelObjectCreated);
 
-            return createdObject.Instance;
-        }
-
-        public void SetInstanceForProrerty(CreatedObjectModel createdObject)
-        {
-            var propValues = new List<object>();
-
-            foreach (var importedProperty in createdObject.ImportedProperties)
-            {
-                CreatedObjectModel createdObjectProperty = new CreatedObjectModel(importedProperty.PropertyType);
-
-                if (createdObjectProperty.Type.IsInterface)
-                {
-                    if (!_exportInterfaces.ContainsKey(createdObjectProperty.Type))
-                        throw new ArgumentException($"The {createdObjectProperty.Type.FullName} interface does not found.");
-
-                    createdObjectProperty = new CreatedObjectModel(_exportInterfaces[createdObjectProperty.Type]);
-                }
-                
-                createdObjectProperty.Instance = CreateInstanceFromExportClass(createdObjectProperty);
-
-                propValues.Add(createdObjectProperty.Instance);
-            }
-
-            if (!_importPropClasses.ContainsKey(createdObject.Type))
-                throw new ArgumentException($"The {createdObject.Type.FullName} type does not found");
-
-            if (_importPropClasses[createdObject.Type] == null)
-                _importPropClasses[createdObject.Type] = CreateMethodForSetImportProperty(createdObject);
-
-            _importPropClasses[createdObject.Type].Invoke(createdObject.Instance, propValues.ToArray());
-        }
-
-        public object CreateInstanceFromImportClass(CreatedObjectModel createdObject)
-        {
-            object[] objParameters = new object[createdObject.ConstructorParameters.Length];
-
-            int i = 0;
-            foreach (ParameterInfo parameter in createdObject.ConstructorParameters)
-            {
-                if (parameter.ParameterType.IsInterface)
-                {
-                    if (!_exportInterfaces.ContainsKey(parameter.ParameterType))
-                        throw new ArgumentException($"The {createdObject.Type.FullName} class should be have" +
-                                                    $"implementation for {parameter.ParameterType.FullName} interface");
-
-                    var createdObjectPrameter = new CreatedObjectModel(_exportInterfaces[parameter.ParameterType]);
-                    objParameters[i] = CreateInstanceFromExportClass(createdObjectPrameter);
-                }
-                else
-                {
-                    objParameters[i] = CreateInstanceFromExportClass(new CreatedObjectModel(parameter.ParameterType));
-                }
-                i++;
-            }
-
-            if (_importClasses[createdObject.Type] == null)
-                _importClasses[createdObject.Type] = CreateMethodForConstructImportClass(createdObject);
-
-            return _importClasses[createdObject.Type].Invoke(objParameters);
-        }
-
-        public object CreateInstanceFromExportClass(CreatedObjectModel createdObject)
-        {
-            if (!_exportClasses.ContainsKey(createdObject.Type))
-                throw new ArgumentException($"The {createdObject.Type.FullName} type does not found");
-
-            if (_exportClasses[createdObject.Type] == null)
-                _exportClasses[createdObject.Type] = CreateMethodForConstructExportClass(createdObject);
-
-            return _exportClasses[createdObject.Type].Invoke();
+            return modelObjectCreated.Instance;
         }
 
         public TInstanceType CreateInstance<TInstanceType>()
         {
             return (TInstanceType)CreateInstance(typeof(TInstanceType));
+        }
+
+        private void SetProrertyForInstance(ModelObjectCreated modelObjectCreated)
+        {
+            var propValues = new List<object>();
+
+            foreach (var importedProperty in modelObjectCreated.ImportedProperties)
+            {
+                ModelObjectCreated modelObjectCreatedProperty = new ModelObjectCreated(importedProperty.PropertyType);
+
+                if (modelObjectCreatedProperty.Type.IsInterface)
+                {
+                    if (!_exportInterfaces.ContainsKey(modelObjectCreatedProperty.Type))
+                        throw new ArgumentException("The interface does not found.", modelObjectCreatedProperty.Type.FullName);
+
+                    modelObjectCreatedProperty = new ModelObjectCreated(_exportInterfaces[modelObjectCreatedProperty.Type]);
+                }
+                
+                modelObjectCreatedProperty.Instance = CreateInstanceForExportClass(modelObjectCreatedProperty);
+
+                propValues.Add(modelObjectCreatedProperty.Instance);
+            }
+
+            if (!_importPropClasses.ContainsKey(modelObjectCreated.Type))
+                throw new ArgumentException("The type does not found", modelObjectCreated.Type.FullName);
+
+            if (_importPropClasses[modelObjectCreated.Type] == null)
+                _importPropClasses[modelObjectCreated.Type] = CreateMethodForSetImportProperty(modelObjectCreated);
+
+            _importPropClasses[modelObjectCreated.Type].Invoke(modelObjectCreated.Instance, propValues.ToArray());
+        }
+
+        private object CreateInstanceForImportClass(ModelObjectCreated modelObjectCreated)
+        {
+            object[] objParameters = new object[modelObjectCreated.ConstructorParameters.Length];
+
+            int i = 0;
+            foreach (ParameterInfo parameter in modelObjectCreated.ConstructorParameters)
+            {
+                if (parameter.ParameterType.IsInterface)
+                {
+                    if (!_exportInterfaces.ContainsKey(parameter.ParameterType))
+                        throw new ArgumentException($"The {modelObjectCreated.Type.FullName} class should be have implementation " +
+                            $"for {parameter.ParameterType.FullName} interface", nameof(modelObjectCreated.Type));
+
+                    var modelObjectCreatedPrameter = new ModelObjectCreated(_exportInterfaces[parameter.ParameterType]);
+                    objParameters[i] = CreateInstanceForExportClass(modelObjectCreatedPrameter);
+                }
+                else
+                {
+                    objParameters[i] = CreateInstanceForExportClass(new ModelObjectCreated(parameter.ParameterType));
+                }
+                i++;
+            }
+
+            if (_importClasses[modelObjectCreated.Type] == null)
+                _importClasses[modelObjectCreated.Type] = CreateMethodForConstructImportClass(modelObjectCreated);
+
+            return _importClasses[modelObjectCreated.Type].Invoke(objParameters);
+        }
+
+        private object CreateInstanceForExportClass(ModelObjectCreated modelObjectCreated)
+        {
+            if (!_exportClasses.ContainsKey(modelObjectCreated.Type))
+                throw new ArgumentException($"The {modelObjectCreated.Type.FullName} type does not found", nameof(modelObjectCreated.Type));
+
+            if (_exportClasses[modelObjectCreated.Type] == null)
+                _exportClasses[modelObjectCreated.Type] = CreateMethodForConstructExportClass(modelObjectCreated);
+
+            return _exportClasses[modelObjectCreated.Type].Invoke();
         }
     }
 }

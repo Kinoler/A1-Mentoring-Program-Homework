@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteDownloaderHTTP", "SiteDownloaderHTTP\SiteDownloaderHTTP.csproj", "{1A8FB03D-015C-460D-891E-C85932773D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteDownloaderHTTPConsole", "SiteDownloaderHTTPConsole\SiteDownloaderHTTPConsole.csproj", "{45FABF28-AAA9-415A-9155-C03F1F94A6E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A8FB03D-015C-460D-891E-C85932773D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8FB03D-015C-460D-891E-C85932773D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8FB03D-015C-460D-891E-C85932773D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8FB03D-015C-460D-891E-C85932773D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45FABF28-AAA9-415A-9155-C03F1F94A6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45FABF28-AAA9-415A-9155-C03F1F94A6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45FABF28-AAA9-415A-9155-C03F1F94A6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45FABF28-AAA9-415A-9155-C03F1F94A6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {841E4159-90B5-472A-B398-A8DDF2A725D9}
+	EndGlobalSection
+EndGlobal
